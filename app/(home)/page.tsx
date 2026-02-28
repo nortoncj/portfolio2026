@@ -11,7 +11,7 @@ export default async function Home() {
       <ul className="space-y-4">
         {posts.map((post) => (
           <li key={post._id} className="border p-4 rounded">
-            <a href="#" className="text-xl font-semibold">
+            <a href="#" className="text-xl font-semibold text-red-500">
               {post.title}
             </a>
             <p className="text-gray-600">{post.excerpt}</p>
