@@ -1,7 +1,8 @@
+import { Post } from "@/types/Post";
 import { client } from "./lib/client";
 import { groq } from "next-sanity";
 
-export async function getPosts() {
+export async function getPosts(): Promise<Post[]> {
   return client.fetch(
     groq`*[_type == "post"] | order(publishedAt desc) {
       _id,
