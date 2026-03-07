@@ -11,13 +11,7 @@ const nextConfig: NextConfig = {
       },
     ],
     formats: ["image/webp", "image/avif"],
-    domains: [
-      "images.unsplash.com",
-      "thumbs.dreamstime.com",
-      "static.vecteezy.com",
-      "www.shutterstock.com",
-      "cdn.sanity.io", // Sanity CDN for dynamic images
-    ],
+    
     deviceSizes: [640, 768, 1024, 1280, 1600],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },

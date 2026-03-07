@@ -1,0 +1,119 @@
+.skills-section {
+  margin: 30px auto 30px auto;
+}
+.skillsNav {
+  margin: auto;
+  text-align: center;
+  align-content: center;
+  box-shadow: var(--premium-shadow);
+  width: 50%;
+  border-radius: 30px;
+}
+.nav {
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  gap: 2rem;
+}
+.skill-link-active {
+  background: rgba(255, 97, 136, 0.15);
+  backdrop-filter: blur(16px), saturate(200%);
+  border: 1px solid rgba(255, 97, 136, 0.3);
+}
+.skill-btn {
+  padding: 20px;
+  border: none;
+  background: transparent;
+  font-family: "SF Pro Display", "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 30px;
+  width: 150px;
+}
+.skill-btn:hover {
+  box-shadow: var(--premium-hover);
+  background: rgba(255, 97, 136, 0.15);
+  backdrop-filter: blur(16px), saturate(200%);
+  /* border: 1px solid rgba(255, 97, 136, 0.3); */
+}
+.skill-container {
+  margin: auto;
+  text-align: center;
+  width: 50%;
+  margin: 20px auto 20px auto;
+}
+.skill-list {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  text-align: center;
+  justify-items: center;
+  align-self: center;
+  align-self: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  vertical-align: middle;
+  margin: auto auto 15px auto;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+  align-self: center;
+}
+.skill-icon {
+  display: flex;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+  align-self: center;
+  margin: 0;
+}
+.skill-name {
+  margin: 5px auto 5px auto;
+  font-family: "Jetbrains Mono";
+}
+
+@media (max-width: 1080px) {
+  .skillsNav {
+    width: 80%;
+  }
+  .skill-container {
+    width: 80%;
+  }
+}
+
+@media (max-width: 470px) {
+  .skillsNav {
+    width: 80%;
+  }
+  .nav {
+    gap: 0.5rem;
+  }
+  .skill-btn {
+    padding: 8px;
+    font-size: 0.6rem;
+  }
+  .skill-container {
+    width: 80%;
+  }
+  .skill-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1rem;
+  }
+  .skill-name {
+    font-size: 0.5rem;
+  }
+}

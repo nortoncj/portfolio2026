@@ -1,0 +1,2251 @@
+"use client";
+
+/**
+ * MarketingCategoryPage.tsx
+ * ─────────────────────────────────────────────────────────────
+ * React + TypeScript category page for Digital Marketing.
+ * Design system: globals.css tokens — primary accent: mint #a9dc76
+ * Covers: HTML Emails · SEO · Analytics Dashboards · N8N / Zapier /
+ *         AI Automations · Copywriting · CRO · CRM tools
+ * Animations: Framer Motion
+ * SEO: schema.org ItemList + BreadcrumbList + Person knowsAbout
+ * ─────────────────────────────────────────────────────────────
+ * Dependencies:
+ *   npm install framer-motion
+ *   Place at: app/projects/marketing/page.tsx
+ */
+
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+
+// ─── DESIGN TOKENS (mirrors globals.css :root) ────────────────────────────────
+const T = {
+  // Brand palette
+  burgundy: "#ff6188",
+  magenta: "#fc5fa3",
+  purple: "#ab9df2",
+  coral: "#ffd866",
+  mint: "#a9dc76", // ← PRIMARY Marketing accent
+  blue: "#78dce8",
+  // Surfaces
+  white: "#fcfcfa",
+  cream: "#f9f8f6",
+  charcoal: "#2d2a2e",
+  slate: "#221f22",
+  silver: "#6b7280",
+  muted: "#939293",
+  // Marketing accent tokens
+  cat: "#a9dc76",
+  catRgb: "169,220,118",
+  catDark: "#8ec95e",
+  catGlow: "rgba(169,220,118,0.28)",
+  // Gradients — green-forward
+  gradPrimary: "linear-gradient(135deg,#a9dc76 0%,#78dce8 55%,#ab9df2 100%)",
+  gradMarketing: "linear-gradient(135deg,#a9dc76,#ffd866)",
+  gradFresh: "linear-gradient(135deg,#a9dc76,#78dce8)",
+  gradWarm: "linear-gradient(135deg,#a9dc76,#ff6188)",
+} as const;
+
+// ─── TYPE DEFINITIONS ─────────────────────────────────────────────────────────
+type SkillCategory =
+  | "email"
+  | "seo"
+  | "automation"
+  | "analytics"
+  | "copywriting"
+  | "tools";
+type ProjectStatus = "completed" | "in-progress" | "concept";
+
+interface Skill {
+  id: string;
+  name: string;
+  icon: string;
+  level: number;
+  levelLabel: "Expert" | "Advanced" | "Intermediate" | "Familiar";
+  category: SkillCategory;
+  tags: string[];
+  yearsExp: number;
+}
+
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  longDesc: string;
+  image: string;
+  tags: string[];
+  skills: string[];
+  status: ProjectStatus;
+  featured: boolean;
+  liveUrl?: string;
+  githubUrl?: string;
+  year: number;
+}
+
+// ─── MOCK DATA — Skills ───────────────────────────────────────────────────────
+const SKILLS: Skill[] = [
+  {
+    id: "html-email",
+    name: "HTML Email Templates",
+    icon: "📧",
+    level: 95,
+    levelLabel: "Expert",
+    category: "email",
+    tags: ["mjml", "responsive", "dark-mode", "accessibility"],
+    yearsExp: 5,
+  },
+  {
+    id: "klaviyo",
+    name: "Klaviyo / Mailchimp",
+    icon: "📨",
+    level: 88,
+    levelLabel: "Expert",
+    category: "email",
+    tags: ["flows", "segmentation", "a-b-testing", "deliverability"],
+    yearsExp: 4,
+  },
+  {
+    id: "n8n",
+    name: "N8N Automation",
+    icon: "⚙️",
+    level: 91,
+    levelLabel: "Expert",
+    category: "automation",
+    tags: ["workflows", "webhooks", "self-hosted", "api-integrations"],
+    yearsExp: 3,
+  },
+  {
+    id: "zapier",
+    name: "Zapier / Make.com",
+    icon: "⚡",
+    level: 85,
+    levelLabel: "Advanced",
+    category: "automation",
+    tags: ["zaps", "scenarios", "multi-step", "filters", "routers"],
+    yearsExp: 4,
+  },
+  {
+    id: "ai-workflows",
+    name: "AI-Powered Workflows",
+    icon: "🤖",
+    level: 87,
+    levelLabel: "Advanced",
+    category: "automation",
+    tags: ["openai", "langchain", "prompt-engineering", "rag", "agents"],
+    yearsExp: 2,
+  },
+  {
+    id: "technical-seo",
+    name: "Technical SEO",
+    icon: "🔍",
+    level: 90,
+    levelLabel: "Expert",
+    category: "seo",
+    tags: [
+      "core-web-vitals",
+      "schema.org",
+      "crawlability",
+      "sitemap",
+      "hreflang",
+    ],
+    yearsExp: 5,
+  },
+  {
+    id: "ahrefs",
+    name: "Ahrefs / Semrush",
+    icon: "📈",
+    level: 83,
+    levelLabel: "Advanced",
+    category: "seo",
+    tags: ["keyword-research", "backlinks", "gap-analysis", "rank-tracking"],
+    yearsExp: 4,
+  },
+  {
+    id: "ga4",
+    name: "Google Analytics 4",
+    icon: "📊",
+    level: 86,
+    levelLabel: "Advanced",
+    category: "analytics",
+    tags: ["events", "audiences", "funnels", "bigquery-export", "attribution"],
+    yearsExp: 3,
+  },
+  {
+    id: "looker",
+    name: "Looker Studio Dashboards",
+    icon: "🖥️",
+    level: 84,
+    levelLabel: "Advanced",
+    category: "analytics",
+    tags: [
+      "data-blending",
+      "custom-metrics",
+      "scheduled-reports",
+      "ga4-connector",
+    ],
+    yearsExp: 3,
+  },
+  {
+    id: "copywriting",
+    name: "Conversion Copywriting",
+    icon: "✍️",
+    level: 88,
+    levelLabel: "Expert",
+    category: "copywriting",
+    tags: ["email-sequences", "landing-pages", "ad-copy", "storytelling"],
+    yearsExp: 5,
+  },
+  {
+    id: "hubspot",
+    name: "HubSpot CRM",
+    icon: "🟠",
+    level: 80,
+    levelLabel: "Advanced",
+    category: "tools",
+    tags: ["pipelines", "workflows", "lead-scoring", "sequences", "reporting"],
+    yearsExp: 3,
+  },
+  {
+    id: "cro",
+    name: "CRO / A/B Testing",
+    icon: "🧪",
+    level: 76,
+    levelLabel: "Intermediate",
+    category: "analytics",
+    tags: [
+      "vwo",
+      "optimizely",
+      "heat-maps",
+      "session-recordings",
+      "hypothesis",
+    ],
+    yearsExp: 3,
+  },
+];
+
+// ─── MOCK DATA — Projects ─────────────────────────────────────────────────────
+const PROJECTS: Project[] = [
+  {
+    id: "email-template-library",
+    title: "HTML Email Template Library",
+    description:
+      "30+ production-ready responsive email templates built in MJML — dark-mode aware, accessible, tested across 40+ clients including Gmail, Outlook, and Apple Mail.",
+    longDesc:
+      "Hand-coded a library of 30+ modular HTML email templates using MJML for reliable cross-client rendering. Every template supports dark mode via media queries and prefers-color-scheme, passes WCAG 2.1 AA colour contrast, and is tested across 40+ clients in Litmus. Modules include hero sections, product grids, countdown timers, dynamic coupon blocks, and multi-column layouts. Exported as Klaviyo-ready HTML, Mailchimp drag-and-drop, and raw MJML source.",
+    image: "https://picsum.photos/seed/email-templates-mktg/800/500",
+    tags: [
+      "html-email",
+      "mjml",
+      "klaviyo",
+      "dark-mode",
+      "accessibility",
+      "responsive",
+    ],
+    skills: ["html-email", "klaviyo", "copywriting"],
+    status: "completed",
+    featured: true,
+    liveUrl: "https://yourportfolio.dev",
+    githubUrl: "https://github.com",
+    year: 2025,
+  },
+  {
+    id: "n8n-lead-pipeline",
+    title: "N8N Lead Generation & Nurture Pipeline",
+    description:
+      "End-to-end lead capture → CRM enrich → email sequence automation built in N8N, processing 500+ leads/day with zero manual touch.",
+    longDesc:
+      "Built a fully automated lead pipeline in self-hosted N8N: form submissions hit a webhook, a GPT-4o node qualifies and scores the lead, Hunter.io enriches the contact, the record is pushed to HubSpot with tags, a personalised 5-email welcome sequence triggers via Klaviyo, and a Slack notification fires for high-score leads. Handles 500+ leads per day. Includes retry logic, error routing to a Telegram alert channel, and a Looker Studio dashboard tracking conversion at every stage.",
+    image: "https://picsum.photos/seed/n8n-pipeline-mktg/800/500",
+    tags: [
+      "n8n",
+      "hubspot",
+      "klaviyo",
+      "openai",
+      "webhooks",
+      "automation",
+      "lead-gen",
+    ],
+    skills: ["n8n", "ai-workflows", "hubspot", "klaviyo", "looker"],
+    status: "completed",
+    featured: true,
+    githubUrl: "https://github.com",
+    year: 2025,
+  },
+  {
+    id: "ai-content-pipeline",
+    title: "AI Content Generation Pipeline",
+    description:
+      "N8N + OpenAI pipeline that drafts SEO blog posts from a keyword list, runs a readability pass, inserts internal links, and publishes to WordPress — fully hands-off.",
+    longDesc:
+      "Designed an AI content workflow in N8N triggered by a Google Sheets keyword list: GPT-4o generates a structured outline, a second pass writes the full post with keyword density controls, a Hemingway-style readability agent rewrites complex sentences, an internal link injector queries existing posts via the WordPress REST API and inserts contextual anchors, and the final post is scheduled via WP-JSON. Achieves a consistent Yoast SEO score of 85+ without human editing. Reduced content production cost by 70%.",
+    image: "https://picsum.photos/seed/ai-content-mktg/800/500",
+    tags: [
+      "n8n",
+      "openai",
+      "wordpress",
+      "seo",
+      "ai-workflows",
+      "content",
+      "automation",
+    ],
+    skills: ["n8n", "ai-workflows", "technical-seo", "copywriting"],
+    status: "completed",
+    featured: true,
+    githubUrl: "https://github.com",
+    year: 2025,
+  },
+  {
+    id: "ga4-looker-dashboard",
+    title: "GA4 + Looker Studio Marketing Dashboard",
+    description:
+      "Executive-ready marketing dashboard blending GA4, Search Console, and ad platform data into a single Looker Studio report with automated weekly email delivery.",
+    longDesc:
+      "Built a multi-source Looker Studio dashboard that blends GA4 event data, Google Search Console impressions/clicks, Google Ads performance, and Klaviyo email metrics. Custom calculated fields surface ROAS, email-attributed revenue, top organic landing pages, and conversion funnel drop-off. Scheduled weekly PDF snapshots email to stakeholders automatically via the Looker Studio scheduling API. Reduced reporting time from 3 hours/week to fully automated.",
+    image: "https://picsum.photos/seed/looker-dashboard-mktg/800/500",
+    tags: [
+      "ga4",
+      "looker-studio",
+      "google-ads",
+      "search-console",
+      "reporting",
+      "analytics",
+    ],
+    skills: ["ga4", "looker", "ahrefs"],
+    status: "completed",
+    featured: false,
+    liveUrl: "https://yourportfolio.dev",
+    year: 2025,
+  },
+  {
+    id: "abandoned-cart-automation",
+    title: "Abandoned Cart Recovery Automation",
+    description:
+      "Zapier + Klaviyo flow recovering abandoned Shopify carts with a 3-email sequence personalised by product category, cart value, and prior purchase history.",
+    longDesc:
+      "Configured a Zapier trigger on Shopify abandoned_checkout events that pushes customer + cart data to Klaviyo and fires a three-email sequence: 1hr reminder with product images, 24hr social-proof email with reviews, 72hr discount code for first-time buyers only (suppressed for repeat purchasers). Personalisation tokens pull product category, cart value tier, and prior order count from Klaviyo profiles. Achieved a 22% cart recovery rate — double the industry average. All emails pass Litmus spam testing and render correctly in dark mode.",
+    image: "https://picsum.photos/seed/abandoned-cart-mktg/800/500",
+    tags: [
+      "zapier",
+      "klaviyo",
+      "shopify",
+      "email",
+      "automation",
+      "ecommerce",
+      "personalization",
+    ],
+    skills: ["zapier", "klaviyo", "html-email", "copywriting"],
+    status: "completed",
+    featured: false,
+    githubUrl: "https://github.com",
+    year: 2024,
+  },
+  {
+    id: "seo-audit-system",
+    title: "Automated Technical SEO Audit System",
+    description:
+      "Python + N8N pipeline that crawls a site weekly, scores 40 technical SEO factors, and delivers a prioritised Notion report with fix instructions.",
+    longDesc:
+      "Built a weekly SEO health system using Screaming Frog CLI triggered by an N8N cron, combined with Google Search Console API and PageSpeed Insights API data. A Python script scores 40 factors (Core Web Vitals, canonical errors, missing meta, broken internal links, structured data validity, hreflang mismatches). Results are pushed to a Notion database with priority scores and templated fix instructions. A Slack summary posts the top 5 issues every Monday morning. Reduced time-to-fix critical SEO errors from weeks to days.",
+    image: "https://picsum.photos/seed/seo-audit-mktg/800/500",
+    tags: [
+      "n8n",
+      "python",
+      "seo",
+      "search-console",
+      "core-web-vitals",
+      "notion",
+      "automation",
+    ],
+    skills: ["n8n", "technical-seo", "ahrefs", "ai-workflows"],
+    status: "completed",
+    featured: true,
+    githubUrl: "https://github.com",
+    year: 2024,
+  },
+  {
+    id: "drip-campaign-system",
+    title: "Multi-Channel Drip Campaign System",
+    description:
+      "HubSpot + Klaviyo + SMS drip system segmenting leads across 6 lifecycle stages, with conditional branching based on engagement scores and product interest.",
+    longDesc:
+      "Architected a 6-stage lifecycle email + SMS system across HubSpot and Klaviyo: Awareness (3 emails), Consideration (5 emails + retargeting audience sync to Meta), Decision (3 emails with case studies), Onboarding (7-email sequence with conditional logic by product tier), Retention (monthly digest + NPS survey), and Win-back (dormant re-engagement with progressive discounts). Conditional branches fire based on HubSpot lead score, email engagement rate, and product interest tags. Total sequence: 22 touchpoints, 0 manual sends.",
+    image: "https://picsum.photos/seed/drip-campaign-mktg/800/500",
+    tags: [
+      "hubspot",
+      "klaviyo",
+      "email",
+      "sms",
+      "drip",
+      "segmentation",
+      "lifecycle",
+    ],
+    skills: ["hubspot", "klaviyo", "copywriting", "html-email"],
+    status: "completed",
+    featured: false,
+    year: 2024,
+  },
+  {
+    id: "zapier-social-automation",
+    title: "AI Social Media Content Automation",
+    description:
+      "Make.com + OpenAI pipeline that repurposes blog posts into platform-native social content for LinkedIn, X, and Instagram — scheduled and posted automatically.",
+    longDesc:
+      "Built a Make.com scenario that monitors an RSS feed for new blog posts, sends the content to GPT-4o with platform-specific system prompts (LinkedIn thought-leadership, X thread format, Instagram caption + hashtags), generates a matching hero image via DALL-E 3, schedules posts via Buffer API, and logs every piece of content to an Airtable content calendar. Produces 12–18 social posts per blog article. Reduced social content production time by 85% while maintaining a consistent brand voice defined in system prompt guidelines.",
+    image: "https://picsum.photos/seed/social-automation-mktg/800/500",
+    tags: [
+      "make.com",
+      "openai",
+      "social-media",
+      "automation",
+      "buffer",
+      "airtable",
+      "ai-workflows",
+    ],
+    skills: ["zapier", "ai-workflows", "copywriting", "n8n"],
+    status: "in-progress",
+    featured: true,
+    githubUrl: "https://github.com",
+    year: 2026,
+  },
+];
+
+// ─── DERIVED CONSTANTS ────────────────────────────────────────────────────────
+const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
+
+const SKILL_CATEGORIES: {
+  id: SkillCategory | "all";
+  label: string;
+  icon: string;
+}[] = [
+  { id: "all", label: "All Skills", icon: "⚡" },
+  { id: "automation", label: "Automation", icon: "⚙️" },
+  { id: "email", label: "Email", icon: "📧" },
+  { id: "seo", label: "SEO", icon: "🔍" },
+  { id: "analytics", label: "Analytics", icon: "📊" },
+  { id: "copywriting", label: "Copy & CRO", icon: "✍️" },
+  { id: "tools", label: "CRM & Tools", icon: "🛠️" },
+];
+
+const STATUS_COLORS: Record<
+  ProjectStatus,
+  { bg: string; border: string; color: string; label: string }
+> = {
+  completed: {
+    bg: "rgba(169,220,118,.18)",
+    border: "rgba(169,220,118,.45)",
+    color: T.mint,
+    label: "Completed",
+  },
+  "in-progress": {
+    bg: "rgba(120,220,232,.18)",
+    border: "rgba(120,220,232,.45)",
+    color: T.blue,
+    label: "In Progress",
+  },
+  concept: {
+    bg: "rgba(147,146,147,.18)",
+    border: "rgba(147,146,147,.35)",
+    color: T.muted,
+    label: "Concept",
+  },
+};
+
+// ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
+const fadeUp: any = {
+  hidden: { opacity: 0, y: 28 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1], delay: i * 0.08 },
+  }),
+};
+
+// ─── SUB-COMPONENTS ───────────────────────────────────────────────────────────
+
+/** Animated proficiency bar */
+const SkillBar: React.FC<{ level: number; color?: string }> = ({
+  level,
+  color = T.mint,
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  return (
+    <div
+      ref={ref}
+      style={{
+        height: 5,
+        borderRadius: 4,
+        background: "rgba(45,42,46,.1)",
+        overflow: "hidden",
+        marginTop: 6,
+      }}
+    >
+      <motion.div
+        initial={{ width: 0 }}
+        animate={{ width: inView ? `${level}%` : 0 }}
+        transition={{ duration: 1.1, ease: [0.4, 0, 0.2, 1], delay: 0.1 }}
+        style={{
+          height: "100%",
+          borderRadius: 4,
+          background: `linear-gradient(90deg, ${color}, ${T.blue})`,
+          boxShadow: `0 0 8px ${color}55`,
+        }}
+      />
+    </div>
+  );
+};
+
+/** Level badge pill */
+const LevelBadge: React.FC<{ label: string }> = ({ label }) => {
+  const colors: Record<string, { bg: string; color: string }> = {
+    Expert: { bg: "rgba(169,220,118,.18)", color: T.mint },
+    Advanced: { bg: "rgba(120,220,232,.15)", color: T.blue },
+    Intermediate: { bg: "rgba(171,157,242,.15)", color: T.purple },
+    Familiar: { bg: "rgba(147,146,147,.15)", color: T.muted },
+  };
+  const c = colors[label] ?? colors["Familiar"];
+  return (
+    <span
+      style={{
+        padding: "2px 9px",
+        borderRadius: 999,
+        fontSize: "0.65rem",
+        fontWeight: 700,
+        letterSpacing: "0.06em",
+        textTransform: "uppercase",
+        background: c.bg,
+        color: c.color,
+        border: `1px solid ${c.color}55`,
+        fontFamily: "'JetBrains Mono', monospace",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {label}
+    </span>
+  );
+};
+
+/** Skill card */
+const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
+  skill,
+  index,
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  return (
+    <motion.div
+      ref={ref}
+      custom={index % 4}
+      variants={fadeUp}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      whileHover={{ y: -5, borderColor: `rgba(${T.catRgb},.45)` }}
+      style={{
+        padding: "1.25rem",
+        borderRadius: 16,
+        background: "rgba(249,248,246,.9)",
+        border: "1px solid rgba(169,220,118,.15)",
+        backdropFilter: "blur(12px)",
+        boxShadow:
+          "0 2px 12px rgba(45,42,46,.06), 0 0 0 1px rgba(169,220,118,.06)",
+        transition: "border-color 0.3s, box-shadow 0.3s",
+        display: "flex",
+        flexDirection: "column",
+        gap: 6,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          marginBottom: 2,
+        }}
+      >
+        <span
+          style={{
+            width: 38,
+            height: 38,
+            borderRadius: 10,
+            background: "rgba(169,220,118,.1)",
+            border: "1px solid rgba(169,220,118,.25)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "1.15rem",
+            flexShrink: 0,
+          }}
+        >
+          {skill.icon}
+        </span>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div
+            style={{
+              fontSize: "0.88rem",
+              fontWeight: 700,
+              color: T.charcoal,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {skill.name}
+          </div>
+          <div
+            style={{
+              fontSize: "0.7rem",
+              color: T.silver,
+              fontFamily: "'JetBrains Mono',monospace",
+            }}
+          >
+            {skill.yearsExp} yr{skill.yearsExp !== 1 ? "s" : ""} exp
+          </div>
+        </div>
+        <LevelBadge label={skill.levelLabel} />
+      </div>
+      <SkillBar level={skill.level} />
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 4 }}>
+        {skill.tags.slice(0, 3).map((tag) => (
+          <a
+            key={tag}
+            href={`/projects/marketing/skill/${tag}`}
+            style={{
+              padding: "2px 8px",
+              borderRadius: 6,
+              fontSize: "0.66rem",
+              fontFamily: "'JetBrains Mono',monospace",
+              background: "rgba(169,220,118,.07)",
+              border: "1px solid rgba(169,220,118,.18)",
+              color: T.silver,
+              textDecoration: "none",
+              transition: "color 0.2s, background 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.color = T.mint;
+              el.style.background = "rgba(169,220,118,.15)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.color = T.silver;
+              el.style.background = "rgba(169,220,118,.07)";
+            }}
+          >
+            #{tag}
+          </a>
+        ))}
+      </div>
+    </motion.div>
+  );
+};
+
+/** Project card with hover-reveal overlay */
+const ProjectCard: React.FC<{ project: Project; index: number }> = ({
+  project,
+  index,
+}) => {
+  const [hovered, setHovered] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+  const status = STATUS_COLORS[project.status];
+
+  return (
+    <motion.article
+      ref={ref}
+      custom={index % 3}
+      variants={fadeUp}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      itemScope
+      itemType="https://schema.org/SoftwareApplication"
+      style={{
+        borderRadius: 24,
+        overflow: "hidden",
+        background: "rgba(249,248,246,.95)",
+        border: "1px solid rgba(169,220,118,.12)",
+        boxShadow: "0 4px 20px rgba(45,42,46,.08)",
+        transition: "box-shadow 0.35s, border-color 0.35s",
+        cursor: "pointer",
+        position: "relative",
+      }}
+      whileHover={{
+        y: -7,
+        boxShadow: `0 20px 60px rgba(0,0,0,.12), 0 0 30px rgba(${T.catRgb},.22)`,
+        borderColor: `rgba(${T.catRgb},.4)`,
+      }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+    >
+      {/* Featured ribbon */}
+      {project.featured && (
+        <div
+          style={{
+            position: "absolute",
+            top: 14,
+            left: -1,
+            zIndex: 4,
+            padding: "3px 12px",
+            background: T.gradPrimary,
+            fontSize: "0.65rem",
+            fontWeight: 800,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: T.charcoal,
+            borderRadius: "0 8px 8px 0",
+            boxShadow: `0 4px 12px rgba(${T.catRgb},.4)`,
+          }}
+        >
+          ⭐ Featured
+        </div>
+      )}
+
+      {/* Image */}
+      <div
+        style={{
+          position: "relative",
+          aspectRatio: "16/10",
+          overflow: "hidden",
+        }}
+      >
+        <motion.img
+          src={project.image}
+          alt={`${project.title} — digital marketing project`}
+          loading="lazy"
+          animate={{ scale: hovered ? 1.07 : 1 }}
+          transition={{ duration: 0.5 }}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          }}
+          itemProp="image"
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(to bottom, rgba(249,248,246,.08) 0%, rgba(45,42,46,.45) 100%)",
+          }}
+        />
+
+        {/* Hover reveal */}
+        <AnimatePresence>
+          {hovered && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.28 }}
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "rgba(34,31,34,.9)",
+                backdropFilter: "blur(4px)",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                padding: "1.5rem",
+                zIndex: 3,
+              }}
+            >
+              <p
+                style={{
+                  fontSize: "0.85rem",
+                  color: "rgba(252,252,250,.85)",
+                  lineHeight: 1.65,
+                  marginBottom: "1rem",
+                }}
+              >
+                {project.longDesc}
+              </p>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      padding: "7px 16px",
+                      borderRadius: 999,
+                      background: "rgba(255,255,255,.1)",
+                      border: "1px solid rgba(255,255,255,.2)",
+                      fontSize: "0.78rem",
+                      fontWeight: 600,
+                      color: T.white,
+                      textDecoration: "none",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden
+                    >
+                      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    GitHub
+                  </a>
+                )}
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      padding: "7px 16px",
+                      borderRadius: 999,
+                      background: T.gradMarketing,
+                      border: "none",
+                      fontSize: "0.78rem",
+                      fontWeight: 700,
+                      color: T.charcoal,
+                      textDecoration: "none",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      aria-hidden
+                    >
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    Live Demo
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Status badge */}
+        <div
+          style={{
+            position: "absolute",
+            top: 12,
+            right: 12,
+            zIndex: 4,
+            padding: "4px 11px",
+            borderRadius: 999,
+            fontSize: "0.65rem",
+            fontWeight: 700,
+            letterSpacing: "0.07em",
+            textTransform: "uppercase",
+            background: status.bg,
+            color: status.color,
+            border: `1px solid ${status.border}`,
+            backdropFilter: "blur(6px)",
+          }}
+        >
+          {status.label}
+        </div>
+      </div>
+
+      {/* Card body */}
+      <div style={{ padding: "1.25rem 1.4rem 1.4rem" }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 5,
+            marginBottom: "0.75rem",
+          }}
+        >
+          {project.tags.slice(0, 4).map((tag) => (
+            <a
+              key={tag}
+              href={`/projects/marketing/tag/${tag}`}
+              style={{
+                padding: "2px 9px",
+                borderRadius: 6,
+                fontSize: "0.64rem",
+                fontFamily: "'JetBrains Mono',monospace",
+                background: "rgba(169,220,118,.08)",
+                border: "1px solid rgba(169,220,118,.22)",
+                color: T.mint,
+                textDecoration: "none",
+                fontWeight: 600,
+              }}
+            >
+              {tag}
+            </a>
+          ))}
+          {project.tags.length > 4 && (
+            <span
+              style={{
+                padding: "2px 9px",
+                borderRadius: 6,
+                fontSize: "0.64rem",
+                fontFamily: "'JetBrains Mono',monospace",
+                background: "rgba(45,42,46,.06)",
+                color: T.silver,
+              }}
+            >
+              +{project.tags.length - 4}
+            </span>
+          )}
+        </div>
+
+        <h3
+          itemProp="name"
+          style={{
+            fontSize: "1.05rem",
+            fontWeight: 700,
+            color: T.charcoal,
+            lineHeight: 1.35,
+            marginBottom: "0.45rem",
+          }}
+        >
+          {project.title}
+        </h3>
+
+        <p
+          itemProp="description"
+          style={{
+            fontSize: "0.85rem",
+            color: T.silver,
+            lineHeight: 1.65,
+            marginBottom: "1rem",
+          }}
+        >
+          {project.description}
+        </p>
+
+        <div
+          style={{
+            fontSize: "0.72rem",
+            color: T.muted,
+            fontFamily: "'JetBrains Mono',monospace",
+          }}
+        >
+          {project.year}
+        </div>
+      </div>
+    </motion.article>
+  );
+};
+
+/** Filter pill */
+const FilterPill: React.FC<{
+  label: string;
+  active: boolean;
+  count?: number;
+  onClick: () => void;
+  color?: string;
+}> = ({ label, active, count, onClick, color = T.mint }) => (
+  <button
+    onClick={onClick}
+    aria-pressed={active}
+    style={{
+      padding: "6px 16px",
+      borderRadius: 999,
+      fontSize: "0.8rem",
+      fontWeight: 600,
+      cursor: "pointer",
+      border: active
+        ? `1.5px solid ${color}`
+        : "1.5px solid rgba(45,42,46,.15)",
+      background: active
+        ? `linear-gradient(135deg,${color}22,${T.blue}22)`
+        : "rgba(249,248,246,.8)",
+      color: active ? color : T.silver,
+      backdropFilter: "blur(8px)",
+      transition: "all 0.22s ease",
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      boxShadow: active ? `0 0 12px ${color}28` : "none",
+    }}
+  >
+    {label}
+    {count !== undefined && (
+      <span
+        style={{
+          background: active ? `${color}33` : "rgba(45,42,46,.08)",
+          color: active ? color : T.muted,
+          padding: "1px 7px",
+          borderRadius: 999,
+          fontSize: "0.68rem",
+          fontWeight: 700,
+          fontFamily: "'JetBrains Mono',monospace",
+        }}
+      >
+        {count}
+      </span>
+    )}
+  </button>
+);
+
+// ─── SEO SCHEMA ───────────────────────────────────────────────────────────────
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://yourportfolio.dev/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Projects",
+          item: "https://yourportfolio.dev/projects",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Marketing",
+          item: "https://yourportfolio.dev/projects/marketing",
+        },
+      ],
+    },
+    {
+      "@type": "ItemList",
+      name: "Digital Marketing Projects",
+      description:
+        "HTML email templates, SEO systems, analytics dashboards, N8N automations, AI workflows, and full-funnel marketing campaigns.",
+      numberOfItems: PROJECTS.length,
+      itemListElement: PROJECTS.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "SoftwareApplication",
+          name: p.title,
+          description: p.description,
+          url:
+            p.liveUrl ?? `https://yourportfolio.dev/projects/marketing/${p.id}`,
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Web Browser",
+        },
+      })),
+    },
+    {
+      "@type": "Person",
+      name: "Chris Norton",
+      url: "https://yourportfolio.dev/about",
+      jobTitle: "Digital Marketer, Automation Engineer & Systems Strategist",
+      knowsAbout: SKILLS.map((s) => s.name),
+    },
+  ],
+};
+
+// ─── STAT COUNTER HOOK ────────────────────────────────────────────────────────
+function useCountUp(target: number, duration = 1400, start = false) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let frame: number;
+    const startTime = performance.now();
+    const tick = (now: number) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [start, target, duration]);
+  return count;
+}
+
+// ─── ANIMATED STAT CHIP ───────────────────────────────────────────────────────
+const StatChip: React.FC<{
+  value: string | number;
+  label: string;
+  color: string;
+  suffix?: string;
+}> = ({ value, label, color, suffix = "" }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true });
+  const numeric = typeof value === "number" ? value : 0;
+  const counted = useCountUp(
+    numeric,
+    1200,
+    inView && typeof value === "number",
+  );
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        padding: "10px 20px",
+        borderRadius: 14,
+        background: "rgba(255,255,255,.07)",
+        border: `1px solid ${color}33`,
+        backdropFilter: "blur(12px)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        minWidth: 84,
+      }}
+    >
+      <span
+        style={{
+          fontSize: "1.6rem",
+          fontWeight: 800,
+          color,
+          lineHeight: 1.1,
+          fontFamily: "'JetBrains Mono',monospace",
+        }}
+      >
+        {typeof value === "number" ? counted : value}
+        {suffix}
+      </span>
+      <span
+        style={{
+          fontSize: "0.68rem",
+          color: "rgba(252,252,250,.5)",
+          textTransform: "uppercase",
+          letterSpacing: "0.08em",
+          textAlign: "center",
+        }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+};
+
+// ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
+export default function MarketingCategoryPage() {
+  const [skillCat, setSkillCat] = useState<SkillCategory | "all">("all");
+  const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showAllTags, setShowAllTags] = useState(false);
+
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(searchQuery), 260);
+    return () => clearTimeout(t);
+  }, [searchQuery]);
+
+  const filteredSkills = useMemo(
+    () =>
+      skillCat === "all"
+        ? SKILLS
+        : SKILLS.filter((s) => s.category === skillCat),
+    [skillCat],
+  );
+
+  const filteredProjects = useMemo(() => {
+    return PROJECTS.filter((p) => {
+      const matchSearch =
+        !debouncedSearch ||
+        p.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        p.description.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        p.tags.some((t) =>
+          t.toLowerCase().includes(debouncedSearch.toLowerCase()),
+        );
+      const matchTags =
+        activeTags.size === 0 ||
+        [...activeTags].every((tag) => p.tags.includes(tag));
+      return matchSearch && matchTags;
+    });
+  }, [debouncedSearch, activeTags]);
+
+  const toggleTag = useCallback((tag: string) => {
+    setActiveTags((prev) => {
+      const next = new Set(prev);
+      next.has(tag) ? next.delete(tag) : next.add(tag);
+      return next;
+    });
+  }, []);
+
+  const stats = useMemo(
+    () => ({
+      completed: PROJECTS.filter((p) => p.status === "completed").length,
+      automations: PROJECTS.filter((p) =>
+        p.tags.some((t) =>
+          ["n8n", "zapier", "make.com", "automation"].includes(t),
+        ),
+      ).length,
+      totalSkills: SKILLS.length,
+      expertSkills: SKILLS.filter((s) => s.levelLabel === "Expert").length,
+    }),
+    [],
+  );
+
+  const tagsToShow = showAllTags ? ALL_TAGS : ALL_TAGS.slice(0, 22);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+      />
+
+      <main
+        style={{
+          fontFamily: "'Inter', -apple-system, sans-serif",
+          background: T.cream,
+          color: T.charcoal,
+          minHeight: "100vh",
+          overflowX: "hidden",
+        }}
+      >
+        {/* ══════════════════════════════════════════════════════════
+            HERO SECTION
+        ══════════════════════════════════════════════════════════ */}
+        <section
+          aria-label="Marketing hero"
+          style={{
+            position: "relative",
+            minHeight: "82vh",
+            display: "flex",
+            alignItems: "center",
+            overflow: "hidden",
+            background:
+              "linear-gradient(135deg, #1a2218 0%, #1e2820 55%, #141a14 100%)",
+          }}
+        >
+          {/* Header image */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              backgroundImage:
+                "url('https://picsum.photos/seed/marketing-hero-mktg/1600/900')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              opacity: 0.14,
+            }}
+            aria-hidden
+          />
+
+          {/* Animated blobs — green/teal/coral palette */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: 0,
+              overflow: "hidden",
+              pointerEvents: "none",
+            }}
+          >
+            {/* Primary green blob */}
+            <div
+              style={{
+                position: "absolute",
+                top: "-18%",
+                left: "-10%",
+                width: "65vw",
+                height: "65vw",
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle, rgba(169,220,118,.28) 0%, transparent 70%)",
+                filter: "blur(80px)",
+                animation: "mktgBlob 11s ease-in-out infinite",
+              }}
+            />
+            {/* Coral accent blob */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "-18%",
+                right: "-5%",
+                width: "48vw",
+                height: "48vw",
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle, rgba(255,216,102,.2) 0%, transparent 70%)",
+                filter: "blur(90px)",
+                animation: "mktgBlob 14s ease-in-out infinite reverse",
+              }}
+            />
+            {/* Blue accent blob */}
+            <div
+              style={{
+                position: "absolute",
+                top: "38%",
+                right: "22%",
+                width: "38vw",
+                height: "38vw",
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle, rgba(120,220,232,.16) 0%, transparent 70%)",
+                filter: "blur(70px)",
+                animation: "mktgBlob 17s ease-in-out infinite 5s",
+              }}
+            />
+          </div>
+
+          {/* Diagonal-line grid — feels like a data chart */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: 0,
+              backgroundImage: `
+                linear-gradient(rgba(169,220,118,.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(169,220,118,.04) 1px, transparent 1px)
+              `,
+              backgroundSize: "48px 48px",
+            }}
+          />
+
+          {/* Content */}
+          <div
+            style={{
+              position: "relative",
+              zIndex: 2,
+              maxWidth: 1200,
+              margin: "0 auto",
+              padding: "8rem 2rem 6rem",
+              width: "100%",
+            }}
+          >
+            {/* Breadcrumb */}
+            <nav aria-label="Breadcrumb" style={{ marginBottom: "1.5rem" }}>
+              <ol
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  listStyle: "none",
+                  padding: 0,
+                  margin: 0,
+                  fontSize: "0.78rem",
+                  color: "rgba(252,252,250,.5)",
+                  fontFamily: "'JetBrains Mono',monospace",
+                }}
+                itemScope
+                itemType="https://schema.org/BreadcrumbList"
+              >
+                {[
+                  { label: "Home", href: "/" },
+                  { label: "Projects", href: "/projects" },
+                  { label: "Marketing", href: "/projects/marketing" },
+                ].map((crumb, i, arr) => (
+                  <li
+                    key={crumb.href}
+                    itemScope
+                    itemType="https://schema.org/ListItem"
+                    itemProp="itemListElement"
+                    style={{ display: "flex", alignItems: "center", gap: 8 }}
+                  >
+                    <a
+                      href={crumb.href}
+                      itemProp="item"
+                      style={{
+                        color:
+                          i === arr.length - 1
+                            ? T.mint
+                            : "rgba(252,252,250,.5)",
+                        textDecoration: "none",
+                        transition: "color 0.2s",
+                      }}
+                    >
+                      <span itemProp="name">{crumb.label}</span>
+                    </a>
+                    <meta itemProp="position" content={`${i + 1}`} />
+                    {i < arr.length - 1 && (
+                      <span aria-hidden style={{ opacity: 0.3 }}>
+                        /
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </nav>
+
+            {/* Category badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55 }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 18px",
+                borderRadius: 999,
+                background: "rgba(169,220,118,.15)",
+                border: "1px solid rgba(169,220,118,.38)",
+                marginBottom: "1.25rem",
+              }}
+            >
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  background: T.mint,
+                  boxShadow: `0 0 8px ${T.mint}`,
+                  animation: "mktgPulse 2s ease-in-out infinite",
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: T.mint,
+                  fontFamily: "'JetBrains Mono',monospace",
+                }}
+              >
+                Digital Marketing & Automation
+              </span>
+            </motion.div>
+
+            {/* Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              itemProp="name"
+              style={{
+                fontSize: "clamp(2.4rem, 6vw, 4.5rem)",
+                fontWeight: 900,
+                lineHeight: 1.08,
+                letterSpacing: "-0.03em",
+                background: T.gradPrimary,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                marginBottom: "1.25rem",
+                fontFamily: "'Playfair Display', Georgia, serif",
+              }}
+            >
+              Marketing that
+              <br />
+              moves the needle.
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              style={{
+                fontSize: "clamp(1rem, 2vw, 1.2rem)",
+                color: "rgba(252,252,250,.7)",
+                lineHeight: 1.7,
+                maxWidth: 600,
+                marginBottom: "2.5rem",
+              }}
+            >
+              HTML emails that land in the inbox, SEO systems that compound,
+              dashboards that tell the truth, and N8N automations that turn a
+              40-hour workflow into a Wednesday cron job.
+            </motion.p>
+
+            {/* Stat chips */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              style={{ display: "flex", flexWrap: "wrap", gap: 12 }}
+            >
+              <StatChip
+                value={stats.completed}
+                suffix="+"
+                label="Campaigns"
+                color={T.mint}
+              />
+              <StatChip
+                value={stats.automations}
+                suffix="+"
+                label="Automations"
+                color={T.blue}
+              />
+              <StatChip
+                value={stats.totalSkills}
+                label="Tools"
+                color={T.coral}
+              />
+              <StatChip
+                value={stats.expertSkills}
+                label="Expert-level"
+                color={T.mint}
+              />
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              style={{
+                display: "flex",
+                gap: 14,
+                marginTop: "2.5rem",
+                flexWrap: "wrap",
+              }}
+            >
+              <a
+                href="#projects"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "13px 28px",
+                  borderRadius: 12,
+                  background: T.gradPrimary,
+                  color: T.charcoal,
+                  fontWeight: 700,
+                  fontSize: "0.95rem",
+                  textDecoration: "none",
+                  boxShadow: `0 8px 28px rgba(${T.catRgb},.4)`,
+                  transition: "transform 0.2s, box-shadow 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.transform =
+                    "translateY(-2px)";
+                  (e.currentTarget as HTMLElement).style.boxShadow =
+                    `0 14px 40px rgba(${T.catRgb},.55)`;
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.transform = "none";
+                  (e.currentTarget as HTMLElement).style.boxShadow =
+                    `0 8px 28px rgba(${T.catRgb},.4)`;
+                }}
+              >
+                See Projects
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  aria-hidden
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </a>
+              <a
+                href="/contact"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "13px 28px",
+                  borderRadius: 12,
+                  background: "rgba(255,255,255,.08)",
+                  color: T.white,
+                  fontWeight: 600,
+                  fontSize: "0.95rem",
+                  textDecoration: "none",
+                  border: "1.5px solid rgba(255,255,255,.2)",
+                  backdropFilter: "blur(8px)",
+                  transition: "background 0.2s, border-color 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.background =
+                    "rgba(255,255,255,.14)";
+                  (e.currentTarget as HTMLElement).style.borderColor =
+                    "rgba(255,255,255,.35)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.background =
+                    "rgba(255,255,255,.08)";
+                  (e.currentTarget as HTMLElement).style.borderColor =
+                    "rgba(255,255,255,.2)";
+                }}
+              >
+                Work Together
+              </a>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════
+            SKILLS SECTION
+        ══════════════════════════════════════════════════════════ */}
+        <section
+          id="skills"
+          aria-label="Marketing skills"
+          style={{ padding: "6rem 2rem", background: T.white }}
+        >
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              style={{ textAlign: "center", marginBottom: "3rem" }}
+            >
+              <p
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: T.mint,
+                  marginBottom: "0.75rem",
+                  fontFamily: "'JetBrains Mono',monospace",
+                }}
+              >
+                ⚡ Marketing Stack
+              </p>
+              <h2
+                style={{
+                  fontSize: "clamp(1.9rem, 4vw, 2.9rem)",
+                  fontWeight: 800,
+                  color: T.charcoal,
+                  letterSpacing: "-0.02em",
+                  marginBottom: "0.9rem",
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                }}
+              >
+                The tools that drive results
+              </h2>
+              <p
+                style={{
+                  fontSize: "1.05rem",
+                  color: T.silver,
+                  maxWidth: 540,
+                  margin: "0 auto",
+                  lineHeight: 1.7,
+                }}
+              >
+                From pixel-perfect email code to AI agents that run entire
+                content pipelines — every tool listed here has shipped something
+                that made a metric move.
+              </p>
+            </motion.div>
+
+            {/* Category filter */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 8,
+                justifyContent: "center",
+                marginBottom: "2.5rem",
+              }}
+              role="group"
+              aria-label="Filter skills by category"
+            >
+              {SKILL_CATEGORIES.map((cat) => (
+                <FilterPill
+                  key={cat.id}
+                  label={`${cat.icon} ${cat.label}`}
+                  active={skillCat === cat.id}
+                  count={
+                    cat.id === "all"
+                      ? SKILLS.length
+                      : SKILLS.filter((s) => s.category === cat.id).length
+                  }
+                  onClick={() => setSkillCat(cat.id)}
+                />
+              ))}
+            </div>
+
+            {/* Skills grid */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={skillCat}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+                  gap: "1.25rem",
+                }}
+              >
+                {filteredSkills.map((skill, i) => (
+                  <SkillCard key={skill.id} skill={skill} index={i} />
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════
+            PROJECTS SECTION
+        ══════════════════════════════════════════════════════════ */}
+        <section
+          id="projects"
+          aria-label="Marketing projects"
+          style={{ padding: "6rem 2rem", background: T.cream }}
+        >
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              style={{ marginBottom: "3rem" }}
+            >
+              <p
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: T.mint,
+                  marginBottom: "0.75rem",
+                  fontFamily: "'JetBrains Mono',monospace",
+                }}
+              >
+                📈 Campaign Portfolio
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-end",
+                  flexWrap: "wrap",
+                  gap: 16,
+                }}
+              >
+                <h2
+                  style={{
+                    fontSize: "clamp(1.9rem, 4vw, 2.9rem)",
+                    fontWeight: 800,
+                    color: T.charcoal,
+                    letterSpacing: "-0.02em",
+                    fontFamily: "'Playfair Display', Georgia, serif",
+                  }}
+                >
+                  Systems that compound
+                </h2>
+
+                {/* Search */}
+                <div style={{ position: "relative" }}>
+                  <svg
+                    style={{
+                      position: "absolute",
+                      left: 14,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      color: T.silver,
+                    }}
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <input
+                    type="search"
+                    placeholder="Search projects…"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    aria-label="Search projects"
+                    style={{
+                      padding: "10px 16px 10px 40px",
+                      borderRadius: 12,
+                      border: "1.5px solid rgba(45,42,46,.15)",
+                      background: "rgba(249,248,246,.9)",
+                      color: T.charcoal,
+                      fontSize: "0.88rem",
+                      outline: "none",
+                      width: 240,
+                      transition: "border-color 0.2s, box-shadow 0.2s",
+                      fontFamily: "'Inter', sans-serif",
+                    }}
+                    onFocus={(e) => {
+                      (e.target as HTMLInputElement).style.borderColor = T.mint;
+                      (e.target as HTMLInputElement).style.boxShadow =
+                        `0 0 0 3px rgba(${T.catRgb},.12)`;
+                    }}
+                    onBlur={(e) => {
+                      (e.target as HTMLInputElement).style.borderColor =
+                        "rgba(45,42,46,.15)";
+                      (e.target as HTMLInputElement).style.boxShadow = "none";
+                    }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Tag filter cloud */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 7,
+                marginBottom: "2rem",
+              }}
+              role="group"
+              aria-label="Filter projects by tag"
+            >
+              {tagsToShow.map((tag) => {
+                const count = PROJECTS.filter((p) =>
+                  p.tags.includes(tag),
+                ).length;
+                return (
+                  <button
+                    key={tag}
+                    onClick={() => toggleTag(tag)}
+                    aria-pressed={activeTags.has(tag)}
+                    style={{
+                      padding: "4px 12px",
+                      borderRadius: 999,
+                      fontSize: "0.72rem",
+                      fontFamily: "'JetBrains Mono',monospace",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      border: activeTags.has(tag)
+                        ? `1.5px solid ${T.mint}`
+                        : "1.5px solid rgba(45,42,46,.14)",
+                      background: activeTags.has(tag)
+                        ? `rgba(${T.catRgb},.12)`
+                        : "rgba(249,248,246,.8)",
+                      color: activeTags.has(tag) ? T.mint : T.silver,
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    #{tag}
+                    <span
+                      style={{
+                        marginLeft: 5,
+                        opacity: 0.5,
+                        fontSize: "0.65rem",
+                      }}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+              {ALL_TAGS.length > 22 && (
+                <button
+                  onClick={() => setShowAllTags((p) => !p)}
+                  style={{
+                    padding: "4px 12px",
+                    borderRadius: 999,
+                    fontSize: "0.72rem",
+                    fontFamily: "'JetBrains Mono',monospace",
+                    cursor: "pointer",
+                    border: "1.5px dashed rgba(45,42,46,.2)",
+                    background: "transparent",
+                    color: T.silver,
+                  }}
+                >
+                  {showAllTags
+                    ? "↑ less"
+                    : `+${ALL_TAGS.length - 22} more tags`}
+                </button>
+              )}
+              {activeTags.size > 0 && (
+                <button
+                  onClick={() => setActiveTags(new Set())}
+                  style={{
+                    padding: "4px 12px",
+                    borderRadius: 999,
+                    fontSize: "0.72rem",
+                    fontFamily: "'JetBrains Mono',monospace",
+                    cursor: "pointer",
+                    border: `1.5px solid rgba(${T.catRgb},.3)`,
+                    background: `rgba(${T.catRgb},.08)`,
+                    color: T.mint,
+                  }}
+                >
+                  ✕ Clear filters
+                </button>
+              )}
+            </div>
+
+            {/* Result count */}
+            <p
+              aria-live="polite"
+              style={{
+                fontSize: "0.8rem",
+                color: T.muted,
+                marginBottom: "1.5rem",
+                fontFamily: "'JetBrains Mono',monospace",
+              }}
+            >
+              Showing {filteredProjects.length} of {PROJECTS.length} projects
+              {activeTags.size > 0 &&
+                ` · filtered by: ${[...activeTags].join(", ")}`}
+            </p>
+
+            {/* Grid */}
+            <AnimatePresence mode="wait">
+              {filteredProjects.length > 0 ? (
+                <motion.div
+                  key="grid"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns:
+                      "repeat(auto-fill, minmax(340px, 1fr))",
+                    gap: "1.75rem",
+                  }}
+                >
+                  {filteredProjects.map((project, i) => (
+                    <ProjectCard key={project.id} project={project} index={i} />
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="empty"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  style={{
+                    textAlign: "center",
+                    padding: "5rem 2rem",
+                    color: T.muted,
+                  }}
+                >
+                  <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>
+                    🔍
+                  </div>
+                  <p style={{ fontSize: "1.05rem" }}>
+                    No projects match those filters.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setActiveTags(new Set());
+                      setSearchQuery("");
+                    }}
+                    style={{
+                      marginTop: "1rem",
+                      padding: "8px 20px",
+                      borderRadius: 999,
+                      border: `1.5px solid ${T.mint}`,
+                      background: "transparent",
+                      color: T.mint,
+                      cursor: "pointer",
+                      fontSize: "0.85rem",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Reset filters
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════
+            SEO TAG CLOUD
+        ══════════════════════════════════════════════════════════ */}
+        <section
+          aria-label="Marketing technology and tag index"
+          style={{
+            padding: "4rem 2rem",
+            background: T.white,
+            borderTop: "1px solid rgba(45,42,46,.08)",
+          }}
+        >
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-60px" }}
+            >
+              <h2
+                style={{
+                  fontSize: "1.05rem",
+                  fontWeight: 700,
+                  color: T.charcoal,
+                  marginBottom: "1.5rem",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                }}
+              >
+                <span
+                  style={{
+                    background: T.gradPrimary,
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  Technologies &amp; Tags
+                </span>
+                <span
+                  style={{
+                    fontSize: "0.7rem",
+                    fontFamily: "'JetBrains Mono',monospace",
+                    color: T.muted,
+                    fontWeight: 400,
+                  }}
+                >
+                  — all indexed for search engines
+                </span>
+              </h2>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {ALL_TAGS.map((tag) => {
+                  const count = PROJECTS.filter((p) =>
+                    p.tags.includes(tag),
+                  ).length;
+                  return (
+                    <a
+                      key={tag}
+                      href={`/projects/marketing/tag/${tag}`}
+                      style={{
+                        padding: "5px 13px",
+                        borderRadius: 8,
+                        fontSize: "0.75rem",
+                        fontFamily: "'JetBrains Mono',monospace",
+                        fontWeight: 600,
+                        background: "rgba(169,220,118,.06)",
+                        border: "1px solid rgba(169,220,118,.18)",
+                        color: T.charcoal,
+                        textDecoration: "none",
+                        transition: "all 0.2s",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 5,
+                      }}
+                      onMouseEnter={(e) => {
+                        const el = e.currentTarget as HTMLAnchorElement;
+                        el.style.background = `rgba(${T.catRgb},.15)`;
+                        el.style.color = T.mint;
+                        el.style.borderColor = `rgba(${T.catRgb},.38)`;
+                        el.style.transform = "translateY(-1px)";
+                      }}
+                      onMouseLeave={(e) => {
+                        const el = e.currentTarget as HTMLAnchorElement;
+                        el.style.background = "rgba(169,220,118,.06)";
+                        el.style.color = T.charcoal;
+                        el.style.borderColor = "rgba(169,220,118,.18)";
+                        el.style.transform = "none";
+                      }}
+                    >
+                      #{tag}
+                      <span
+                        style={{
+                          padding: "1px 6px",
+                          borderRadius: 999,
+                          fontSize: "0.62rem",
+                          background: "rgba(45,42,46,.08)",
+                          color: T.muted,
+                        }}
+                      >
+                        {count}
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════
+            CTA SECTION
+        ══════════════════════════════════════════════════════════ */}
+        <section
+          aria-label="Hire me call-to-action"
+          style={{
+            padding: "7rem 2rem",
+            background: "linear-gradient(135deg, #1a2218 0%, #1e2820 100%)",
+            textAlign: "center",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          {/* Glow */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%,-50%)",
+              width: "80vw",
+              height: "80vw",
+              maxWidth: 700,
+              maxHeight: 700,
+              borderRadius: "50%",
+              background: `radial-gradient(circle, rgba(${T.catRgb},.18) 0%, transparent 70%)`,
+              filter: "blur(80px)",
+              pointerEvents: "none",
+            }}
+          />
+          <div
+            style={{
+              position: "relative",
+              zIndex: 1,
+              maxWidth: 640,
+              margin: "0 auto",
+            }}
+          >
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-60px" }}
+            >
+              <p
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: T.mint,
+                  marginBottom: "1rem",
+                  fontFamily: "'JetBrains Mono',monospace",
+                }}
+              >
+                Ready to Grow?
+              </p>
+              <h2
+                style={{
+                  fontSize: "clamp(2rem, 5vw, 3.2rem)",
+                  fontWeight: 900,
+                  color: T.white,
+                  letterSpacing: "-0.03em",
+                  lineHeight: 1.1,
+                  marginBottom: "1.25rem",
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                }}
+              >
+                Let's build a marketing
+                <br />
+                engine that runs on autopilot.
+              </h2>
+              <p
+                style={{
+                  fontSize: "1.05rem",
+                  color: "rgba(252,252,250,.6)",
+                  lineHeight: 1.7,
+                  marginBottom: "2.5rem",
+                }}
+              >
+                Email campaigns, SEO foundations, analytics clarity, or full
+                automation pipelines — I design the system and hand you the keys
+                so your team can scale without the chaos.
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  gap: 14,
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                }}
+              >
+                <a
+                  href="/contact"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 9,
+                    padding: "14px 32px",
+                    borderRadius: 14,
+                    background: T.gradPrimary,
+                    color: T.charcoal,
+                    fontWeight: 700,
+                    fontSize: "1rem",
+                    textDecoration: "none",
+                    boxShadow: `0 8px 32px rgba(${T.catRgb},.4)`,
+                    transition: "transform 0.2s, box-shadow 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.transform =
+                      "translateY(-2px) scale(1.02)";
+                    (e.currentTarget as HTMLElement).style.boxShadow =
+                      `0 16px 48px rgba(${T.catRgb},.55)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.transform = "none";
+                    (e.currentTarget as HTMLElement).style.boxShadow =
+                      `0 8px 32px rgba(${T.catRgb},.4)`;
+                  }}
+                >
+                  Start a Campaign
+                  <svg
+                    width="17"
+                    height="17"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    aria-hidden
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+                <a
+                  href="/projects"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "14px 28px",
+                    borderRadius: 14,
+                    background: "rgba(255,255,255,.07)",
+                    color: T.white,
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    textDecoration: "none",
+                    border: "1.5px solid rgba(255,255,255,.18)",
+                    backdropFilter: "blur(8px)",
+                    transition: "background 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background =
+                      "rgba(255,255,255,.14)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background =
+                      "rgba(255,255,255,.07)";
+                  }}
+                >
+                  All Projects
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      </main>
+
+      {/* ── Keyframes ─────────────────────────────────────────────── */}
+      <style>{`
+        @keyframes mktgBlob {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33%       { transform: translate(3%, 5%) scale(1.04); }
+          66%       { transform: translate(-4%, -3%) scale(0.97); }
+        }
+        @keyframes mktgPulse {
+          0%, 100% { opacity: 1; box-shadow: 0 0 6px #a9dc76; }
+          50%       { opacity: 0.6; box-shadow: 0 0 20px #a9dc76; }
+        }
+        * { -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        button:focus-visible, a:focus-visible {
+          outline: 2px solid #a9dc76;
+          outline-offset: 3px;
+        }
+      `}</style>
+    </>
+  );
+}
