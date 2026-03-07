@@ -21,6 +21,7 @@ import React, {
   useMemo,
 } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
+import DevOps from "@images/devops.jpg";
 
 // ─── DESIGN TOKENS (mirrors globals.css :root) ────────────────────────────────
 const T = {
@@ -64,7 +65,8 @@ type ProjectStatus = "completed" | "in-progress" | "concept";
 interface Skill {
   id: string;
   name: string;
-  icon: string;
+  icon: IconType;
+  color?: string;
   level: number; // 0–100
   levelLabel: "Expert" | "Advanced" | "Intermediate" | "Familiar";
   category: SkillCategory;
@@ -72,27 +74,24 @@ interface Skill {
   yearsExp: number;
 }
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  longDesc: string;
-  image: string;
-  tags: string[];
-  skills: string[];
-  status: ProjectStatus;
-  featured: boolean;
-  liveUrl?: string;
-  githubUrl?: string;
-  year: number;
-}
-
 // ─── MOCK DATA — Skills ───────────────────────────────────────────────────────
 const SKILLS: Skill[] = [
   {
+    id: "jenkins",
+    name: "Jenkins",
+    icon: FaJenkins,
+    color: "text-blue-500",
+    level: 88,
+    levelLabel: "Expert",
+    category: "orchestration",
+    tags: ["k8s", "k3s", "helm", "namespaces", "rbac"],
+    yearsExp: 4,
+  },
+  {
     id: "kubernetes",
     name: "Kubernetes / K3s",
-    icon: "⎈",
+    icon: SiKubernetes,
+    color: "text-blue-500",
     level: 88,
     levelLabel: "Expert",
     category: "orchestration",
@@ -102,8 +101,9 @@ const SKILLS: Skill[] = [
   {
     id: "docker",
     name: "Docker / Compose",
-    icon: "🐳",
-    level: 95,
+    icon: FaDocker,
+    color: "text-blue-200",
+    level: 22,
     levelLabel: "Expert",
     category: "orchestration",
     tags: ["containerization", "multi-stage", "volumes", "swarm"],
@@ -112,7 +112,8 @@ const SKILLS: Skill[] = [
   {
     id: "helm",
     name: "Helm Charts",
-    icon: "⚓",
+    icon: FaAnchor,
+    color: "text-blue-200",
     level: 82,
     levelLabel: "Advanced",
     category: "orchestration",
@@ -122,7 +123,8 @@ const SKILLS: Skill[] = [
   {
     id: "aws",
     name: "AWS (EC2, S3, ECS, RDS)",
-    icon: "☁️",
+    icon: FaAws,
+    color: "text-blue-200",
     level: 85,
     levelLabel: "Advanced",
     category: "cloud",
@@ -132,7 +134,8 @@ const SKILLS: Skill[] = [
   {
     id: "azure",
     name: "Azure (AKS, DevOps)",
-    icon: "🔷",
+    icon: VscAzure,
+    color: "text-blue-500",
     level: 75,
     levelLabel: "Intermediate",
     category: "cloud",
@@ -142,7 +145,7 @@ const SKILLS: Skill[] = [
   {
     id: "terraform",
     name: "Terraform / OpenTofu",
-    icon: "🏗️",
+    icon: SiTerraform,
     level: 86,
     levelLabel: "Advanced",
     category: "iac",
@@ -152,7 +155,7 @@ const SKILLS: Skill[] = [
   {
     id: "ansible",
     name: "Ansible",
-    icon: "🔧",
+    icon: SiAnsible,
     level: 80,
     levelLabel: "Advanced",
     category: "iac",
@@ -162,7 +165,7 @@ const SKILLS: Skill[] = [
   {
     id: "github-actions",
     name: "GitHub Actions",
-    icon: "⚙️",
+    icon: FaGithub,
     level: 90,
     levelLabel: "Expert",
     category: "cicd",
@@ -172,7 +175,7 @@ const SKILLS: Skill[] = [
   {
     id: "argocd",
     name: "ArgoCD / GitOps",
-    icon: "🔄",
+    icon: FaGithub,
     level: 78,
     levelLabel: "Advanced",
     category: "cicd",
@@ -182,7 +185,7 @@ const SKILLS: Skill[] = [
   {
     id: "prometheus",
     name: "Prometheus + Grafana",
-    icon: "📊",
+    icon: SiPrometheus,
     level: 85,
     levelLabel: "Advanced",
     category: "monitoring",
@@ -192,7 +195,7 @@ const SKILLS: Skill[] = [
   {
     id: "linux",
     name: "Linux / Bash Scripting",
-    icon: "🐧",
+    icon: FcLinux,
     level: 93,
     levelLabel: "Expert",
     category: "linux",
@@ -202,7 +205,7 @@ const SKILLS: Skill[] = [
   {
     id: "nginx",
     name: "Nginx / Traefik",
-    icon: "🔀",
+    icon: SiNginx,
     level: 87,
     levelLabel: "Expert",
     category: "linux",
@@ -212,192 +215,33 @@ const SKILLS: Skill[] = [
 ];
 
 // ─── MOCK DATA — Projects ─────────────────────────────────────────────────────
-const PROJECTS: Project[] = [
-  {
-    id: "k3s-homelab",
-    title: "Production-grade Homelab K3s Cluster",
-    description:
-      "4-node Raspberry Pi K3s cluster with Helm, ArgoCD GitOps, Traefik ingress, cert-manager TLS, and full Prometheus/Grafana observability stack.",
-    longDesc:
-      "Built a lightweight Kubernetes cluster on 4 Raspberry Pi 4 nodes running K3s. Configured Helm releases for all workloads, ArgoCD for GitOps-driven deployment from a mono-repo, Traefik as the ingress controller with Let's Encrypt TLS via cert-manager, Longhorn for distributed block storage, and a full Prometheus/Grafana/Alertmanager observability stack. Exposed safely via Cloudflare Tunnel — zero ports forwarded.",
-    image: "https://picsum.photos/seed/k3s-homelab-devops/800/500",
-    tags: [
-      "kubernetes",
-      "k3s",
-      "argocd",
-      "helm",
-      "traefik",
-      "prometheus",
-      "raspberry-pi",
-    ],
-    skills: ["kubernetes", "helm", "argocd", "prometheus", "nginx"],
-    status: "completed",
-    featured: true,
-    githubUrl: "https://github.com",
-    liveUrl: "https://yourportfolio.dev",
-    year: 2025,
-  },
-  {
-    id: "terraform-aws-infra",
-    title: "Terraform AWS Infrastructure as Code",
-    description:
-      "Modular Terraform mono-repo provisioning VPC, ECS Fargate services, RDS Aurora, S3, CloudFront CDN, and WAF — zero manual click-ops.",
-    longDesc:
-      "Authored a fully modular Terraform codebase that provisions a production-grade AWS environment: multi-AZ VPC with public/private subnets, ECS Fargate cluster with auto-scaling, RDS Aurora Serverless, S3 + CloudFront CDN with origin access control, AWS WAF, and IAM roles with least-privilege policies. Remote state stored in S3 with DynamoDB locking. Workspaces separate staging/production. GitHub Actions pipeline runs `terraform plan` on PRs and `apply` on merge.",
-    image: "https://picsum.photos/seed/terraform-aws-devops/800/500",
-    tags: [
-      "terraform",
-      "aws",
-      "ecs",
-      "rds",
-      "cloudfront",
-      "iac",
-      "github-actions",
-    ],
-    skills: ["terraform", "aws", "github-actions"],
-    status: "completed",
-    featured: true,
-    githubUrl: "https://github.com",
-    year: 2025,
-  },
-  {
-    id: "gitops-pipeline",
-    title: "Full GitOps CI/CD Pipeline",
-    description:
-      "GitHub Actions → Docker build → ECR push → ArgoCD sync: a reusable pipeline template with semantic versioning, Trivy scanning, and Slack alerts.",
-    longDesc:
-      "Designed a reusable GitOps pipeline that runs on every merge to main: GitHub Actions builds and tests the Docker image, scans it with Trivy for CVEs, tags it with semantic version, pushes to Amazon ECR, commits the new image tag to the GitOps manifests repo, and ArgoCD auto-syncs to the cluster. Slack webhook posts success/failure with a direct diff link. The full cycle — commit to running pod — takes under 4 minutes.",
-    image: "https://picsum.photos/seed/gitops-pipeline-devops/800/500",
-    tags: [
-      "github-actions",
-      "argocd",
-      "docker",
-      "ecr",
-      "trivy",
-      "semantic-versioning",
-      "slack",
-    ],
-    skills: ["github-actions", "argocd", "docker", "aws"],
-    status: "completed",
-    featured: true,
-    githubUrl: "https://github.com",
-    year: 2025,
-  },
-  {
-    id: "monitoring-stack",
-    title: "Observability Stack — Prometheus + Grafana + Loki",
-    description:
-      "Self-hosted monitoring platform collecting metrics from 12 hosts, 40+ services with custom alerting rules and a Grafana On-Call rotation.",
-    longDesc:
-      "Deployed a full observability stack on the homelab: Prometheus scrapes node-exporter, kube-state-metrics, cAdvisor, and custom app endpoints on a 15s interval. Loki + Promtail aggregate logs from all cluster pods. Grafana renders 8 custom dashboards covering cluster health, per-app RED metrics, and hardware temps. Alertmanager routes critical alerts to PagerDuty and non-critical to a Telegram bot. Retained 90-day metric history via Thanos S3 offload.",
-    image: "https://picsum.photos/seed/monitoring-devops/800/500",
-    tags: [
-      "prometheus",
-      "grafana",
-      "loki",
-      "alertmanager",
-      "thanos",
-      "monitoring",
-      "observability",
-    ],
-    skills: ["prometheus", "kubernetes", "linux"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    year: 2024,
-  },
-  {
-    id: "ansible-server-bootstrap",
-    title: "Ansible Server Bootstrap Playbooks",
-    description:
-      "Idempotent playbook collection that provisions a bare Debian/Ubuntu host to a hardened, Docker-ready state in under 8 minutes.",
-    longDesc:
-      "A collection of Ansible roles that configure a fresh Debian/Ubuntu server: SSH key-only auth, UFW firewall with minimal rule set, fail2ban, unattended-upgrades, Docker CE + Compose plugin, Caddy or Nginx reverse proxy, and a non-root deploy user with sudo policy. Vault-encrypted secrets. Molecule tests verify idempotency in Docker containers. Used to bootstrap 15+ VPS instances across DigitalOcean and Hetzner.",
-    image: "https://picsum.photos/seed/ansible-devops/800/500",
-    tags: [
-      "ansible",
-      "linux",
-      "debian",
-      "docker",
-      "hardening",
-      "bash",
-      "vault",
-    ],
-    skills: ["ansible", "linux", "docker"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    year: 2024,
-  },
-  {
-    id: "self-hosted-platform",
-    title: "Self-hosted PaaS on K3s",
-    description:
-      "Coolify-inspired self-hosted platform running 20+ services — Git push deploys, SSL, backups, and a custom admin UI — on commodity hardware.",
-    longDesc:
-      "Replaced Heroku-style managed hosting with a self-hosted PaaS layer on top of K3s. A webhook listener triggers Kaniko in-cluster image builds on git push. Traefik issues Let's Encrypt certs automatically. Velero handles daily backups to Backblaze B2. A small Next.js admin UI lists running services, shows logs via a WebSocket proxy, and offers one-click restart/rollback. Hosting 20+ personal and client projects at a fraction of SaaS cost.",
-    image: "https://picsum.photos/seed/selfhosted-devops/800/500",
-    tags: [
-      "kubernetes",
-      "coolify",
-      "kaniko",
-      "traefik",
-      "velero",
-      "gitops",
-      "self-hosted",
-    ],
-    skills: ["kubernetes", "helm", "argocd", "nginx", "linux"],
-    status: "in-progress",
-    featured: true,
-    githubUrl: "https://github.com",
-    year: 2026,
-  },
-  {
-    id: "azure-aks-setup",
-    title: "Azure AKS Production Cluster",
-    description:
-      "Terraform-provisioned AKS cluster with Azure AD workload identity, Defender for Containers, and Azure Monitor integrated Prometheus.",
-    longDesc:
-      "Provisioned an Azure Kubernetes Service cluster via Terraform: node pools with auto-scaling (2–10 nodes), Azure AD workload identity for pod-level RBAC to Key Vault and Blob storage, Microsoft Defender for Containers with CVE alerting, Azure CNI Overlay networking, and an Azure Monitor-managed Prometheus workspace. Azure DevOps pipeline deploys Helm releases on every tag. Integrated with Entra ID for SSO to Grafana.",
-    image: "https://picsum.photos/seed/aks-devops/800/500",
-    tags: [
-      "azure",
-      "aks",
-      "terraform",
-      "azure-devops",
-      "workload-identity",
-      "defender",
-    ],
-    skills: ["azure", "terraform", "kubernetes", "prometheus"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    year: 2024,
-  },
-  {
-    id: "nginx-reverse-proxy",
-    title: "Nginx / Traefik Reverse Proxy Config Library",
-    description:
-      "Battle-tested config library for Nginx and Traefik — SSL termination, rate limiting, CORS headers, WebSocket proxying, and upstream health checks.",
-    longDesc:
-      "An open-source repository of production-tested Nginx and Traefik configurations covering: TLS 1.3 hardening with HSTS, Brotli + gzip compression, rate limiting by IP and route, CORS preflight handling, WebSocket upgrade proxying, upstream health-check intervals, custom error pages, and Docker/K8s label-driven Traefik dynamic routing. Every config is tested against Mozilla SSL Lab's A+ benchmark. Includes a GitHub Actions workflow that lints configs with nginx -t on every PR.",
-    image: "https://picsum.photos/seed/nginx-devops/800/500",
-    tags: [
-      "nginx",
-      "traefik",
-      "ssl",
-      "reverse-proxy",
-      "docker",
-      "linux",
-      "security",
-    ],
-    skills: ["nginx", "linux", "docker", "github-actions"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    year: 2024,
-  },
-];
+import { project, Devops as PROJECTS } from "@/data/project";
+import { Project } from "@/types/Post";
+import {
+  FaAnchor,
+  FaAws,
+  FaBoltLightning,
+  FaChartBar,
+  FaCloud,
+  FaDocker,
+  FaGear,
+  FaGithub,
+  FaJenkins,
+  FaStar,
+  FaTractor,
+} from "react-icons/fa6";
+import Link from "next/link";
+import { IconType } from "react-icons";
+import {
+  SiAnsible,
+  SiKubernetes,
+  SiNginx,
+  SiPrometheus,
+  SiTerraform,
+} from "react-icons/si";
+import { VscAzure } from "react-icons/vsc";
+import { FcLinux } from "react-icons/fc";
+import ProjectModal from "@/components/partials/projectModals";
 
 // ─── DERIVED CONSTANTS ────────────────────────────────────────────────────────
 const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
@@ -405,15 +249,15 @@ const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
 const SKILL_CATEGORIES: {
   id: SkillCategory | "all";
   label: string;
-  icon: string;
+  icon: IconType;
 }[] = [
-  { id: "all", label: "All Skills", icon: "⚡" },
-  { id: "orchestration", label: "Orchestration", icon: "⎈" },
-  { id: "cloud", label: "Cloud", icon: "☁️" },
-  { id: "iac", label: "IaC", icon: "🏗️" },
-  { id: "cicd", label: "CI/CD", icon: "⚙️" },
-  { id: "monitoring", label: "Observability", icon: "📊" },
-  { id: "linux", label: "Linux / Net", icon: "🐧" },
+  { id: "all", label: "All Skills", icon: FaBoltLightning },
+  { id: "orchestration", label: "Orchestration", icon: FaStar },
+  { id: "cloud", label: "Cloud", icon: FaCloud },
+  { id: "iac", label: "IaC", icon: FaTractor },
+  { id: "cicd", label: "CI/CD", icon: FaGear },
+  { id: "monitoring", label: "Observability", icon: FaChartBar },
+  { id: "linux", label: "Linux / Net", icon: FcLinux },
 ];
 
 const STATUS_COLORS: Record<
@@ -441,7 +285,7 @@ const STATUS_COLORS: Record<
 };
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
-const fadeUp:any = {
+const fadeUp: any = {
   hidden: { opacity: 0, y: 28 },
   visible: (i: number = 0) => ({
     opacity: 1,
@@ -569,7 +413,7 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
             flexShrink: 0,
           }}
         >
-          {skill.icon}
+          <skill.icon />
         </span>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div
@@ -584,21 +428,10 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
           >
             {skill.name}
           </div>
-          <div
-            style={{
-              fontSize: "0.7rem",
-              color: T.silver,
-              fontFamily: "'JetBrains Mono',monospace",
-            }}
-          >
-            {skill.yearsExp} yr{skill.yearsExp !== 1 ? "s" : ""} exp
-          </div>
         </div>
-        <LevelBadge label={skill.levelLabel} />
       </div>
 
       {/* Proficiency bar */}
-      <SkillBar level={skill.level} />
 
       {/* Tag chips */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 4 }}>
@@ -637,10 +470,11 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
 };
 
 /** Project card with hover-reveal overlay */
-const ProjectCard: React.FC<{ project: Project; index: number }> = ({
-  project,
-  index,
-}) => {
+const ProjectCard: React.FC<{
+  project: Project;
+  index: number;
+  onClick: (p: Project) => void;
+}> = ({ project, index, onClick }) => {
   const [hovered, setHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
@@ -654,6 +488,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
       itemScope
+      onClick={() => onClick(project)}
       itemType="https://schema.org/SoftwareApplication"
       style={{
         borderRadius: 24,
@@ -676,6 +511,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
       {/* Featured ribbon */}
       {project.featured && (
         <div
+          className="flex align-middle self-center center gap-2"
           style={{
             position: "absolute",
             top: 14,
@@ -692,7 +528,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
             boxShadow: `0 4px 12px rgba(${T.catRgb},.4)`,
           }}
         >
-          ⭐ Featured
+          <FaStar color="var(--coral)" /> Featured
         </div>
       )}
 
@@ -758,76 +594,6 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
               >
                 {project.longDesc}
               </p>
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    style={{
-                      padding: "7px 16px",
-                      borderRadius: 999,
-                      background: "rgba(255,255,255,.1)",
-                      border: "1px solid rgba(255,255,255,.2)",
-                      fontSize: "0.78rem",
-                      fontWeight: 600,
-                      color: T.white,
-                      textDecoration: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      aria-hidden
-                    >
-                      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-                    </svg>
-                    GitHub
-                  </a>
-                )}
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    style={{
-                      padding: "7px 16px",
-                      borderRadius: 999,
-                      background: T.gradDev,
-                      border: "none",
-                      fontSize: "0.78rem",
-                      fontWeight: 700,
-                      color: T.charcoal,
-                      textDecoration: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      aria-hidden
-                    >
-                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                    Live Demo
-                  </a>
-                )}
-              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -867,7 +633,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
           }}
         >
           {project.tags.slice(0, 4).map((tag) => (
-            <a
+            <Link
               key={tag}
               href={`/projects/devops/tag/${tag}`}
               style={{
@@ -883,7 +649,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
               }}
             >
               {tag}
-            </a>
+            </Link>
           ))}
           {project.tags.length > 4 && (
             <span
@@ -933,7 +699,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
             fontFamily: "'JetBrains Mono',monospace",
           }}
         >
-          {project.year}
+          {project?.timeline?.endDate || " "}
         </div>
       </div>
     </motion.article>
@@ -1053,8 +819,17 @@ export default function DevOpsCategoryPage() {
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState("");
   const [showAllTags, setShowAllTags] = useState(false);
-
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  const handleProjectClick = useCallback((project: Project) => {
+    if (project.modal) {
+      setSelectedProject(project);
+    } else {
+      const url = project.liveUrl ?? project.githubUrl;
+      if (url) window.open(url, "_blank", "noopener,noreferrer");
+    }
+  }, []);
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(searchQuery), 260);
     return () => clearTimeout(t);
@@ -1141,8 +916,7 @@ export default function DevOpsCategoryPage() {
             style={{
               position: "absolute",
               inset: 0,
-              backgroundImage:
-                "url('https://picsum.photos/seed/devops-cloud-hero/1600/900')",
+              backgroundImage: `url(${DevOps.src})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               opacity: 0.15,
@@ -1387,11 +1161,11 @@ export default function DevOpsCategoryPage() {
                   label: "Tools",
                   color: T.purple,
                 },
-                {
-                  value: `${stats.expertSkills}`,
-                  label: "Expert-level",
-                  color: T.blue,
-                },
+                // {
+                //   value: `${stats.expertSkills}`,
+                //   label: "Expert-level",
+                //   color: T.blue,
+                // },
               ].map((s) => (
                 <div
                   key={s.label}
@@ -1591,7 +1365,7 @@ export default function DevOpsCategoryPage() {
               {SKILL_CATEGORIES.map((cat) => (
                 <FilterPill
                   key={cat.id}
-                  label={`${cat.icon} ${cat.label}`}
+                  label={` ${cat.label}`}
                   active={skillCat === cat.id}
                   count={
                     cat.id === "all"
@@ -1653,7 +1427,7 @@ export default function DevOpsCategoryPage() {
                   fontFamily: "'JetBrains Mono',monospace",
                 }}
               >
-                🚀 Deployed Work
+                Deployed Work
               </p>
               <div
                 style={{
@@ -1848,7 +1622,12 @@ export default function DevOpsCategoryPage() {
                   }}
                 >
                   {filteredProjects.map((project, i) => (
-                    <ProjectCard key={project.id} project={project} index={i} />
+                    <ProjectCard
+                      key={project.id}
+                      project={project}
+                      index={i}
+                      onClick={handleProjectClick}
+                    />
                   ))}
                 </motion.div>
               ) : (
@@ -2170,6 +1949,12 @@ export default function DevOpsCategoryPage() {
           </div>
         </section>
       </main>
+      {/* Project Detal Modal */}
+      <ProjectModal
+        project={selectedProject as any}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
 
       {/* ── Keyframe injections ───────────────────────────────────── */}
       <style>{`

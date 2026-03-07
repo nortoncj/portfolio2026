@@ -33,40 +33,9 @@
 import React, { useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaStar } from "react-icons/fa6";
+import { Project } from "@/types/Post";
 
-// ─── TYPE DEFINITIONS (matches your data model exactly) ──────────────────────
-export interface ProjectTimeline {
-  duration: string;
-  startDate: string;
-  endDate: string;
-}
-
-export interface ProjectDetails {
-  overview: string;
-  challenges: string;
-  solutions: string;
-  results: string;
-  features: string[];
-  tags: string[];
-}
-
-export interface Project {
-  id: number;
-  title: string;
-  thumbnail: string;
-  modal: boolean;
-  category: string;
-  description: string;
-  technologies: string[];
-  icon: string;
-  featured: boolean;
-  timeline: ProjectTimeline;
-  liveUrl?: string;
-  videoUrl?: string;
-  githubUrl?: string;
-  details: ProjectDetails;
-}
-
+// ─── MODAL PROPS ──────────────────────────────────────────────────────────────
 interface ProjectModalProps {
   project: Project | null;
   isOpen: boolean;
@@ -487,7 +456,7 @@ export default function ProjectModal({
 
   // ── Derived values ──────────────────────────────────────────────────────────
   const color = useMemo(
-    () => getCategoryColor(project?.category ?? ""),
+    () => getCategoryColor(project?.category ?? project?.categories?.[0] ?? ""),
     [project?.category],
   );
   const embedUrl = useMemo(
@@ -534,17 +503,18 @@ export default function ProjectModal({
     title,
     category,
     description,
-    technologies,
+    skills: technologies,
     icon,
     featured,
-    thumbnail,
+    image: thumbnail,
     timeline,
     liveUrl,
     githubUrl,
     details,
+    tags,
   } = project;
 
-  const { overview, challenges, solutions, results, features, tags } = details;
+  const { overview, challenges, solutions, results, features } = details ?? {};
 
   // ── Format date helper ──────────────────────────────────────────────────────
   const fmtDate = (d: string) => {
@@ -572,17 +542,18 @@ export default function ProjectModal({
   };
 
   const hasDetails = overview || challenges || solutions || results;
-  const hasFeatures = features?.length > 0;
-  const hasTags = tags?.length > 0;
-  const hasTech = technologies?.length > 0;
+  const hasFeatures = (features?.length ?? 0) > 0;
+  const hasTags = (tags?.length ?? 0) > 0;
+  const hasTech = (technologies?.length ?? 0) > 0;
   const showLive = liveUrl && liveUrl !== "#";
   const showGH = githubUrl && githubUrl !== "#";
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         /* ── Backdrop ──────────────────────────────────────────── */
         <motion.div
+          key="project-modal-overlay"
           ref={overlayRef}
           role="dialog"
           aria-modal="true"
@@ -905,18 +876,18 @@ export default function ProjectModal({
                 }}
               >
                 {hasTech &&
-                  technologies.map((tech) => (
+                  technologies.map((tech, i) => (
                     <Chip
-                      key={tech}
+                      key={`tech-${i}-${tech}`}
                       label={tech}
                       accent={color.accent}
                       rgb={color.rgb}
                     />
                   ))}
                 {hasTags &&
-                  tags.map((tag) => (
+                  tags.map((tag, i) => (
                     <Chip
-                      key={tag}
+                      key={`tag-${i}-${tag}`}
                       label={`#${tag}`}
                       accent={T.silver}
                       rgb={hexToRgb(T.silver)}
@@ -1012,9 +983,9 @@ export default function ProjectModal({
                         gap: "0.55rem",
                       }}
                     >
-                      {features.map((feat) => (
+                      {features?.map((feat, i) => (
                         <li
-                          key={feat}
+                          key={`feat-${i}-${feat}`}
                           style={{
                             display: "flex",
                             alignItems: "flex-start",
@@ -1108,7 +1079,7 @@ export default function ProjectModal({
                             color: T.charcoal,
                           }}
                         >
-                          {timeline.duration}
+                          {timeline?.duration}
                         </div>
                       </div>
                     </div>
@@ -1153,12 +1124,12 @@ export default function ProjectModal({
                             fontFamily: "'JetBrains Mono',monospace",
                           }}
                         >
-                          {fmtDate(timeline.startDate)}
+                          {fmtDate(timeline?.startDate ?? "")}
                           <br />
                           <span
                             style={{ color: T.silver, fontSize: "0.78rem" }}
                           >
-                            → {fmtDate(timeline.endDate)}
+                            → {fmtDate(timeline?.endDate ?? "")}
                           </span>
                         </div>
                       </div>

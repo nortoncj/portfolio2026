@@ -1,5 +1,20 @@
 "use client";
 
+/**
+ * MarketingCategoryPage.tsx
+ * ─────────────────────────────────────────────────────────────
+ * React + TypeScript category page for Digital Marketing.
+ * Design system: globals.css tokens — primary accent: mint #a9dc76
+ * Covers: HTML Emails · SEO · Analytics Dashboards · N8N / Zapier /
+ *         AI Automations · Copywriting · CRO · CRM tools
+ * Animations: Framer Motion
+ * SEO: schema.org ItemList + BreadcrumbList + Person knowsAbout
+ * ─────────────────────────────────────────────────────────────
+ * Dependencies:
+ *   npm install framer-motion
+ *   Place at: app/projects/marketing/page.tsx
+ */
+
 import React, {
   useState,
   useRef,
@@ -8,331 +23,217 @@ import React, {
   useMemo,
 } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
+import Marketing from "@images/marketing.jpg";
 
-// ─── DESIGN TOKENS (mirrors globals.css :root) ───────────────────────────────
+// ─── DESIGN TOKENS (mirrors globals.css :root) ────────────────────────────────
 const T = {
   // Brand palette
   burgundy: "#ff6188",
   magenta: "#fc5fa3",
   purple: "#ab9df2",
   coral: "#ffd866",
-  mint: "#a9dc76",
+  mint: "#a9dc76", // ← PRIMARY Marketing accent
   blue: "#78dce8",
-  // Light-theme surfaces
+  // Surfaces
   white: "#fcfcfa",
   cream: "#f9f8f6",
   charcoal: "#2d2a2e",
   slate: "#221f22",
-  mid: "#3a3742",
   silver: "#6b7280",
   muted: "#939293",
-  // Web Dev primary accent — burgundy/magenta duo
-  cat: "#ff6188",
-  catRgb: "255,97,136",
-  catDark: "#e0456f",
-  catGlow: "rgba(255,97,136,0.28)",
-  // Gradients
-  gradPrimary: "linear-gradient(135deg,#ff6188 0%,#fc5fa3 50%,#ab9df2 100%)",
-  gradWeb: "linear-gradient(135deg,#ff6188,#ab9df2)",
-  gradCool: "linear-gradient(135deg,#ab9df2,#78dce8)",
-  gradWarm: "linear-gradient(135deg,#ff6188,#ffd866)",
+  // Marketing accent tokens
+  cat: "#a9dc76",
+  catRgb: "169,220,118",
+  catDark: "#8ec95e",
+  catGlow: "rgba(169,220,118,0.28)",
+  // Gradients — green-forward
+  gradPrimary: "linear-gradient(135deg,#a9dc76 0%,#78dce8 55%,#ab9df2 100%)",
+  gradMarketing: "linear-gradient(135deg,#a9dc76,#ffd866)",
+  gradFresh: "linear-gradient(135deg,#a9dc76,#78dce8)",
+  gradWarm: "linear-gradient(135deg,#a9dc76,#ff6188)",
 } as const;
 
 // ─── TYPE DEFINITIONS ─────────────────────────────────────────────────────────
 type SkillCategory =
-  | "frontend"
-  | "backend"
-  | "devops"
-  | "design"
-  | "languages"
+  | "email"
+  | "seo"
+  | "automation"
+  | "analytics"
+  | "copywriting"
   | "tools";
 type ProjectStatus = "completed" | "in-progress" | "concept";
 
 interface Skill {
   id: string;
   name: string;
-  icon: string;
-  level: number; // 0–100
+  icon: IconType;
+  color?: string;
+  level: number;
   levelLabel: "Expert" | "Advanced" | "Intermediate" | "Familiar";
   category: SkillCategory;
   tags: string[];
   yearsExp: number;
 }
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  longDesc: string;
-  image: string;
-  tags: string[];
-  skills: string[];
-  status: ProjectStatus;
-  featured: boolean;
-  liveUrl?: string;
-  githubUrl?: string;
-  year: number;
-}
-
 // ─── MOCK DATA — Skills ───────────────────────────────────────────────────────
 const SKILLS: Skill[] = [
   {
-    id: "react",
-    name: "React / Next.js",
-    icon: "⚛️",
-    level: 94,
-    levelLabel: "Expert",
-    category: "frontend",
-    tags: ["jsx", "hooks", "server-components", "app-router"],
-    yearsExp: 5,
-  },
-  {
-    id: "typescript",
-    name: "TypeScript",
-    icon: "🔷",
-    level: 90,
-    levelLabel: "Expert",
-    category: "languages",
-    tags: ["generics", "utility-types", "zod", "strict"],
-    yearsExp: 4,
-  },
-  {
-    id: "tailwind",
-    name: "Tailwind CSS",
-    icon: "🎨",
+    id: "html-email",
+    name: "HTML Email Templates",
+    icon: FaEnvelope,
     level: 95,
     levelLabel: "Expert",
-    category: "frontend",
-    tags: ["utility-first", "responsive", "dark-mode", "animations"],
-    yearsExp: 4,
-  },
-  {
-    id: "nodejs",
-    name: "Node.js / Express",
-    icon: "🟢",
-    level: 88,
-    levelLabel: "Expert",
-    category: "backend",
-    tags: ["rest-api", "middleware", "auth", "express"],
+    category: "email",
+    tags: ["mjml", "responsive", "dark-mode", "accessibility"],
     yearsExp: 5,
   },
   {
-    id: "postgres",
-    name: "PostgreSQL / Supabase",
-    icon: "🐘",
-    level: 83,
-    levelLabel: "Advanced",
-    category: "backend",
-    tags: ["sql", "rls", "realtime", "functions"],
-    yearsExp: 4,
-  },
-  {
-    id: "graphql",
-    name: "GraphQL / REST",
-    icon: "◈",
-    level: 80,
-    levelLabel: "Advanced",
-    category: "backend",
-    tags: ["apollo", "resolvers", "schema", "subscriptions"],
-    yearsExp: 3,
-  },
-  {
-    id: "docker",
-    name: "Docker / Compose",
-    icon: "🐳",
-    level: 85,
-    levelLabel: "Advanced",
-    category: "devops",
-    tags: ["containerization", "multi-stage", "volumes", "networks"],
-    yearsExp: 4,
-  },
-  {
-    id: "cicd",
-    name: "CI/CD — GitHub Actions",
-    icon: "⚙️",
-    level: 82,
-    levelLabel: "Advanced",
-    category: "devops",
-    tags: ["workflows", "runners", "secrets", "matrix"],
-    yearsExp: 3,
-  },
-  {
-    id: "figma",
-    name: "Figma / UI Design",
-    icon: "✏️",
-    level: 76,
-    levelLabel: "Intermediate",
-    category: "design",
-    tags: ["components", "auto-layout", "prototyping", "design-tokens"],
-    yearsExp: 3,
-  },
-  {
-    id: "animations",
-    name: "GSAP / Framer Motion",
-    icon: "✨",
-    level: 85,
-    levelLabel: "Advanced",
-    category: "frontend",
-    tags: ["scroll-trigger", "timeline", "spring", "intersection"],
-    yearsExp: 3,
-  },
-  {
-    id: "seo",
-    name: "Technical SEO",
-    icon: "🔍",
+    id: "klaviyo",
+    name: "Klaviyo / Mailchimp",
+    icon: FaMailchimp,
     level: 88,
     levelLabel: "Expert",
-    category: "tools",
-    tags: ["schema.org", "core-web-vitals", "lighthouse", "og-meta"],
+    category: "email",
+    tags: ["flows", "segmentation", "a-b-testing", "deliverability"],
     yearsExp: 4,
   },
   {
-    id: "python",
-    name: "Python / FastAPI",
-    icon: "🐍",
+    id: "n8n",
+    name: "N8N Automation",
+    icon: FaCircleNodes,
+    level: 91,
+    levelLabel: "Expert",
+    category: "automation",
+    tags: ["workflows", "webhooks", "self-hosted", "api-integrations"],
+    yearsExp: 3,
+  },
+  {
+    id: "zapier",
+    name: "Zapier / Make.com",
+    icon: SiZapier,
+    level: 85,
+    levelLabel: "Advanced",
+    category: "automation",
+    tags: ["zaps", "scenarios", "multi-step", "filters", "routers"],
+    yearsExp: 4,
+  },
+  {
+    id: "ai-workflows",
+    name: "AI-Powered Workflows",
+    icon: AiFillAndroid,
+    level: 87,
+    levelLabel: "Advanced",
+    category: "automation",
+    tags: ["openai", "langchain", "prompt-engineering", "rag", "agents"],
+    yearsExp: 2,
+  },
+  {
+    id: "technical-seo",
+    name: "Technical SEO",
+    icon: DiGoogleAnalytics,
+    level: 90,
+    levelLabel: "Expert",
+    category: "seo",
+    tags: [
+      "core-web-vitals",
+      "schema.org",
+      "crawlability",
+      "sitemap",
+      "hreflang",
+    ],
+    yearsExp: 5,
+  },
+  {
+    id: "ahrefs",
+    name: "Ahrefs / Semrush",
+    icon: FaChartArea,
+    level: 83,
+    levelLabel: "Advanced",
+    category: "seo",
+    tags: ["keyword-research", "backlinks", "gap-analysis", "rank-tracking"],
+    yearsExp: 4,
+  },
+  {
+    id: "ga4",
+    name: "Google Analytics 4",
+    icon: SiGoogleanalytics,
+    level: 86,
+    levelLabel: "Advanced",
+    category: "analytics",
+    tags: ["events", "audiences", "funnels", "bigquery-export", "attribution"],
+    yearsExp: 3,
+  },
+  {
+    id: "looker",
+    name: "Looker Studio Dashboards",
+    icon: FaComputer,
+    level: 84,
+    levelLabel: "Advanced",
+    category: "analytics",
+    tags: [
+      "data-blending",
+      "custom-metrics",
+      "scheduled-reports",
+      "ga4-connector",
+    ],
+    yearsExp: 3,
+  },
+  {
+    id: "copywriting",
+    name: "Conversion Copywriting",
+    icon: FaPenFancy,
+    level: 88,
+    levelLabel: "Expert",
+    category: "copywriting",
+    tags: ["email-sequences", "landing-pages", "ad-copy", "storytelling"],
+    yearsExp: 5,
+  },
+  {
+    id: "hubspot",
+    name: "HubSpot CRM",
+    icon: FaHubspot,
     level: 80,
     levelLabel: "Advanced",
-    category: "languages",
-    tags: ["fastapi", "pydantic", "async", "scripting"],
-    yearsExp: 4,
+    category: "tools",
+    tags: ["pipelines", "workflows", "lead-scoring", "sequences", "reporting"],
+    yearsExp: 3,
+  },
+  {
+    id: "cro",
+    name: "CRO / A/B Testing",
+    icon: FaTableList,
+    level: 76,
+    levelLabel: "Intermediate",
+    category: "analytics",
+    tags: [
+      "vwo",
+      "optimizely",
+      "heat-maps",
+      "session-recordings",
+      "hypothesis",
+    ],
+    yearsExp: 3,
   },
 ];
 
 // ─── MOCK DATA — Projects ─────────────────────────────────────────────────────
-const PROJECTS: Project[] = [
-  {
-    id: "portfolio-site",
-    title: "Personal Portfolio & Blog",
-    description:
-      "Next.js 14 App Router site with MDX blog, dark/light themes, Framer Motion animations, and Lighthouse 100 scores.",
-    longDesc:
-      "Built a performant personal brand site using Next.js 14 App Router with MDX-powered blog posts, ISR revalidation, and a custom design system. Achieves Lighthouse 100 across all categories. Features include category-filtered project pages, animated hero with GSAP, glassmorphism cards, structured schema.org data, and an email newsletter powered by Resend.",
-    image: "https://picsum.photos/seed/portfolio-web/800/500",
-    tags: ["next.js", "typescript", "tailwind", "mdx", "framer-motion", "seo"],
-    skills: ["react", "typescript", "tailwind", "animations", "seo"],
-    status: "completed",
-    featured: true,
-    liveUrl: "https://yourportfolio.dev",
-    githubUrl: "https://github.com",
-    year: 2026,
-  },
-  {
-    id: "saas-dashboard",
-    title: "SaaS Analytics Dashboard",
-    description:
-      "Real-time metrics dashboard with Supabase Realtime, Recharts, role-based auth, and Stripe billing integration.",
-    longDesc:
-      "Full-stack SaaS application with a Next.js 14 frontend, Supabase backend, and Stripe Checkout. Features real-time chart updates via Supabase Realtime WebSockets, row-level security policies, multi-tenant workspace isolation, CSV export, and email alerts on threshold breaches. CI/CD via GitHub Actions deploys to Vercel on every merge to main.",
-    image: "https://picsum.photos/seed/saas-dashboard-web/800/500",
-    tags: ["next.js", "supabase", "recharts", "stripe", "typescript", "rls"],
-    skills: ["react", "postgres", "typescript", "cicd", "docker"],
-    status: "completed",
-    featured: true,
-    liveUrl: "https://demo.yourportfolio.dev",
-    githubUrl: "https://github.com",
-    year: 2025,
-  },
-  {
-    id: "ecommerce-platform",
-    title: "Headless E-commerce Store",
-    description:
-      "Shopify Storefront API + Next.js storefront with cart context, optimistic UI, and edge-cached product pages.",
-    longDesc:
-      "Custom headless storefront powered by Shopify's Storefront API and Next.js. Product, collection, and checkout pages are fully SSR/ISR. Cart state is managed via React Context with optimistic updates and edge-cached using Vercel Edge Config. Integrates Klaviyo for abandoned-cart flows and a custom loyalty points widget.",
-    image: "https://picsum.photos/seed/ecommerce-web/800/500",
-    tags: [
-      "next.js",
-      "shopify",
-      "graphql",
-      "typescript",
-      "edge-functions",
-      "klaviyo",
-    ],
-    skills: ["react", "graphql", "typescript", "tailwind"],
-    status: "completed",
-    featured: true,
-    githubUrl: "https://github.com",
-    liveUrl: "https://yourportfolio.dev",
-    year: 2025,
-  },
-  {
-    id: "email-automation",
-    title: "Email Automation Platform",
-    description:
-      "Node.js + Resend platform for drag-and-drop transactional email sequences with A/B testing and analytics.",
-    longDesc:
-      "A lightweight email automation tool built on Node.js, Resend (sending), and a React-based drag-and-drop sequence builder. Supports conditional branching, A/B test splits, open/click webhooks, and a Recharts analytics panel. PostgreSQL stores subscribers and event logs; Docker Compose orchestrates local dev; GitHub Actions deploys to a DigitalOcean Droplet.",
-    image: "https://picsum.photos/seed/email-platform-web/800/500",
-    tags: ["node.js", "resend", "react", "postgresql", "docker", "email"],
-    skills: ["nodejs", "react", "postgres", "docker", "cicd"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    year: 2025,
-  },
-  {
-    id: "devops-dashboard",
-    title: "Homelab Monitoring Dashboard",
-    description:
-      "React + FastAPI dashboard surfacing Prometheus metrics from a 4-node K3s cluster with dark glassmorphism UI.",
-    longDesc:
-      "Custom monitoring UI that reads Prometheus metrics via a FastAPI proxy and displays server health, pod counts, CPU/memory trends, and alert state. Built with React, Recharts, and a dark glassmorphism design system. Authentication via JWT; WebSocket pushes live metric snapshots every 5 s. Deployed as a Docker container on the same K3s cluster it monitors.",
-    image: "https://picsum.photos/seed/devops-dash-web/800/500",
-    tags: ["react", "fastapi", "python", "prometheus", "docker", "websockets"],
-    skills: ["react", "python", "docker", "typescript", "animations"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    year: 2024,
-  },
-  {
-    id: "marketing-site",
-    title: "Digital Marketing Agency Site",
-    description:
-      "Conversion-optimised agency site with GSAP scroll animations, CMS-driven case studies, and 98 Lighthouse score.",
-    longDesc:
-      "Designed and developed a multi-page marketing site for a digital agency. Pages use GSAP ScrollTrigger for section reveals and parallax effects. Content is managed via Sanity CMS with live previews. Open Graph tags, JSON-LD, and Core Web Vitals tuning pushed Lighthouse to 98/100. Lead capture form integrates with HubSpot via API.",
-    image: "https://picsum.photos/seed/agency-web/800/500",
-    tags: ["next.js", "gsap", "sanity-cms", "seo", "hubspot", "typescript"],
-    skills: ["react", "animations", "seo", "typescript", "tailwind"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    liveUrl: "https://yourportfolio.dev",
-    year: 2024,
-  },
-  {
-    id: "ai-content-tool",
-    title: "AI Content Generation Tool",
-    description:
-      "Next.js SaaS wrapping OpenAI GPT-4o with streaming responses, prompt templates, and Stripe subscription billing.",
-    longDesc:
-      "A niche SaaS product that lets marketers generate SEO-optimised blog drafts using GPT-4o. The Next.js frontend streams tokens via OpenAI's Edge runtime; a template library stores reusable prompts in Supabase. Stripe handles subscription tiers (Starter / Pro / Agency). Includes a custom WYSIWYG editor built on TipTap and one-click WordPress XML export.",
-    image: "https://picsum.photos/seed/ai-content-web/800/500",
-    tags: ["next.js", "openai", "supabase", "stripe", "tiptap", "typescript"],
-    skills: ["react", "typescript", "postgres", "nodejs"],
-    status: "in-progress",
-    featured: true,
-    githubUrl: "https://github.com",
-    year: 2026,
-  },
-  {
-    id: "component-library",
-    title: "Open-Source Component Library",
-    description:
-      "Accessible, animated React component library (Storybook + Radix UI primitives) published to npm.",
-    longDesc:
-      "Curated a collection of 30+ production-ready React components built on Radix UI primitives with full ARIA compliance. Animated variants powered by Framer Motion; dark/light themes via CSS custom properties. Storybook documents every prop, slot, and interaction. Published to npm; tested with Vitest + Testing Library; typed with TypeScript strict mode.",
-    image: "https://picsum.photos/seed/component-lib-web/800/500",
-    tags: ["react", "radix-ui", "storybook", "typescript", "npm", "a11y"],
-    skills: ["react", "typescript", "animations", "figma"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    liveUrl: "https://yourportfolio.dev",
-    year: 2024,
-  },
-];
+import { Marketing as PROJECTS } from "@/data/project";
+import { IconType } from "react-icons";
+import {
+  FaChartArea,
+  FaCircleNodes,
+  FaComputer,
+  FaEnvelope,
+  FaHubspot,
+  FaMailchimp,
+  FaPenFancy,
+  FaTableList,
+} from "react-icons/fa6";
+import { SiGoogleanalytics, SiZapier } from "react-icons/si";
+import { AiFillAndroid } from "react-icons/ai";
+import { DiGoogleAnalytics } from "react-icons/di";
+import { Project } from "@/types/Post";
+import Link from "next/link";
 
 // ─── DERIVED CONSTANTS ────────────────────────────────────────────────────────
 const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
@@ -340,15 +241,14 @@ const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
 const SKILL_CATEGORIES: {
   id: SkillCategory | "all";
   label: string;
-  icon: string;
 }[] = [
-  { id: "all", label: "All Skills", icon: "⚡" },
-  { id: "frontend", label: "Frontend", icon: "🖥️" },
-  { id: "backend", label: "Backend", icon: "⚙️" },
-  { id: "devops", label: "DevOps", icon: "🚀" },
-  { id: "languages", label: "Languages", icon: "💬" },
-  { id: "design", label: "Design", icon: "🎨" },
-  { id: "tools", label: "Tools", icon: "🛠️" },
+  { id: "all", label: "All Skills" },
+  { id: "automation", label: "Automation" },
+  { id: "email", label: "Email" },
+  { id: "seo", label: "SEO" },
+  { id: "analytics", label: "Analytics" },
+  { id: "copywriting", label: "Copy & CRO" },
+  { id: "tools", label: "CRM & Tools" },
 ];
 
 const STATUS_COLORS: Record<
@@ -376,7 +276,7 @@ const STATUS_COLORS: Record<
 };
 
 // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────────
-const fadeUp = {
+const fadeUp: any = {
   hidden: { opacity: 0, y: 28 },
   visible: (i: number = 0) => ({
     opacity: 1,
@@ -385,32 +285,22 @@ const fadeUp = {
   }),
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.92 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.45, ease: [0.4, 0, 0.2, 1] },
-  },
-};
-
 // ─── SUB-COMPONENTS ───────────────────────────────────────────────────────────
 
 /** Animated proficiency bar */
 const SkillBar: React.FC<{ level: number; color?: string }> = ({
   level,
-  color = T.burgundy,
+  color = T.mint,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-
   return (
     <div
       ref={ref}
       style={{
         height: 5,
         borderRadius: 4,
-        background: "rgba(45,42,46,.12)",
+        background: "rgba(45,42,46,.1)",
         overflow: "hidden",
         marginTop: 6,
       }}
@@ -422,7 +312,7 @@ const SkillBar: React.FC<{ level: number; color?: string }> = ({
         style={{
           height: "100%",
           borderRadius: 4,
-          background: `linear-gradient(90deg, ${color}, ${T.purple})`,
+          background: `linear-gradient(90deg, ${color}, ${T.blue})`,
           boxShadow: `0 0 8px ${color}55`,
         }}
       />
@@ -433,9 +323,9 @@ const SkillBar: React.FC<{ level: number; color?: string }> = ({
 /** Level badge pill */
 const LevelBadge: React.FC<{ label: string }> = ({ label }) => {
   const colors: Record<string, { bg: string; color: string }> = {
-    Expert: { bg: "rgba(255,97,136,.15)", color: T.burgundy },
-    Advanced: { bg: "rgba(171,157,242,.15)", color: T.purple },
-    Intermediate: { bg: "rgba(120,220,232,.15)", color: T.blue },
+    Expert: { bg: "rgba(169,220,118,.18)", color: T.mint },
+    Advanced: { bg: "rgba(120,220,232,.15)", color: T.blue },
+    Intermediate: { bg: "rgba(171,157,242,.15)", color: T.purple },
     Familiar: { bg: "rgba(147,146,147,.15)", color: T.muted },
   };
   const c = colors[label] ?? colors["Familiar"];
@@ -467,7 +357,6 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
-
   return (
     <motion.div
       ref={ref}
@@ -475,22 +364,21 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
       variants={fadeUp}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
-      whileHover={{ y: -5, borderColor: `${T.burgundy}55` }}
+      whileHover={{ y: -5, borderColor: `rgba(${T.catRgb},.45)` }}
       style={{
         padding: "1.25rem",
         borderRadius: 16,
         background: "rgba(249,248,246,.9)",
-        border: "1px solid rgba(255,97,136,.15)",
+        border: "1px solid rgba(169,220,118,.15)",
         backdropFilter: "blur(12px)",
         boxShadow:
-          "0 2px 12px rgba(45,42,46,.06), 0 0 0 1px rgba(255,97,136,.06)",
+          "0 2px 12px rgba(45,42,46,.06), 0 0 0 1px rgba(169,220,118,.06)",
         transition: "border-color 0.3s, box-shadow 0.3s",
         display: "flex",
         flexDirection: "column",
         gap: 6,
       }}
     >
-      {/* Icon + name row */}
       <div
         style={{
           display: "flex",
@@ -504,16 +392,16 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
             width: 38,
             height: 38,
             borderRadius: 10,
-            background: "rgba(255,97,136,.1)",
-            border: "1px solid rgba(255,97,136,.25)",
+            background: "rgba(169,220,118,.1)",
+            border: "1px solid rgba(169,220,118,.25)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "1.1rem",
+            fontSize: "1.15rem",
             flexShrink: 0,
           }}
         >
-          {skill.icon}
+          <skill.icon color={skill.color} />
         </span>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div
@@ -528,7 +416,7 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
           >
             {skill.name}
           </div>
-          <div
+          {/* <div
             style={{
               fontSize: "0.7rem",
               color: T.silver,
@@ -536,40 +424,36 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
             }}
           >
             {skill.yearsExp} yr{skill.yearsExp !== 1 ? "s" : ""} exp
-          </div>
+          </div> */}
         </div>
-        <LevelBadge label={skill.levelLabel} />
+        {/* <LevelBadge label={skill.levelLabel} /> */}
       </div>
-
-      {/* Proficiency bar */}
-      <SkillBar level={skill.level} />
-
-      {/* Tag chips */}
+      {/* <SkillBar level={skill.level} /> */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 4 }}>
         {skill.tags.slice(0, 3).map((tag) => (
           <a
             key={tag}
-            href={`/projects/web-dev/skill/${tag}`}
+            href={`/projects/marketing/skill/${tag}`}
             style={{
               padding: "2px 8px",
               borderRadius: 6,
               fontSize: "0.66rem",
               fontFamily: "'JetBrains Mono',monospace",
-              background: "rgba(255,97,136,.07)",
-              border: "1px solid rgba(255,97,136,.18)",
+              background: "rgba(169,220,118,.07)",
+              border: "1px solid rgba(169,220,118,.18)",
               color: T.silver,
               textDecoration: "none",
               transition: "color 0.2s, background 0.2s",
             }}
             onMouseEnter={(e) => {
               const el = e.currentTarget as HTMLAnchorElement;
-              el.style.color = T.burgundy;
-              el.style.background = "rgba(255,97,136,.14)";
+              el.style.color = T.mint;
+              el.style.background = "rgba(169,220,118,.15)";
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLAnchorElement;
               el.style.color = T.silver;
-              el.style.background = "rgba(255,97,136,.07)";
+              el.style.background = "rgba(169,220,118,.07)";
             }}
           >
             #{tag}
@@ -603,16 +487,16 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
         borderRadius: 24,
         overflow: "hidden",
         background: "rgba(249,248,246,.95)",
-        border: "1px solid rgba(255,97,136,.12)",
+        border: "1px solid rgba(169,220,118,.12)",
         boxShadow: "0 4px 20px rgba(45,42,46,.08)",
-        transition: "box-shadow 0.35s, border-color 0.35s, transform 0.35s",
+        transition: "box-shadow 0.35s, border-color 0.35s",
         cursor: "pointer",
         position: "relative",
       }}
       whileHover={{
         y: -7,
-        boxShadow: `0 20px 60px rgba(0,0,0,.12), 0 0 30px rgba(${T.catRgb},.18)`,
-        borderColor: `rgba(${T.catRgb},.35)`,
+        boxShadow: `0 20px 60px rgba(0,0,0,.12), 0 0 30px rgba(${T.catRgb},.22)`,
+        borderColor: `rgba(${T.catRgb},.4)`,
       }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
@@ -631,7 +515,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
             fontWeight: 800,
             letterSpacing: "0.1em",
             textTransform: "uppercase",
-            color: T.white,
+            color: T.charcoal,
             borderRadius: "0 8px 8px 0",
             boxShadow: `0 4px 12px rgba(${T.catRgb},.4)`,
           }}
@@ -650,7 +534,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
       >
         <motion.img
           src={project.image}
-          alt={`${project.title} — web development project`}
+          alt={`${project.title} — digital marketing project`}
           loading="lazy"
           animate={{ scale: hovered ? 1.07 : 1 }}
           transition={{ duration: 0.5 }}
@@ -662,7 +546,6 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
           }}
           itemProp="image"
         />
-        {/* Gradient overlay */}
         <div
           style={{
             position: "absolute",
@@ -672,7 +555,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
           }}
         />
 
-        {/* Hover reveal panel */}
+        {/* Hover reveal */}
         <AnimatePresence>
           {hovered && (
             <motion.div
@@ -683,7 +566,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
               style={{
                 position: "absolute",
                 inset: 0,
-                background: "rgba(45,42,46,.88)",
+                background: "rgba(34,31,34,.9)",
                 backdropFilter: "blur(4px)",
                 display: "flex",
                 flexDirection: "column",
@@ -702,76 +585,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
               >
                 {project.longDesc}
               </p>
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    style={{
-                      padding: "7px 16px",
-                      borderRadius: 999,
-                      background: "rgba(255,255,255,.1)",
-                      border: "1px solid rgba(255,255,255,.2)",
-                      fontSize: "0.78rem",
-                      fontWeight: 600,
-                      color: T.white,
-                      textDecoration: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      aria-hidden
-                    >
-                      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-                    </svg>
-                    GitHub
-                  </a>
-                )}
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    style={{
-                      padding: "7px 16px",
-                      borderRadius: 999,
-                      background: T.gradWeb,
-                      border: "none",
-                      fontSize: "0.78rem",
-                      fontWeight: 700,
-                      color: T.white,
-                      textDecoration: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      aria-hidden
-                    >
-                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                    Live Demo
-                  </a>
-                )}
-              </div>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}></div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -801,7 +615,6 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
 
       {/* Card body */}
       <div style={{ padding: "1.25rem 1.4rem 1.4rem" }}>
-        {/* Tags */}
         <div
           style={{
             display: "flex",
@@ -811,23 +624,23 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
           }}
         >
           {project.tags.slice(0, 4).map((tag) => (
-            <a
+            <Link
               key={tag}
-              href={`/projects/web-dev/tag/${tag}`}
+              href={`/projects/marketing/tag/${tag}`}
               style={{
                 padding: "2px 9px",
                 borderRadius: 6,
                 fontSize: "0.64rem",
                 fontFamily: "'JetBrains Mono',monospace",
-                background: "rgba(255,97,136,.08)",
-                border: "1px solid rgba(255,97,136,.2)",
-                color: T.burgundy,
+                background: "rgba(169,220,118,.08)",
+                border: "1px solid rgba(169,220,118,.22)",
+                color: T.mint,
                 textDecoration: "none",
                 fontWeight: 600,
               }}
             >
               {tag}
-            </a>
+            </Link>
           ))}
           {project.tags.length > 4 && (
             <span
@@ -870,7 +683,6 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
           {project.description}
         </p>
 
-        {/* Year */}
         <div
           style={{
             fontSize: "0.72rem",
@@ -878,7 +690,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
             fontFamily: "'JetBrains Mono',monospace",
           }}
         >
-          {project.year}
+          {project.timeline?.endDate}
         </div>
       </div>
     </motion.article>
@@ -892,7 +704,7 @@ const FilterPill: React.FC<{
   count?: number;
   onClick: () => void;
   color?: string;
-}> = ({ label, active, count, onClick, color = T.burgundy }) => (
+}> = ({ label, active, count, onClick, color = T.mint }) => (
   <button
     onClick={onClick}
     aria-pressed={active}
@@ -906,7 +718,7 @@ const FilterPill: React.FC<{
         ? `1.5px solid ${color}`
         : "1.5px solid rgba(45,42,46,.15)",
       background: active
-        ? `linear-gradient(135deg,${color}22,${T.purple}22)`
+        ? `linear-gradient(135deg,${color}22,${T.blue}22)`
         : "rgba(249,248,246,.8)",
       color: active ? color : T.silver,
       backdropFilter: "blur(8px)",
@@ -914,7 +726,7 @@ const FilterPill: React.FC<{
       display: "flex",
       alignItems: "center",
       gap: 6,
-      boxShadow: active ? `0 0 12px ${color}25` : "none",
+      boxShadow: active ? `0 0 12px ${color}28` : "none",
     }}
   >
     {label}
@@ -958,16 +770,16 @@ const schemaData = {
         {
           "@type": "ListItem",
           position: 3,
-          name: "Web Development",
-          item: "https://yourportfolio.dev/projects/web-dev",
+          name: "Marketing",
+          item: "https://yourportfolio.dev/projects/marketing",
         },
       ],
     },
     {
       "@type": "ItemList",
-      name: "Web Development Projects",
+      name: "Digital Marketing Projects",
       description:
-        "Full-stack web development projects spanning Next.js, React, Node.js, and modern tooling.",
+        "HTML email templates, SEO systems, analytics dashboards, N8N automations, AI workflows, and full-funnel marketing campaigns.",
       numberOfItems: PROJECTS.length,
       itemListElement: PROJECTS.map((p, i) => ({
         "@type": "ListItem",
@@ -977,8 +789,8 @@ const schemaData = {
           name: p.title,
           description: p.description,
           url:
-            p.liveUrl ?? `https://yourportfolio.dev/projects/web-dev/${p.id}`,
-          applicationCategory: "WebApplication",
+            p.liveUrl ?? `https://yourportfolio.dev/projects/marketing/${p.id}`,
+          applicationCategory: "BusinessApplication",
           operatingSystem: "Web Browser",
         },
       })),
@@ -987,28 +799,102 @@ const schemaData = {
       "@type": "Person",
       name: "Chris Norton",
       url: "https://yourportfolio.dev/about",
-      jobTitle: "Full-Stack Web Developer & Systems Engineer",
+      jobTitle: "Digital Marketer, Automation Engineer & Systems Strategist",
       knowsAbout: SKILLS.map((s) => s.name),
     },
   ],
 };
 
+// ─── STAT COUNTER HOOK ────────────────────────────────────────────────────────
+function useCountUp(target: number, duration = 1400, start = false) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let frame: number;
+    const startTime = performance.now();
+    const tick = (now: number) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [start, target, duration]);
+  return count;
+}
+
+// ─── ANIMATED STAT CHIP ───────────────────────────────────────────────────────
+const StatChip: React.FC<{
+  value: string | number;
+  label: string;
+  color: string;
+  suffix?: string;
+}> = ({ value, label, color, suffix = "" }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true });
+  const numeric = typeof value === "number" ? value : 0;
+  const counted = useCountUp(
+    numeric,
+    1200,
+    inView && typeof value === "number",
+  );
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        padding: "10px 20px",
+        borderRadius: 14,
+        background: "rgba(255,255,255,.07)",
+        border: `1px solid ${color}33`,
+        backdropFilter: "blur(12px)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        minWidth: 84,
+      }}
+    >
+      <span
+        style={{
+          fontSize: "1.6rem",
+          fontWeight: 800,
+          color,
+          lineHeight: 1.1,
+          fontFamily: "'JetBrains Mono',monospace",
+        }}
+      >
+        {typeof value === "number" ? counted : value}
+        {suffix}
+      </span>
+      <span
+        style={{
+          fontSize: "0.68rem",
+          color: "rgba(252,252,250,.5)",
+          textTransform: "uppercase",
+          letterSpacing: "0.08em",
+          textAlign: "center",
+        }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+};
+
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
-export default function WebDevCategoryPage() {
-  // Filter state
+export default function MarketingCategoryPage() {
   const [skillCat, setSkillCat] = useState<SkillCategory | "all">("all");
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState("");
   const [showAllTags, setShowAllTags] = useState(false);
 
-  // Debounced search
   const [debouncedSearch, setDebouncedSearch] = useState("");
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(searchQuery), 260);
     return () => clearTimeout(t);
   }, [searchQuery]);
 
-  // Filtered skills
   const filteredSkills = useMemo(
     () =>
       skillCat === "all"
@@ -1017,7 +903,6 @@ export default function WebDevCategoryPage() {
     [skillCat],
   );
 
-  // Filtered projects
   const filteredProjects = useMemo(() => {
     return PROJECTS.filter((p) => {
       const matchSearch =
@@ -1042,22 +927,24 @@ export default function WebDevCategoryPage() {
     });
   }, []);
 
-  // Stats
   const stats = useMemo(
     () => ({
       completed: PROJECTS.filter((p) => p.status === "completed").length,
-      inProgress: PROJECTS.filter((p) => p.status === "in-progress").length,
+      automations: PROJECTS.filter((p) =>
+        p.tags.some((t) =>
+          ["n8n", "zapier", "make.com", "automation"].includes(t),
+        ),
+      ).length,
       totalSkills: SKILLS.length,
       expertSkills: SKILLS.filter((s) => s.levelLabel === "Expert").length,
     }),
     [],
   );
 
-  const tagsToShow = showAllTags ? ALL_TAGS : ALL_TAGS.slice(0, 20);
+  const tagsToShow = showAllTags ? ALL_TAGS : ALL_TAGS.slice(0, 22);
 
   return (
     <>
-      {/* ── JSON-LD schema ───────────────────────────────────────── */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
@@ -1076,7 +963,7 @@ export default function WebDevCategoryPage() {
             HERO SECTION
         ══════════════════════════════════════════════════════════ */}
         <section
-          aria-label="Web Development hero"
+          aria-label="Marketing hero"
           style={{
             position: "relative",
             minHeight: "82vh",
@@ -1084,24 +971,23 @@ export default function WebDevCategoryPage() {
             alignItems: "center",
             overflow: "hidden",
             background:
-              "linear-gradient(135deg, #221f22 0%, #2d2a2e 50%, #1a1820 100%)",
+              "linear-gradient(135deg, #1a2218 0%, #1e2820 55%, #141a14 100%)",
           }}
         >
-          {/* Background image */}
+          {/* Header image */}
           <div
             style={{
               position: "absolute",
               inset: 0,
-              backgroundImage:
-                "url('https://picsum.photos/seed/webdev-hero-banner/1600/900')",
+              backgroundImage: `url(${Marketing.src})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              opacity: 0.18,
+              opacity: 0.14,
             }}
             aria-hidden
           />
 
-          {/* Mesh gradient blobs */}
+          {/* Animated blobs — green/teal/coral palette */}
           <div
             aria-hidden
             style={{
@@ -1111,65 +997,68 @@ export default function WebDevCategoryPage() {
               pointerEvents: "none",
             }}
           >
+            {/* Primary green blob */}
             <div
               style={{
                 position: "absolute",
-                top: "-15%",
+                top: "-18%",
                 left: "-10%",
-                width: "60vw",
-                height: "60vw",
+                width: "65vw",
+                height: "65vw",
                 borderRadius: "50%",
                 background:
-                  "radial-gradient(circle, rgba(255,97,136,.35) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(169,220,118,.28) 0%, transparent 70%)",
                 filter: "blur(80px)",
-                animation: "floatBlob 9s ease-in-out infinite",
+                animation: "mktgBlob 11s ease-in-out infinite",
               }}
             />
+            {/* Coral accent blob */}
             <div
               style={{
                 position: "absolute",
-                bottom: "-20%",
+                bottom: "-18%",
                 right: "-5%",
-                width: "50vw",
-                height: "50vw",
+                width: "48vw",
+                height: "48vw",
                 borderRadius: "50%",
                 background:
-                  "radial-gradient(circle, rgba(171,157,242,.3) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(255,216,102,.2) 0%, transparent 70%)",
                 filter: "blur(90px)",
-                animation: "floatBlob 12s ease-in-out infinite reverse",
+                animation: "mktgBlob 14s ease-in-out infinite reverse",
               }}
             />
+            {/* Blue accent blob */}
             <div
               style={{
                 position: "absolute",
-                top: "40%",
-                left: "40%",
-                width: "40vw",
-                height: "40vw",
+                top: "38%",
+                right: "22%",
+                width: "38vw",
+                height: "38vw",
                 borderRadius: "50%",
                 background:
-                  "radial-gradient(circle, rgba(120,220,232,.2) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(120,220,232,.16) 0%, transparent 70%)",
                 filter: "blur(70px)",
-                animation: "floatBlob 15s ease-in-out infinite 3s",
+                animation: "mktgBlob 17s ease-in-out infinite 5s",
               }}
             />
           </div>
 
-          {/* Grid overlay */}
+          {/* Diagonal-line grid — feels like a data chart */}
           <div
             aria-hidden
             style={{
               position: "absolute",
               inset: 0,
               backgroundImage: `
-                linear-gradient(rgba(255,97,136,.06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,97,136,.06) 1px, transparent 1px)
+                linear-gradient(rgba(169,220,118,.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(169,220,118,.04) 1px, transparent 1px)
               `,
-              backgroundSize: "64px 64px",
+              backgroundSize: "48px 48px",
             }}
           />
 
-          {/* Hero content */}
+          {/* Content */}
           <div
             style={{
               position: "relative",
@@ -1191,7 +1080,7 @@ export default function WebDevCategoryPage() {
                   padding: 0,
                   margin: 0,
                   fontSize: "0.78rem",
-                  color: "rgba(252,252,250,.55)",
+                  color: "rgba(252,252,250,.5)",
                   fontFamily: "'JetBrains Mono',monospace",
                 }}
                 itemScope
@@ -1200,7 +1089,7 @@ export default function WebDevCategoryPage() {
                 {[
                   { label: "Home", href: "/" },
                   { label: "Projects", href: "/projects" },
-                  { label: "Web Dev", href: "/projects/web-dev" },
+                  { label: "Marketing", href: "/projects/marketing" },
                 ].map((crumb, i, arr) => (
                   <li
                     key={crumb.href}
@@ -1215,8 +1104,8 @@ export default function WebDevCategoryPage() {
                       style={{
                         color:
                           i === arr.length - 1
-                            ? T.burgundy
-                            : "rgba(252,252,250,.55)",
+                            ? T.mint
+                            : "rgba(252,252,250,.5)",
                         textDecoration: "none",
                         transition: "color 0.2s",
                       }}
@@ -1225,7 +1114,7 @@ export default function WebDevCategoryPage() {
                     </a>
                     <meta itemProp="position" content={`${i + 1}`} />
                     {i < arr.length - 1 && (
-                      <span aria-hidden style={{ opacity: 0.35 }}>
+                      <span aria-hidden style={{ opacity: 0.3 }}>
                         /
                       </span>
                     )}
@@ -1245,8 +1134,8 @@ export default function WebDevCategoryPage() {
                 gap: 8,
                 padding: "6px 18px",
                 borderRadius: 999,
-                background: "rgba(255,97,136,.18)",
-                border: "1px solid rgba(255,97,136,.35)",
+                background: "rgba(169,220,118,.15)",
+                border: "1px solid rgba(169,220,118,.38)",
                 marginBottom: "1.25rem",
               }}
             >
@@ -1255,9 +1144,10 @@ export default function WebDevCategoryPage() {
                   width: 8,
                   height: 8,
                   borderRadius: "50%",
-                  background: T.burgundy,
-                  boxShadow: `0 0 8px ${T.burgundy}`,
-                  animation: "glowPulse 2s ease-in-out infinite",
+                  background: T.mint,
+                  boxShadow: `0 0 8px ${T.mint}`,
+                  animation: "mktgPulse 2s ease-in-out infinite",
+                  flexShrink: 0,
                 }}
               />
               <span
@@ -1266,15 +1156,15 @@ export default function WebDevCategoryPage() {
                   fontWeight: 700,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
-                  color: T.burgundy,
+                  color: T.mint,
                   fontFamily: "'JetBrains Mono',monospace",
                 }}
               >
-                Web Development
+                Digital Marketing & Automation
               </span>
             </motion.div>
 
-            {/* Main heading */}
+            {/* Heading */}
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -1293,9 +1183,9 @@ export default function WebDevCategoryPage() {
                 fontFamily: "'Playfair Display', Georgia, serif",
               }}
             >
-              Crafting the Web,
+              Marketing that
               <br />
-              One Pixel at a Time.
+              moves the needle.
             </motion.h1>
 
             {/* Subtitle */}
@@ -1305,15 +1195,15 @@ export default function WebDevCategoryPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               style={{
                 fontSize: "clamp(1rem, 2vw, 1.2rem)",
-                color: "rgba(252,252,250,.72)",
+                color: "rgba(252,252,250,.7)",
                 lineHeight: 1.7,
-                maxWidth: 580,
+                maxWidth: 600,
                 marginBottom: "2.5rem",
               }}
             >
-              Full-stack experiences — from pixel-perfect UIs to battle-tested
-              APIs, seamless CI/CD pipelines, and SEO-charged landing pages that
-              actually convert.
+              HTML emails that land in the inbox, SEO systems that compound,
+              dashboards that tell the truth, and N8N automations that turn a
+              40-hour workflow into a Wednesday cron job.
             </motion.p>
 
             {/* Stat chips */}
@@ -1323,68 +1213,31 @@ export default function WebDevCategoryPage() {
               transition={{ duration: 0.6, delay: 0.3 }}
               style={{ display: "flex", flexWrap: "wrap", gap: 12 }}
             >
-              {[
-                {
-                  value: `${stats.completed}`,
-                  label: "Shipped",
-                  color: T.mint,
-                },
-                {
-                  value: `${stats.inProgress}`,
-                  label: "In Progress",
-                  color: T.blue,
-                },
-                {
-                  value: `${stats.totalSkills}`,
-                  label: "Skills",
-                  color: T.purple,
-                },
-                {
-                  value: `${stats.expertSkills}`,
-                  label: "Expert-level",
-                  color: T.burgundy,
-                },
-              ].map((s) => (
-                <div
-                  key={s.label}
-                  style={{
-                    padding: "10px 20px",
-                    borderRadius: 14,
-                    background: "rgba(255,255,255,.08)",
-                    border: `1px solid ${s.color}33`,
-                    backdropFilter: "blur(12px)",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    minWidth: 84,
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "1.6rem",
-                      fontWeight: 800,
-                      color: s.color,
-                      lineHeight: 1.1,
-                      fontFamily: "'JetBrains Mono',monospace",
-                    }}
-                  >
-                    {s.value}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "0.68rem",
-                      color: "rgba(252,252,250,.55)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                    }}
-                  >
-                    {s.label}
-                  </span>
-                </div>
-              ))}
+              <StatChip
+                value={stats.completed}
+                suffix="+"
+                label="Campaigns"
+                color={T.mint}
+              />
+              <StatChip
+                value={stats.automations}
+                suffix="+"
+                label="Automations"
+                color={T.blue}
+              />
+              <StatChip
+                value={stats.totalSkills}
+                label="Tools"
+                color={T.coral}
+              />
+              <StatChip
+                value={stats.expertSkills}
+                label="Expert-level"
+                color={T.mint}
+              />
             </motion.div>
 
-            {/* CTA buttons */}
+            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -1398,7 +1251,6 @@ export default function WebDevCategoryPage() {
             >
               <a
                 href="#projects"
-                className="btn-primary"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -1406,7 +1258,7 @@ export default function WebDevCategoryPage() {
                   padding: "13px 28px",
                   borderRadius: 12,
                   background: T.gradPrimary,
-                  color: T.white,
+                  color: T.charcoal,
                   fontWeight: 700,
                   fontSize: "0.95rem",
                   textDecoration: "none",
@@ -1417,7 +1269,7 @@ export default function WebDevCategoryPage() {
                   (e.currentTarget as HTMLElement).style.transform =
                     "translateY(-2px)";
                   (e.currentTarget as HTMLElement).style.boxShadow =
-                    `0 12px 36px rgba(${T.catRgb},.55)`;
+                    `0 14px 40px rgba(${T.catRgb},.55)`;
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.transform = "none";
@@ -1425,7 +1277,7 @@ export default function WebDevCategoryPage() {
                     `0 8px 28px rgba(${T.catRgb},.4)`;
                 }}
               >
-                View Projects
+                See Projects
                 <svg
                   width="16"
                   height="16"
@@ -1440,7 +1292,6 @@ export default function WebDevCategoryPage() {
               </a>
               <a
                 href="/contact"
-                className="btn-secondary"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -1469,7 +1320,7 @@ export default function WebDevCategoryPage() {
                     "rgba(255,255,255,.2)";
                 }}
               >
-                Hire Me
+                Work Together
               </a>
             </motion.div>
           </div>
@@ -1480,14 +1331,10 @@ export default function WebDevCategoryPage() {
         ══════════════════════════════════════════════════════════ */}
         <section
           id="skills"
-          aria-label="Web development skills"
-          style={{
-            padding: "6rem 2rem",
-            background: T.white,
-          }}
+          aria-label="Marketing skills"
+          style={{ padding: "6rem 2rem", background: T.white }}
         >
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-            {/* Section header */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
@@ -1501,12 +1348,12 @@ export default function WebDevCategoryPage() {
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: T.burgundy,
+                  color: T.mint,
                   marginBottom: "0.75rem",
                   fontFamily: "'JetBrains Mono',monospace",
                 }}
               >
-                ⚡ Skill Stack
+                ⚡ Marketing Stack
               </p>
               <h2
                 style={{
@@ -1518,7 +1365,7 @@ export default function WebDevCategoryPage() {
                   fontFamily: "'Playfair Display', Georgia, serif",
                 }}
               >
-                The tools I reach for first
+                The tools that drive results
               </h2>
               <p
                 style={{
@@ -1529,12 +1376,13 @@ export default function WebDevCategoryPage() {
                   lineHeight: 1.7,
                 }}
               >
-                A battle-tested toolkit built across 5+ years of shipping
-                production web apps — no tutorial toys here.
+                From pixel-perfect email code to AI agents that run entire
+                content pipelines — every tool listed here has shipped something
+                that made a metric move.
               </p>
             </motion.div>
 
-            {/* Category filter pills */}
+            {/* Category filter */}
             <div
               style={{
                 display: "flex",
@@ -1549,7 +1397,7 @@ export default function WebDevCategoryPage() {
               {SKILL_CATEGORIES.map((cat) => (
                 <FilterPill
                   key={cat.id}
-                  label={`${cat.icon} ${cat.label}`}
+                  label={` ${cat.label}`}
                   active={skillCat === cat.id}
                   count={
                     cat.id === "all"
@@ -1557,7 +1405,6 @@ export default function WebDevCategoryPage() {
                       : SKILLS.filter((s) => s.category === cat.id).length
                   }
                   onClick={() => setSkillCat(cat.id)}
-                  color={T.burgundy}
                 />
               ))}
             </div>
@@ -1589,14 +1436,10 @@ export default function WebDevCategoryPage() {
         ══════════════════════════════════════════════════════════ */}
         <section
           id="projects"
-          aria-label="Web development projects"
-          style={{
-            padding: "6rem 2rem",
-            background: T.cream,
-          }}
+          aria-label="Marketing projects"
+          style={{ padding: "6rem 2rem", background: T.cream }}
         >
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-            {/* Section header */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
@@ -1610,12 +1453,12 @@ export default function WebDevCategoryPage() {
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: T.burgundy,
+                  color: T.mint,
                   marginBottom: "0.75rem",
                   fontFamily: "'JetBrains Mono',monospace",
                 }}
               >
-                🚀 Featured Work
+                📈 Campaign Portfolio
               </p>
               <div
                 style={{
@@ -1635,9 +1478,10 @@ export default function WebDevCategoryPage() {
                     fontFamily: "'Playfair Display', Georgia, serif",
                   }}
                 >
-                  Projects that ship
+                  Systems that compound
                 </h2>
-                {/* Search input */}
+
+                {/* Search */}
                 <div style={{ position: "relative" }}>
                   <svg
                     style={{
@@ -1674,10 +1518,10 @@ export default function WebDevCategoryPage() {
                       outline: "none",
                       width: 240,
                       transition: "border-color 0.2s, box-shadow 0.2s",
+                      fontFamily: "'Inter', sans-serif",
                     }}
                     onFocus={(e) => {
-                      (e.target as HTMLInputElement).style.borderColor =
-                        T.burgundy;
+                      (e.target as HTMLInputElement).style.borderColor = T.mint;
                       (e.target as HTMLInputElement).style.boxShadow =
                         `0 0 0 3px rgba(${T.catRgb},.12)`;
                     }}
@@ -1719,12 +1563,12 @@ export default function WebDevCategoryPage() {
                       fontWeight: 600,
                       cursor: "pointer",
                       border: activeTags.has(tag)
-                        ? `1.5px solid ${T.burgundy}`
+                        ? `1.5px solid ${T.mint}`
                         : "1.5px solid rgba(45,42,46,.14)",
                       background: activeTags.has(tag)
                         ? `rgba(${T.catRgb},.12)`
                         : "rgba(249,248,246,.8)",
-                      color: activeTags.has(tag) ? T.burgundy : T.silver,
+                      color: activeTags.has(tag) ? T.mint : T.silver,
                       transition: "all 0.2s",
                     }}
                   >
@@ -1732,7 +1576,7 @@ export default function WebDevCategoryPage() {
                     <span
                       style={{
                         marginLeft: 5,
-                        opacity: 0.55,
+                        opacity: 0.5,
                         fontSize: "0.65rem",
                       }}
                     >
@@ -1741,7 +1585,7 @@ export default function WebDevCategoryPage() {
                   </button>
                 );
               })}
-              {ALL_TAGS.length > 20 && (
+              {ALL_TAGS.length > 22 && (
                 <button
                   onClick={() => setShowAllTags((p) => !p)}
                   style={{
@@ -1757,7 +1601,7 @@ export default function WebDevCategoryPage() {
                 >
                   {showAllTags
                     ? "↑ less"
-                    : `+${ALL_TAGS.length - 20} more tags`}
+                    : `+${ALL_TAGS.length - 22} more tags`}
                 </button>
               )}
               {activeTags.size > 0 && (
@@ -1770,8 +1614,8 @@ export default function WebDevCategoryPage() {
                     fontFamily: "'JetBrains Mono',monospace",
                     cursor: "pointer",
                     border: `1.5px solid rgba(${T.catRgb},.3)`,
-                    background: `rgba(${T.catRgb},.07)`,
-                    color: T.burgundy,
+                    background: `rgba(${T.catRgb},.08)`,
+                    color: T.mint,
                   }}
                 >
                   ✕ Clear filters
@@ -1794,7 +1638,7 @@ export default function WebDevCategoryPage() {
                 ` · filtered by: ${[...activeTags].join(", ")}`}
             </p>
 
-            {/* Projects grid */}
+            {/* Grid */}
             <AnimatePresence mode="wait">
               {filteredProjects.length > 0 ? (
                 <motion.div
@@ -1839,9 +1683,9 @@ export default function WebDevCategoryPage() {
                       marginTop: "1rem",
                       padding: "8px 20px",
                       borderRadius: 999,
-                      border: `1.5px solid ${T.burgundy}`,
+                      border: `1.5px solid ${T.mint}`,
                       background: "transparent",
-                      color: T.burgundy,
+                      color: T.mint,
                       cursor: "pointer",
                       fontSize: "0.85rem",
                       fontWeight: 600,
@@ -1856,10 +1700,10 @@ export default function WebDevCategoryPage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════
-            SEO TAG CLOUD SECTION
+            SEO TAG CLOUD
         ══════════════════════════════════════════════════════════ */}
         <section
-          aria-label="Technology and tag index"
+          aria-label="Marketing technology and tag index"
           style={{
             padding: "4rem 2rem",
             background: T.white,
@@ -1905,13 +1749,7 @@ export default function WebDevCategoryPage() {
                   — all indexed for search engines
                 </span>
               </h2>
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 8,
-                }}
-              >
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {ALL_TAGS.map((tag) => {
                   const count = PROJECTS.filter((p) =>
                     p.tags.includes(tag),
@@ -1919,15 +1757,15 @@ export default function WebDevCategoryPage() {
                   return (
                     <a
                       key={tag}
-                      href={`/projects/web-dev/tag/${tag}`}
+                      href={`/projects/marketing/tag/${tag}`}
                       style={{
                         padding: "5px 13px",
                         borderRadius: 8,
                         fontSize: "0.75rem",
                         fontFamily: "'JetBrains Mono',monospace",
                         fontWeight: 600,
-                        background: "rgba(255,97,136,.06)",
-                        border: "1px solid rgba(255,97,136,.18)",
+                        background: "rgba(169,220,118,.06)",
+                        border: "1px solid rgba(169,220,118,.18)",
                         color: T.charcoal,
                         textDecoration: "none",
                         transition: "all 0.2s",
@@ -1937,16 +1775,16 @@ export default function WebDevCategoryPage() {
                       }}
                       onMouseEnter={(e) => {
                         const el = e.currentTarget as HTMLAnchorElement;
-                        el.style.background = `rgba(${T.catRgb},.14)`;
-                        el.style.color = T.burgundy;
-                        el.style.borderColor = `rgba(${T.catRgb},.35)`;
+                        el.style.background = `rgba(${T.catRgb},.15)`;
+                        el.style.color = T.mint;
+                        el.style.borderColor = `rgba(${T.catRgb},.38)`;
                         el.style.transform = "translateY(-1px)";
                       }}
                       onMouseLeave={(e) => {
                         const el = e.currentTarget as HTMLAnchorElement;
-                        el.style.background = "rgba(255,97,136,.06)";
+                        el.style.background = "rgba(169,220,118,.06)";
                         el.style.color = T.charcoal;
-                        el.style.borderColor = "rgba(255,97,136,.18)";
+                        el.style.borderColor = "rgba(169,220,118,.18)";
                         el.style.transform = "none";
                       }}
                     >
@@ -1974,16 +1812,16 @@ export default function WebDevCategoryPage() {
             CTA SECTION
         ══════════════════════════════════════════════════════════ */}
         <section
-          aria-label="Contact call-to-action"
+          aria-label="Hire me call-to-action"
           style={{
             padding: "7rem 2rem",
-            background: "linear-gradient(135deg, #221f22 0%, #2d2a2e 100%)",
+            background: "linear-gradient(135deg, #1a2218 0%, #1e2820 100%)",
             textAlign: "center",
             position: "relative",
             overflow: "hidden",
           }}
         >
-          {/* Glow blobs */}
+          {/* Glow */}
           <div
             aria-hidden
             style={{
@@ -1996,7 +1834,7 @@ export default function WebDevCategoryPage() {
               maxWidth: 700,
               maxHeight: 700,
               borderRadius: "50%",
-              background: `radial-gradient(circle, rgba(${T.catRgb},.2) 0%, transparent 70%)`,
+              background: `radial-gradient(circle, rgba(${T.catRgb},.18) 0%, transparent 70%)`,
               filter: "blur(80px)",
               pointerEvents: "none",
             }}
@@ -2021,12 +1859,12 @@ export default function WebDevCategoryPage() {
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: T.burgundy,
+                  color: T.mint,
                   marginBottom: "1rem",
                   fontFamily: "'JetBrains Mono',monospace",
                 }}
               >
-                Let's Build Something
+                Ready to Grow?
               </p>
               <h2
                 style={{
@@ -2039,18 +1877,21 @@ export default function WebDevCategoryPage() {
                   fontFamily: "'Playfair Display', Georgia, serif",
                 }}
               >
-                Got a project that needs a real developer?
+                Let's build a marketing
+                <br />
+                engine that runs on autopilot.
               </h2>
               <p
                 style={{
                   fontSize: "1.05rem",
-                  color: "rgba(252,252,250,.65)",
+                  color: "rgba(252,252,250,.6)",
                   lineHeight: 1.7,
                   marginBottom: "2.5rem",
                 }}
               >
-                From idea to deployment — I handle the full stack so you can
-                focus on the business.
+                Email campaigns, SEO foundations, analytics clarity, or full
+                automation pipelines — I design the system and hand you the keys
+                so your team can scale without the chaos.
               </p>
               <div
                 style={{
@@ -2069,26 +1910,26 @@ export default function WebDevCategoryPage() {
                     padding: "14px 32px",
                     borderRadius: 14,
                     background: T.gradPrimary,
-                    color: T.white,
+                    color: T.charcoal,
                     fontWeight: 700,
                     fontSize: "1rem",
                     textDecoration: "none",
-                    boxShadow: `0 8px 32px rgba(${T.catRgb},.45)`,
+                    boxShadow: `0 8px 32px rgba(${T.catRgb},.4)`,
                     transition: "transform 0.2s, box-shadow 0.2s",
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLElement).style.transform =
                       "translateY(-2px) scale(1.02)";
                     (e.currentTarget as HTMLElement).style.boxShadow =
-                      `0 16px 48px rgba(${T.catRgb},.6)`;
+                      `0 16px 48px rgba(${T.catRgb},.55)`;
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLElement).style.transform = "none";
                     (e.currentTarget as HTMLElement).style.boxShadow =
-                      `0 8px 32px rgba(${T.catRgb},.45)`;
+                      `0 8px 32px rgba(${T.catRgb},.4)`;
                   }}
                 >
-                  Start a Project
+                  Start a Campaign
                   <svg
                     width="17"
                     height="17"
@@ -2136,32 +1977,21 @@ export default function WebDevCategoryPage() {
         </section>
       </main>
 
-      {/* ── Keyframe injections (same as globals.css) ─────────────── */}
+      {/* ── Keyframes ─────────────────────────────────────────────── */}
       <style>{`
-        @keyframes floatBlob {
+        @keyframes mktgBlob {
           0%, 100% { transform: translate(0, 0) scale(1); }
           33%       { transform: translate(3%, 5%) scale(1.04); }
-          66%       { transform: translate(-3%, -3%) scale(0.97); }
+          66%       { transform: translate(-4%, -3%) scale(0.97); }
         }
-        @keyframes glowPulse {
-          0%, 100% { opacity: 1; box-shadow: 0 0 6px currentColor; }
-          50%       { opacity: 0.65; box-shadow: 0 0 18px currentColor; }
+        @keyframes mktgPulse {
+          0%, 100% { opacity: 1; box-shadow: 0 0 6px #a9dc76; }
+          50%       { opacity: 0.6; box-shadow: 0 0 20px #a9dc76; }
         }
-        @keyframes shimmer {
-          0%   { background-position: -200% center; }
-          100% { background-position:  200% center; }
-        }
-
-        /* Smooth font rendering */
         * { -webkit-font-smoothing: antialiased; box-sizing: border-box; }
-
-        /* Scroll-behaviour */
         html { scroll-behavior: smooth; }
-
-        /* Focus outline for accessibility */
-        button:focus-visible,
-        a:focus-visible {
-          outline: 2px solid #ff6188;
+        button:focus-visible, a:focus-visible {
+          outline: 2px solid #a9dc76;
           outline-offset: 3px;
         }
       `}</style>

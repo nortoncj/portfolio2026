@@ -21,6 +21,22 @@ import React, {
   useMemo,
 } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
+import {
+  FaAws,
+  FaBots,
+  FaC,
+  FaMicrochip,
+  FaNetworkWired,
+  FaPlug,
+  FaPython,
+  FaRaspberryPi,
+  FaRobot,
+} from "react-icons/fa6";
+import { FaTools } from "react-icons/fa";
+import { IconType } from "react-icons";
+import { Hardware as PROJECTS } from "@/data/project";
+import { Project } from "@/types/Post";
+import Hardware from "@images/embedded.jpg";
 
 // ─── DESIGN TOKENS (mirrors presets.css :root) ─────────────────
 const T = {
@@ -58,7 +74,7 @@ type ProjectStatus = "completed" | "in-progress" | "concept";
 interface Skill {
   id: string;
   name: string;
-  icon: string;
+  icon: IconType;
   level: number; // 0–100
   levelLabel: "Expert" | "Advanced" | "Intermediate" | "Familiar";
   category: SkillCategory;
@@ -66,27 +82,12 @@ interface Skill {
   yearsExp: number;
 }
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  longDesc: string;
-  image: string;
-  tags: string[];
-  skills: string[]; // skill ids
-  status: ProjectStatus;
-  featured: boolean;
-  liveUrl?: string;
-  githubUrl?: string;
-  year: number;
-}
-
 // ─── MOCK DATA ─────────────────────────────────────────────────
 const SKILLS: Skill[] = [
   {
     id: "cpp",
     name: "C / C++",
-    icon: "⚡",
+    icon: FaC,
     level: 90,
     levelLabel: "Expert",
     category: "languages",
@@ -96,7 +97,7 @@ const SKILLS: Skill[] = [
   {
     id: "python",
     name: "Python (Hardware)",
-    icon: "🐍",
+    icon: FaPython,
     level: 85,
     levelLabel: "Advanced",
     category: "languages",
@@ -106,7 +107,7 @@ const SKILLS: Skill[] = [
   {
     id: "rtos",
     name: "FreeRTOS / RTOS",
-    icon: "🔄",
+    icon: FaBots,
     level: 80,
     levelLabel: "Advanced",
     category: "firmware",
@@ -116,7 +117,7 @@ const SKILLS: Skill[] = [
   {
     id: "arduino",
     name: "Arduino / AVR",
-    icon: "🤖",
+    icon: FaRobot,
     level: 95,
     levelLabel: "Expert",
     category: "firmware",
@@ -126,7 +127,7 @@ const SKILLS: Skill[] = [
   {
     id: "stm32",
     name: "STM32 / ARM Cortex",
-    icon: "🧠",
+    icon: FaMicrochip,
     level: 75,
     levelLabel: "Advanced",
     category: "firmware",
@@ -136,7 +137,7 @@ const SKILLS: Skill[] = [
   {
     id: "esp32",
     name: "ESP32 / ESP8266",
-    icon: "📡",
+    icon: FaMicrochip,
     level: 88,
     levelLabel: "Expert",
     category: "firmware",
@@ -146,7 +147,7 @@ const SKILLS: Skill[] = [
   {
     id: "rpi",
     name: "Raspberry Pi",
-    icon: "🍓",
+    icon: FaRaspberryPi,
     level: 92,
     levelLabel: "Expert",
     category: "hardware",
@@ -156,7 +157,7 @@ const SKILLS: Skill[] = [
   {
     id: "pcb",
     name: "PCB Design (KiCad)",
-    icon: "🔲",
+    icon: FaMicrochip,
     level: 70,
     levelLabel: "Intermediate",
     category: "hardware",
@@ -166,7 +167,7 @@ const SKILLS: Skill[] = [
   {
     id: "mqtt",
     name: "MQTT / IoT Protocols",
-    icon: "🌐",
+    icon: FaNetworkWired,
     level: 85,
     levelLabel: "Advanced",
     category: "protocols",
@@ -176,7 +177,7 @@ const SKILLS: Skill[] = [
   {
     id: "i2c",
     name: "I²C / SPI / UART",
-    icon: "🔌",
+    icon: FaPlug,
     level: 90,
     levelLabel: "Expert",
     category: "protocols",
@@ -186,7 +187,7 @@ const SKILLS: Skill[] = [
   {
     id: "kicad",
     name: "Soldering & Debugging",
-    icon: "🔧",
+    icon: FaTools,
     level: 85,
     levelLabel: "Advanced",
     category: "tools",
@@ -196,143 +197,12 @@ const SKILLS: Skill[] = [
   {
     id: "awsiot",
     name: "AWS IoT Core",
-    icon: "☁️",
+    icon: FaAws,
     level: 72,
     levelLabel: "Intermediate",
     category: "tools",
     tags: ["aws", "iot", "cloud", "mqtt", "shadow"],
     yearsExp: 2,
-  },
-];
-
-const PROJECTS: Project[] = [
-  {
-    id: "smart-irrigation",
-    title: "Smart Irrigation Controller",
-    description:
-      "ESP32-based system with soil moisture sensors, weather API integration, and MQTT-driven automation.",
-    longDesc:
-      "Built a fully autonomous garden irrigation system using an ESP32 microcontroller with capacitive soil moisture sensors. Integrates real-time weather data to skip watering on rainy days and uses MQTT to push telemetry to an AWS IoT Core dashboard. Firmware written in C++ with FreeRTOS task scheduling for sensor polling, network sync, and valve actuation.",
-    image: "https://picsum.photos/seed/irrigation-hw/800/500",
-    tags: ["esp32", "freertos", "mqtt", "aws-iot", "c++", "sensors"],
-    skills: ["esp32", "rtos", "mqtt", "awsiot", "cpp"],
-    status: "completed",
-    featured: true,
-    githubUrl: "https://github.com",
-    year: 2025,
-  },
-  {
-    id: "embedded-motor-ctrl",
-    title: "Brushless Motor Controller",
-    description:
-      "Custom STM32-based BLDC motor controller with FOC algorithm and real-time telemetry over UART.",
-    longDesc:
-      "Designed and implemented a field-oriented control (FOC) algorithm on an STM32F4 for a brushless DC motor. Custom PCB designed in KiCad featuring gate driver ICs, current sensing shunts, and isolated UART for PC-side telemetry logging. Achieved sub-millisecond loop times using DMA-based ADC sampling.",
-    image: "https://picsum.photos/seed/motorctrl-hw/800/500",
-    tags: ["stm32", "bldc", "foc", "kicad", "pcb", "c++", "uart"],
-    skills: ["stm32", "pcb", "i2c", "cpp", "kicad"],
-    status: "completed",
-    featured: true,
-    githubUrl: "https://github.com",
-    year: 2025,
-  },
-  {
-    id: "homelab-cluster",
-    title: "Raspberry Pi Kubernetes Cluster",
-    description:
-      "4-node ARM cluster running K3s, Prometheus, and Grafana — full homelab CI/CD testbed.",
-    longDesc:
-      "Built a 4-node Raspberry Pi 4 cluster running K3s (lightweight Kubernetes). Custom 3D-printed rack, PoE HATs for clean power, and a managed switch for inter-node networking. Hosts a self-contained CI/CD environment with Gitea, Drone CI, Prometheus, and Grafana dashboards for cluster metrics.",
-    image: "https://picsum.photos/seed/rpicluster-hw/800/500",
-    tags: [
-      "raspberry-pi",
-      "kubernetes",
-      "k3s",
-      "linux",
-      "devops",
-      "networking",
-    ],
-    skills: ["rpi", "python", "mqtt"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    liveUrl: "https://yourportfolio.dev",
-    year: 2024,
-  },
-  {
-    id: "iot-weather",
-    title: "IoT Environmental Monitor",
-    description:
-      "Multi-sensor ESP32 node network posting temperature, humidity, CO₂ and AQI data to InfluxDB.",
-    longDesc:
-      "Deployed a mesh of 6 ESP32 nodes around a building collecting temperature, humidity, CO₂ (SCD40), and particulate matter (PMS5003) data. Nodes communicate over MQTT, data is ingested by an InfluxDB instance on a Raspberry Pi, and visualised in Grafana. PCBs designed in KiCad with LiPo charging circuits for portability.",
-    image: "https://picsum.photos/seed/envmonitor-hw/800/500",
-    tags: ["esp32", "sensors", "mqtt", "influxdb", "grafana", "pcb"],
-    skills: ["esp32", "mqtt", "pcb", "i2c", "cpp"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    year: 2024,
-  },
-  {
-    id: "keyboard-firmware",
-    title: "Custom Keyboard Firmware (QMK)",
-    description:
-      "Hand-wired 65% keyboard with custom QMK firmware, RGB per-key lighting, and macro layers.",
-    longDesc:
-      "Hand-wired a 65% mechanical keyboard on a custom PCB using Pro Micro controllers. Wrote and extended QMK firmware in C for tap-dance keys, leader sequences, RGB Matrix animations, and OLED secondary display support. Designed the PCB in KiCad and had it fabricated at JLCPCB.",
-    image: "https://picsum.photos/seed/keyboard-hw/800/500",
-    tags: ["qmk", "avr", "arduino", "c", "pcb", "kicad", "rgb"],
-    skills: ["arduino", "cpp", "pcb", "kicad"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    year: 2024,
-  },
-  {
-    id: "rtos-drone-fc",
-    title: "FreeRTOS Drone Flight Controller",
-    description:
-      "STM32-based flight controller with IMU fusion, PID attitude control, and RC receiver decoding.",
-    longDesc:
-      "Developed a bare-metal drone flight controller on an STM32F7 running FreeRTOS. IMU data (MPU-6050) is fused using a complementary filter at 1kHz. PID attitude loops run in high-priority tasks. RC PWM input is decoded via TIM input capture, and ESC signals are output via DMA-driven TIM PWM channels.",
-    image: "https://picsum.photos/seed/dronefc-hw/800/500",
-    tags: ["stm32", "freertos", "imu", "pid", "pwm", "c++", "drone"],
-    skills: ["stm32", "rtos", "cpp", "i2c"],
-    status: "in-progress",
-    featured: true,
-    githubUrl: "https://github.com",
-    year: 2026,
-  },
-  {
-    id: "embedded-linux-gateway",
-    title: "Industrial IoT Gateway",
-    description:
-      "Embedded Linux gateway on Yocto-built image bridging Modbus RTU devices to AWS IoT Core.",
-    longDesc:
-      "Designed an industrial IoT gateway running a minimal Yocto Linux image on a custom SOM. The gateway reads Modbus RTU data from factory sensors via RS-485, translates to MQTT JSON payloads, and forwards to AWS IoT Core with X.509 certificate-based authentication. Manages OTA firmware updates via a custom update agent.",
-    image: "https://picsum.photos/seed/iotgateway-hw/800/500",
-    tags: ["embedded-linux", "yocto", "modbus", "mqtt", "aws-iot", "rs485"],
-    skills: ["awsiot", "mqtt", "cpp", "python", "i2c"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    year: 2025,
-  },
-  {
-    id: "homelab-sensors",
-    title: "Homelab Infrastructure Monitor",
-    description:
-      "Arduino-based rack monitor with temp sensors, relay-controlled fans, and web dashboard.",
-    longDesc:
-      "Built a rack-mounted Arduino Mega system that monitors ambient temperature in a server cabinet using DS18B20 sensors on a 1-Wire bus. Relay module controls cabinet fans based on configurable thresholds. An ESP32 bridge publishes metrics to an MQTT broker consumed by a Node-RED dashboard with alert notifications via Telegram.",
-    image: "https://picsum.photos/seed/hlabimon-hw/800/500",
-    tags: ["arduino", "1-wire", "relay", "mqtt", "node-red", "telegram"],
-    skills: ["arduino", "esp32", "mqtt", "i2c", "cpp"],
-    status: "completed",
-    featured: false,
-    githubUrl: "https://github.com",
-    year: 2024,
   },
 ];
 
@@ -342,14 +212,13 @@ const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
 const SKILL_CATEGORIES: {
   id: SkillCategory | "all";
   label: string;
-  icon: string;
 }[] = [
-  { id: "all", label: "All Skills", icon: "⚡" },
-  { id: "firmware", label: "Firmware", icon: "🔄" },
-  { id: "hardware", label: "Hardware", icon: "🔧" },
-  { id: "protocols", label: "Protocols", icon: "🌐" },
-  { id: "languages", label: "Languages", icon: "💻" },
-  { id: "tools", label: "Tools", icon: "🛠️" },
+  { id: "all", label: "All Skills" },
+  { id: "firmware", label: "Firmware" },
+  { id: "hardware", label: "Hardware" },
+  { id: "protocols", label: "Protocols" },
+  { id: "languages", label: "Languages" },
+  { id: "tools", label: "Tools" },
 ];
 
 const STATUS_COLORS: Record<
@@ -512,7 +381,7 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
             flexShrink: 0,
           }}
         >
-          {skill.icon}
+          <skill.icon />
         </span>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div
@@ -527,7 +396,7 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
           >
             {skill.name}
           </div>
-          <div
+          {/* <div
             style={{
               fontSize: "0.7rem",
               color: T.silver,
@@ -535,13 +404,13 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
             }}
           >
             {skill.yearsExp} yr{skill.yearsExp !== 1 ? "s" : ""} exp
-          </div>
+          </div> */}
         </div>
-        <LevelBadge label={skill.levelLabel} />
+        {/* <LevelBadge label={skill.levelLabel} /> */}
       </div>
 
       {/* Progress bar */}
-      <SkillBar level={skill.level} />
+      {/* <SkillBar level={skill.level} /> */}
 
       {/* Tags */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 4 }}>
@@ -700,77 +569,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
               >
                 {project.longDesc}
               </p>
-              <div style={{ display: "flex", gap: 10 }}>
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    style={{
-                      padding: "7px 16px",
-                      borderRadius: 999,
-                      background: "rgba(255,255,255,.1)",
-                      border: "1px solid rgba(255,255,255,.2)",
-                      fontSize: "0.78rem",
-                      fontWeight: 600,
-                      color: T.white,
-                      textDecoration: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    {/* GitHub icon */}
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      aria-hidden
-                    >
-                      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-                    </svg>
-                    GitHub
-                  </a>
-                )}
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    style={{
-                      padding: "7px 16px",
-                      borderRadius: 999,
-                      background: T.gradHw,
-                      border: "none",
-                      fontSize: "0.78rem",
-                      fontWeight: 700,
-                      color: T.charcoal,
-                      textDecoration: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      aria-hidden
-                    >
-                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                    Live Demo
-                  </a>
-                )}
-              </div>
+              <div style={{ display: "flex", gap: 10 }}></div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -809,7 +608,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
             marginBottom: 6,
           }}
         >
-          {project.year}
+          {project.timeline?.endDate}
         </div>
 
         <h3
@@ -1045,7 +844,7 @@ const HardwareCategoryPage: React.FC = () => {
         {/* ═══════════════════════════════════
             HERO HEADER
         ═══════════════════════════════════ */}
-        <header
+        <section
           ref={heroRef}
           style={{
             position: "relative",
@@ -1062,8 +861,7 @@ const HardwareCategoryPage: React.FC = () => {
             style={{
               position: "absolute",
               inset: 0,
-              backgroundImage:
-                "url('https://picsum.photos/seed/hardware-hero/1600/700')",
+              backgroundImage: `url(${Hardware.src})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               filter: "brightness(0.3) saturate(1.3)",
@@ -1248,7 +1046,7 @@ const HardwareCategoryPage: React.FC = () => {
                     textTransform: "uppercase",
                   }}
                 >
-                  <span style={{ fontSize: "1.1rem" }}>🔌</span>
+                  <span style={{ fontSize: "1.1rem" }}></span>
                   Hardware &amp; Embedded Systems
                 </span>
               </motion.div>
@@ -1298,7 +1096,7 @@ const HardwareCategoryPage: React.FC = () => {
                   { value: `${PROJECTS.length}`, label: "Projects" },
                   { value: `${SKILLS.length}`, label: "Skills" },
                   { value: `${ALL_TAGS.length}`, label: "Technologies" },
-                  { value: "5+", label: "Years Exp" },
+                  // { value: "5+", label: "Years Exp" },
                 ].map(({ value, label }) => (
                   <div
                     key={label}
@@ -1333,7 +1131,7 @@ const HardwareCategoryPage: React.FC = () => {
               </motion.div>
             </motion.div>
           </div>
-        </header>
+        </section>
 
         {/* ═══════════════════════════════════
             MAIN CONTENT
@@ -1436,7 +1234,7 @@ const HardwareCategoryPage: React.FC = () => {
                           }),
                     }}
                   >
-                    {cat.icon} {cat.label}
+                    {cat.label}
                   </button>
                 ))}
               </div>
@@ -1876,7 +1674,7 @@ const HardwareCategoryPage: React.FC = () => {
                 marginBottom: "1rem",
               }}
             >
-              🔌 Hardware &amp; Embedded
+              Hardware &amp; Embedded
             </span>
 
             <h2

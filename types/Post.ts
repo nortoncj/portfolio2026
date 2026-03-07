@@ -39,14 +39,15 @@ export type Post = {
     keywords?: string[];
   };
 };
-
+type ProjectStatus = "completed" | "in-progress" | "concept";
 export type Project = {
-  id: number;
+  id: string;
   title: string;
   description: string;
-  thumbnail?: string;
+  longDesc: string;
+  image?: string;
   videoUrl?: string;
-  technologies: string[];
+  skills: string[];
   liveUrl?: string;
   githubUrl?: string;
   icon?: string;
@@ -59,9 +60,9 @@ export type Project = {
 
   modal?: boolean;
   featured?: boolean;
-
+  status: ProjectStatus;
   categories?: string[];
-  tags?: string[];
+  tags: string[];
 
   details?: {
     overview?: string;
@@ -69,7 +70,6 @@ export type Project = {
     solutions?: string;
     results?: string;
     features?: string[];
-    tags?: string[];
   };
 
   content?: PortableTextBlock[];

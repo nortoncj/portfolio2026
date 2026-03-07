@@ -241,20 +241,6 @@ export function FormatDate(dateTime: string) {
     year: "numeric",
   });
 }
-// export function readTime(content: any[], wpm: number = 200): number {
-//   if (!content || !Array.isArray(content)) return 5;
-//   // Extract all text from block children
-//   const text = content
-//     .filter(
-//       (content) => content._type === "block" && Array.isArray(content.children),
-//     )
-//     .map((content) =>
-//       content.children.map((child: any) => child.text || "").join(" "),
-//     )
-//     .join(" ");
-//   const words = text.trim().split(/\s+/).length;
-//   return Math.ceil(words / wpm);
-// }
 
 export function readTime(blocks: any[]): number {
   if (!Array.isArray(blocks)) return 5;
@@ -269,6 +255,5 @@ export function readTime(blocks: any[]): number {
 
   return Math.max(1, Math.ceil(words / 220));
 }
-
 
 export default BlogSection;

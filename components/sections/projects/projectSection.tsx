@@ -45,7 +45,7 @@ export default function ProjectSection() {
         </div>
 
         <div className="cat-grid">
-          <Link href="/devops" className="cat-tile reveal d1">
+          <Link href="projects/devops" className="cat-tile reveal d1">
             {/* <div className="cat-bg"></div> */}
             <Image
               src={Devops}
@@ -77,7 +77,7 @@ export default function ProjectSection() {
             <div className="cat-accent ac-devops"></div>
           </Link>
 
-          <Link href="/web" className="cat-tile reveal d2">
+          <Link href="projects/web" className="cat-tile reveal d2">
             {/* <div className="cat-bg"></div> */}
             <Image
               src={WebDev}
@@ -105,7 +105,7 @@ export default function ProjectSection() {
             <div className="cat-accent ac-web"></div>
           </Link>
 
-          <Link href="/marketing" className="cat-tile reveal d3">
+          <Link href="projects/marketing" className="cat-tile reveal d3">
             {/* <div className="cat-bg"></div> */}
             <Image
               src={Marketing}
@@ -133,7 +133,7 @@ export default function ProjectSection() {
             <div className="cat-accent ac-auto"></div>
           </Link>
 
-          <Link href="/hardware" className="cat-tile reveal d4">
+          <Link href="projects/hardware" className="cat-tile reveal d4">
             {/* <div className="cat-bg"></div> */}
             <Image
               src={Embedded}
