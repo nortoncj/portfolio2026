@@ -17,6 +17,8 @@ import {
   FaUsers,
   FaWrench,
 } from "react-icons/fa6";
+import aboutPicture from "@images/about_headshot.jpeg";
+import Image from "next/image";
 
 export default function AboutSection() {
   useEffect(() => {
@@ -96,10 +98,7 @@ export default function AboutSection() {
           <div className="bio-photo-wrap">
             <div className="photo-ring-sm">
               <div className="photo-inner-sm">
-                <img
-                  src="https://placehold.co/600x700/221f22/fcfcfa?text=Chris"
-                  alt="Chris Norton"
-                />
+                <Image src={aboutPicture} alt="Chris Norton" />
               </div>
             </div>
             <div className="stat-badge top">

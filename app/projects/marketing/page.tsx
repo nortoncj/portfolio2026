@@ -234,6 +234,7 @@ import { AiFillAndroid } from "react-icons/ai";
 import { DiGoogleAnalytics } from "react-icons/di";
 import { Project } from "@/types/Post";
 import Link from "next/link";
+import ProjectModal from "@/components/partials/projectModals";
 
 // ─── DERIVED CONSTANTS ────────────────────────────────────────────────────────
 const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
@@ -465,10 +466,11 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
 };
 
 /** Project card with hover-reveal overlay */
-const ProjectCard: React.FC<{ project: Project; index: number }> = ({
-  project,
-  index,
-}) => {
+const ProjectCard: React.FC<{
+  project: Project;
+  index: number;
+  onClick: (p: Project) => void;
+}> = ({ project, index, onClick }) => {
   const [hovered, setHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
@@ -481,6 +483,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
       variants={fadeUp}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
+      onClick={() => onClick(project)}
       itemScope
       itemType="https://schema.org/SoftwareApplication"
       style={{
@@ -888,8 +891,17 @@ export default function MarketingCategoryPage() {
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState("");
   const [showAllTags, setShowAllTags] = useState(false);
-
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  const handleProjectClick = useCallback((project: Project) => {
+    if (project.modal) {
+      setSelectedProject(project);
+    } else {
+      const url = project.liveUrl ?? project.githubUrl;
+      if (url) window.open(url, "_blank", "noopener,noreferrer");
+    }
+  }, []);
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(searchQuery), 260);
     return () => clearTimeout(t);
@@ -1654,7 +1666,12 @@ export default function MarketingCategoryPage() {
                   }}
                 >
                   {filteredProjects.map((project, i) => (
-                    <ProjectCard key={project.id} project={project} index={i} />
+                    <ProjectCard
+                      key={project.id}
+                      project={project}
+                      index={i}
+                      onClick={handleProjectClick}
+                    />
                   ))}
                 </motion.div>
               ) : (
@@ -1976,6 +1993,13 @@ export default function MarketingCategoryPage() {
           </div>
         </section>
       </main>
+
+      {/* Project Detal Modal */}
+      <ProjectModal
+        project={selectedProject as any}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
 
       {/* ── Keyframes ─────────────────────────────────────────────── */}
       <style>{`
