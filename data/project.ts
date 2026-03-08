@@ -12,6 +12,7 @@ import Traders from "@images/portfolio/prolific_traders.png";
 import PointNorth from "@images/portfolio/point_north.png";
 import VFW from "@images/portfolio/vfw.png";
 import PowerPulse from "@images/portfolio/power_pulse.png";
+import AWSDevOps from "@images/portfolio/AwsDevops.avif";
 
 export const project: Project[] = [
   {
@@ -428,7 +429,37 @@ export const Hardware: Project[] = [
     },
   },
 ];
-export const Devops: Project[] = [];
+export const Devops: Project[] = [
+  {
+    id: "1",
+    title: "Deploying Java Application to AWS",
+    image: AWSDevOps.src,
+    modal: true,
+    category: "Cloud",
+    description:
+      "Deploying a Spring Boot Application to AWS and the servies involved.",
+    longDesc:
+      "Deploying a Spring Boot Application to AWS and the servies involved.",
+    skills: ["analytics", "circuits", "rtos", "i2c", "pcb", "cloud", "react"],
+    icon: "",
+    videoUrl: "https://youtu.be/1Z6E46F5H-o?si=PRXiwwBGeRq5Mut3",
+    featured: true,
+    status: "completed",
+    tags: ["aws","java","spring"],
+    timeline: {
+      duration: "1 week",
+      startDate: "09-01-24",
+      endDate: "09-10-24",
+    },
+    details: {
+      overview: "",
+      challenges: "",
+      solutions: "",
+      results: "",
+      features: [""],
+    },
+  },
+];
 
 // export const Devops: Project[] = [
 //   {
