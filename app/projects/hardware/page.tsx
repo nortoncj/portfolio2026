@@ -37,6 +37,7 @@ import { IconType } from "react-icons";
 import { Hardware as PROJECTS } from "@/data/project";
 import { Project } from "@/types/Post";
 import Hardware from "@images/embedded.jpg";
+import ProjectModal from "@/components/partials/projectModals";
 
 // ─── DESIGN TOKENS (mirrors presets.css :root) ─────────────────
 const T = {
@@ -450,10 +451,11 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
 };
 
 /** Project card with hover-reveal overlay */
-const ProjectCard: React.FC<{ project: Project; index: number }> = ({
-  project,
-  index,
-}) => {
+const ProjectCard: React.FC<{
+  project: Project;
+  index: number;
+  onClick: (p: Project) => void;
+}> = ({ project, index, onClick }) => {
   const [hovered, setHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
@@ -467,6 +469,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
       itemScope
+      onClick={() => onClick(project)}
       itemType="https://schema.org/SoftwareApplication"
       style={{
         borderRadius: 24,
@@ -777,7 +780,15 @@ const HardwareCategoryPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
-
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const handleProjectClick = useCallback((project: Project) => {
+    if (project.modal) {
+      setSelectedProject(project);
+    } else {
+      const url = project.liveUrl ?? project.githubUrl;
+      if (url) window.open(url, "_blank", "noopener,noreferrer");
+    }
+  }, []);
   // Debounce search
   useEffect(() => {
     const t = setTimeout(
@@ -1469,7 +1480,12 @@ const HardwareCategoryPage: React.FC = () => {
                   }}
                 >
                   {filteredProjects.map((project, i) => (
-                    <ProjectCard key={project.id} project={project} index={i} />
+                    <ProjectCard
+                      key={project.id}
+                      project={project}
+                      index={i}
+                      onClick={handleProjectClick}
+                    />
                   ))}
                 </motion.div>
               ) : (
@@ -1813,6 +1829,13 @@ const HardwareCategoryPage: React.FC = () => {
             </div>
           </motion.section>
         </main>
+
+        {/* Project Detal Modal */}
+        <ProjectModal
+          project={selectedProject as any}
+          isOpen={!!selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
       </div>
     </>
   );
