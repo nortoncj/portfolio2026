@@ -16,7 +16,7 @@ import { notFound } from "next/navigation";
 interface Props {
   params: Promise<{ slug: string }>;
 }
-
+export const revalidate = 3600; // cache 60s
 // ── Metadata ────────────────────────────────────────────────────────────────
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
