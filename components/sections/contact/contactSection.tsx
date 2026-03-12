@@ -3,6 +3,13 @@ import React, { useEffect } from "react";
 import "@css/contact.css";
 import Link from "next/link";
 import { CV, email, social } from "@/data/socials";
+import {
+  FaBolt,
+  FaBriefcase,
+  FaEnvelope,
+  FaGithub,
+  FaLocationPin,
+} from "react-icons/fa6";
 
 export default function ContactSection() {
   useEffect(() => {
@@ -39,7 +46,7 @@ export default function ContactSection() {
             boxShadow: "0 4px 14px rgba(255, 97, 136, 0.35)",
           }}
         >
-          ⚡
+          <FaBolt style={{ color: "var(--coral)" }} />
         </div>
         <div>
           <div className="deco-badge-val">24h</div>
@@ -54,18 +61,22 @@ export default function ContactSection() {
             boxShadow: "0 4px 14px rgba(169, 220, 118, 0.35)",
           }}
         >
-          💼
+          <FaBriefcase />
         </div>
         <div>
           <div className="deco-badge-val">Open</div>
-          <div className="deco-badge-sub">To freelance</div>
+          <div className="deco-badge-sub">To work</div>
         </div>
       </div>
 
       <div className="contact-inner">
         <div className="contact-info">
           <div className="section-eyebrow">
-            <span>✉️</span> Get In Touch
+            <span>
+              {" "}
+              <FaEnvelope />{" "}
+            </span>{" "}
+            Get In Touch
           </div>
 
           <div className="reveal" style={{ transitionDelay: "0.08s" }}>
@@ -97,7 +108,9 @@ export default function ContactSection() {
                 email();
               }}
             >
-              <div className="info-icon pink">📧</div>
+              <div className="info-icon pink">
+                <FaEnvelope />{" "}
+              </div>
               <div>
                 <div className="info-label">Email</div>
                 <div className="info-value">
@@ -116,14 +129,18 @@ export default function ContactSection() {
               rel="noopener"
               className="info-card"
             >
-              <div className="info-icon purple">💻</div>
+              <div className="info-icon purple">
+                <FaGithub />{" "}
+              </div>
               <div>
                 <div className="info-label">GitHub</div>
                 <div className="info-value">github.com/nortoncj</div>
               </div>
             </Link>
             <Link href="#" className="info-card">
-              <div className="info-icon coral">📍</div>
+              <div className="info-icon coral">
+                <FaLocationPin />{" "}
+              </div>
               <div>
                 <div className="info-label">Location</div>{" "}
                 <div className="info-value">

@@ -1242,11 +1242,11 @@ export default function MarketingCategoryPage() {
                 label="Tools"
                 color={T.coral}
               />
-              <StatChip
+              {/* <StatChip
                 value={stats.expertSkills}
                 label="Expert-level"
                 color={T.mint}
-              />
+              /> */}
             </motion.div>
 
             {/* CTAs */}

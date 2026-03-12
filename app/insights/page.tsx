@@ -1,10 +1,7 @@
-import { getPost } from "@/sanity/sanity-utils";
+import InsightsSectionClient from "@/components/sections/blog/InsightsSection";
+import { getPosts } from "@/sanity/sanity-utils";
 
-type Props = {
-    params: {post: string}
-}
-export default async function Post({ params }: Props) {
-    const slug = params.post;
-    const post = await getPost(slug);
-  return <div className="">Project here</div>;
+export default async function InsightsPage() {
+  const posts = await getPosts(); // PostPreview[]
+  return <InsightsSectionClient posts={posts} />;
 }

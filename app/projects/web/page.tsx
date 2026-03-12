@@ -1151,11 +1151,11 @@ export default function WebDevCategoryPage() {
                   label: "Skills",
                   color: T.purple,
                 },
-                {
-                  value: `${stats.expertSkills}`,
-                  label: "Expert-level",
-                  color: T.burgundy,
-                },
+                // {
+                //   value: `${stats.expertSkills}`,
+                //   label: "Expert-level",
+                //   color: T.burgundy,
+                // },
               ].map((s) => (
                 <div
                   key={s.label}
