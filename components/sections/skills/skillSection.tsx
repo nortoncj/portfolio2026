@@ -19,6 +19,7 @@ const devopsSkills: Skill[] = webSkills.filter((s) =>
 );
 
 import "@css/skills.css";
+import { SkillItem } from "./skillItem";
 
 const TABS = [
   { key: "marketing", label: "Marketing", skills: emailSkills },
@@ -67,17 +68,6 @@ function SkillSection() {
           className="nav nav-tabs text-center center skills-nav"
           ref={navRef}
         >
-          {/* sliding active pill */}
-          {/*<span
-            className="skills-nav-pill"
-            style={{
-              left: pillStyle.left,
-              width: pillStyle.width,
-              transition:
-                "left 0.3s cubic-bezier(0.34,1.56,0.64,1), width 0.3s cubic-bezier(0.34,1.56,0.64,1)",
-            }}
-          />*/}
-
           {TABS.map((tab) => (
             <button
               key={tab.key}
@@ -103,18 +93,7 @@ function SkillSection() {
         >
           {currentSkills.map((skill) => {
             const Icon = skill.icon;
-            return (
-              <li
-                key={skill.name}
-                className="skill-item"
-                title={skill.description}
-              >
-                <span className={`skill-icon ${skill.style ?? ""}`}>
-                  <Icon color={skill?.color || "white"} />
-                </span>
-                <p className="skill-name">{skill.name}</p>
-              </li>
-            );
+            return <SkillItem key={skill.name} skill={skill} />;
           })}
         </ul>
       </div>
