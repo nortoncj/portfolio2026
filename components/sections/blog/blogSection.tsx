@@ -209,7 +209,7 @@ function BlogSection({ posts }: { posts: Post[] }) {
         </div>
 
         <div className="cta-row reveal">
-          <a href="/insights" className="btn-all">
+          <a href="/insights" className="btn-primary btn-all">
             <svg
               width="16"
               height="16"

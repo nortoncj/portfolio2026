@@ -269,9 +269,10 @@
   color: #ff8fab;
   border: 1px solid rgba(255, 97, 136, 0.38);
 }
-.feat-cat.website, .feat-cat.web {
+.feat-cat.website,
+.feat-cat.web {
   background: rgba();
-  color:var(--color-blue-400);
+  color: var(--color-blue-400);
   border: 1px solid rgba(97, 163, 255, 0.38);
 }
 
@@ -593,23 +594,15 @@
 .btn-all {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 15px 38px;
   border-radius: var(--border-radius-large);
-  border: none;
-  background: linear-gradient(135deg, #ff6188, #fc5fa3);
-  color: var(--white);
-  font-family: "Inter", sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
   letter-spacing: -0.01em;
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 8px 32px rgba(255, 97, 136, 0.32);
   transition: var(--smooth);
   position: relative;
   overflow: hidden;
 }
+
 .btn-all::after {
   content: "";
   position: absolute;
@@ -647,16 +640,16 @@
      SCROLL REVEAL
   ════════════════════════════════════════ */
 .reveal {
-        opacity: 0;
-        transform: translateY(26px);
-        transition:
-          opacity 0.58s ease,
-          transform 0.58s ease;
-      }
-      .reveal.in {
-        opacity: 1;
-        transform: translateY(0);
-      }
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.58s ease,
+    transform 0.58s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* stagger delays for grid cards */
 .reveal-d1 {

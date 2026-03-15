@@ -3,7 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #1a1a1a;
-  --burgundy: #ff6188;
+  --red: #e8365d; /* was --burgundy #ff6188 — now a true anchor red */
+  --pink: #ff6188; /* was --burgundy, renamed honest */
+  --orange: #ff8c69;
   --magenta: #fc5fa3;
   --purple: #ab9df2;
   --coral: #ffd866;
@@ -16,16 +18,24 @@
   --slate: #221f22;
   --silver: #939293;
   /* Gradients */
-  --heroVibrant: linear-gradient(135deg, #ff6188 0%, #ff6188 50%, #ab9df2 100%);
-  --warmGlow: linear-gradient(135deg, #ffd866 0%, #ff6188 100%);
+  --heroVibrant: linear-gradient(135deg, #e8365d 0%, #ff6188 40%, #ab9df2 100%);
+  --warmGlow: linear-gradient(135deg, #ffd866 0%, #e8365d 100%);
   --coolFlow: linear-gradient(135deg, #78dce8 0%, #ab9df2 100%);
   --systemGreen: linear-gradient(135deg, #78dce8 0%, #ab9df2 100%);
   --meshGradient:
-    radial-gradient(at 0% 0%, #ff6188 0%, transparent 50%),
+    radial-gradient(at 0% 0%, #e8365d 0%, transparent 50%),
     radial-gradient(at 100% 0%, #ab9df2 0%, transparent 50%),
     radial-gradient(at 100% 100%, #78dce8 0%, transparent 50%),
     radial-gradient(at 0% 100%, #ffd866 0%, transparent 50%);
-
+  --fullSpectrum: linear-gradient(
+    135deg,
+    #e8365d,
+    #ff6188,
+    #ab9df2,
+    #78dce8,
+    #a9dc76,
+    #ffd866
+  );
   /* Overlay */
   --overlay: linear-gradient(
     180deg,
@@ -57,7 +67,7 @@
   --vibrant-border: 2px solid rgba(255, 97, 136, 0.3);
   --glass-border: 1px solid rgba(255, 255, 255, 0.18);
   --gradient-border: 1px solid transparent;
-  --gradient-border-box: linear-gradient(135deg, #ff6188, #ab9df2) border-box;
+  --gradient-border-box: linear-gradient(135deg, #e8365d, #ab9df2) border-box;
 
   --border-radius-small: 8px;
   --border-radius-medium: 16px;
@@ -139,7 +149,7 @@ li {
 .btn-secondary {
   background: rgba(252, 252, 250, 0.7);
   backdrop-filter: blur(20px) saturate(180%);
-  color: #ff6188;
+  color: #e8365d;
   border: 2px solid rgba(255, 97, 136, 0.3);
   border-radius: var(--border-radius-medium);
   padding: 14px 30px;
@@ -148,7 +158,7 @@ li {
 }
 .btn-secondary:hover {
   background: rgba(255, 97, 136, 0.1);
-  border-color: #ff6188;
+  border-color: #e8365d;
   transform: translateY(-1px);
 }
 .btn-ghost {
@@ -205,7 +215,7 @@ li {
   box-shadow: 0 8px 32px rgba(255, 97, 136, 0.15);
 }
 .premium-card {
-  background: linear-gradient(135deg, #ff6188 0%, #ab9df2 100%);
+  background: linear-gradient(135deg, #e8365d 0%, #ab9df2 100%);
   color: #fcfcfa;
   border: none;
   border-radius: 32px;
@@ -284,7 +294,7 @@ li {
 
 /* Badges */
 .badge-vibrant {
-  background: linear-gradient(135deg, #ff6188, #fc5fa3);
+  background: linear-gradient(135deg, #e8365d, #fc5fa3);
   color: #fcfcfa;
   border: none;
   border-radius: 20px;
@@ -296,7 +306,7 @@ li {
 .badge-glass {
   background: rgba(255, 97, 136, 0.15);
   backdrop-filter: blur(12px);
-  color: #ff6188;
+  color: #e8365d;
   border: 1px solid rgba(255, 97, 136, 0.3);
   border-radius: 20px;
   padding: 6px 16px;
