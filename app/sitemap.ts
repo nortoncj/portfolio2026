@@ -1,10 +1,10 @@
-
-import { getPost, getPosts } from "@/sanity/sanity-utils";
+import { getPosts } from "@/sanity/sanity-utils";
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://chrisnortonjr.com";
 
+  // Only static routes here
   const staticRoutes = [
     "/",
     "/projects/devops",
@@ -12,37 +12,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/projects/marketing",
     "/projects/hardware",
     "/insights",
-    "/insights/seo-optimizer",
-    "/insights/lightweight-emails",
-    "/insights/aws-devops",
-    "/insights/my-first-iot-project",
-    "/insights/windows-linux",
   ];
 
-  
-
-  const staticPages = staticRoutes.map((route) => ({
+  const staticPages: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
   }));
 
-  if (!res.ok) return [];
+  try {
+    const posts = await getPosts();
 
+    const insightRoutes: MetadataRoute.Sitemap = posts.map((post: any) => ({
+      url: `${baseUrl}/insights/${post.slug}`,
+      lastModified: new Date(
+        post._updatedAt || post.updatedAt || post.publishedAt || Date.now(),
+      ),
+    }));
 
-  const insightRoutes = posts.map((post: any) => ({
-    url: `${baseUrl}/insights/${post.slug}`,
-    lastModified: new Date(post.updatedAt),
-  }));
-
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/insights`,
-      lastModified: new Date(),
-    },
-    ...insightRoutes,
-  ];
+    return [...staticPages, ...insightRoutes];
+  } catch (error) {
+    console.error("Failed to generate sitemap:", error);
+    return staticPages;
+  }
 }
