@@ -13,6 +13,7 @@ import PointNorth from "@images/portfolio/point_north.png";
 import VFW from "@images/portfolio/vfw.png";
 import PowerPulse from "@images/portfolio/power_pulse.png";
 import AWSDevOps from "@images/portfolio/AwsDevops.avif";
+import Zybo from "@images/portfolio/Zybo.avif";
 
 export const project: Project[] = [
   {
@@ -52,10 +53,11 @@ export const Marketing: Project[] = [
     image: RealEstate.src,
     modal: true,
     category: "data",
+    videoUrl: "https://youtu.be/DzeOil1pBgI?si=9NBIVCqyUX-dxgdn",
     description:
-      "Made with Power BI and Power Point. Data sourced from a real estate agent.",
+      "Interactive Power BI dashboard analyzing U.S. property management trends with an East vs. West Coast regional breakdown and waterfront preference insights.",
     longDesc:
-      "Made with Power BI and Power Point. Data sourced from a real estate agent.",
+      "A data analytics project built in Power BI for a real estate agent seeking to understand U.S. property management trends. The dashboard delivers a regional comparative analysis between the East and West Coast markets, with a focus on waterfront versus non-waterfront property preferences. Raw agent data was cleaned, transformed, and modeled before being surfaced through custom DAX measures and advanced Power BI visualizations, enabling the client to make data-informed decisions about market positioning and property focus.",
     skills: ["analytics"],
     icon: "",
     featured: true,
@@ -66,13 +68,23 @@ export const Marketing: Project[] = [
     },
     tags: ["power bi"],
     status: "completed",
-    videoUrl: "",
     details: {
-      overview: "",
-      challenges: "",
-      solutions: "",
-      results: "",
-      features: [""],
+      overview:
+        "This Power BI dashboard was developed for a real estate agent looking to gain actionable insights from their property management data across the United States. The primary focus was a regional comparison between East Coast and West Coast markets, alongside an analysis of consumer preference for waterfront properties. Data sourced directly from the agent was cleaned, transformed, and structured into an interactive reporting solution that surfaces market trends and pricing patterns through visually compelling dashboards built in Power BI and presented via PowerPoint.",
+      challenges:
+        "The raw data provided by the agent required significant cleaning and transformation before it could be used for meaningful analysis. Structuring the data to support accurate regional segmentation between East and West Coast markets while simultaneously isolating waterfront versus non-waterfront property trends added complexity to the data model. Translating these insights into a format that was both technically accurate and immediately interpretable for a non-technical client was an additional design constraint.",
+      solutions:
+        "Data was cleaned and transformed using Power Query to ensure consistency and accuracy across the dataset. Custom DAX measures were written to calculate region-specific metrics and enable dynamic comparisons between East and West Coast property data. Advanced Power BI visuals were used to clearly communicate waterfront preference trends and pricing patterns across markets. A PowerPoint presentation was layered on top of the dashboard to deliver a polished, client-ready reporting experience.",
+      results:
+        "The completed dashboard gave the client a clear, data-driven view of property management trends across U.S. coastal markets. Regional pricing patterns and waterfront preference data were surfaced in an interactive format, empowering the agent to make informed decisions about market focus and property positioning. The combination of Power BI's analytical depth and a structured PowerPoint presentation ensured the insights were accessible and actionable for the client.",
+      features: [
+        "Regional market comparison between East Coast and West Coast U.S. property data",
+        "Waterfront versus non-waterfront property preference analysis",
+        "Data cleaning and transformation via Power Query for reliable modeling",
+        "Custom DAX measures for dynamic region-specific metric calculations",
+        "Advanced Power BI visualizations for market trend and pricing insights",
+        "PowerPoint integration for client-ready presentation of dashboard findings",
+      ],
     },
   },
   {
@@ -81,8 +93,10 @@ export const Marketing: Project[] = [
     image: MarketingDashboard.src,
     modal: true,
     category: "data",
-    description: "Marketing Dashboard using Tableau and Power Point",
-    longDesc: "Marketing Dashboard using Tableau and Power Point",
+    description:
+      "Interactive Tableau dashboard tracking web marketing KPIs including page load times, bounce rates, and click-through rates with custom calculated metrics.",
+    longDesc:
+      "A web marketing analytics dashboard built in Tableau to monitor and evaluate key performance indicators across a website's marketing funnel. The project involved sourcing and cleaning raw web data before engineering custom calculated fields to surface actionable KPIs including page load times, bounce rates, and click-through rates. The final deliverable combined an interactive Tableau dashboard with a PowerPoint presentation, giving stakeholders a clear and structured view of marketing performance and areas for optimization.",
     skills: ["analytics"],
     icon: "",
     featured: true,
@@ -91,15 +105,26 @@ export const Marketing: Project[] = [
       startDate: "09-01-24",
       endDate: "09-10-24",
     },
-    tags: ["marketing", "tableu"],
+    tags: ["marketing", "tableau"],
     status: "completed",
-    videoUrl: "",
+    videoUrl: "https://youtu.be/usIyITVMprw?si=NFBcIo2ynDgIXdpW",
     details: {
-      overview: "",
-      challenges: "",
-      solutions: "",
-      results: "",
-      features: [""],
+      overview:
+        "This Tableau dashboard was built to give marketing stakeholders a centralized view of web performance KPIs across their digital presence. The dashboard tracks critical metrics including page load times, bounce rates, and click-through rates, providing a data-driven foundation for evaluating marketing effectiveness. Raw web data was cleaned and transformed prior to analysis, and custom calculated fields were engineered to produce accurate, meaningful KPI outputs. The final solution was packaged alongside a PowerPoint presentation for structured stakeholder reporting.",
+      challenges:
+        "Raw web marketing data arrived inconsistent and required thorough cleaning before it could be reliably used for KPI analysis. Standard out-of-the-box Tableau metrics were insufficient to capture the nuanced performance indicators required, necessitating the development of custom calculated fields and equations. Presenting complex web performance data in a format that was both analytically rigorous and immediately digestible for non-technical stakeholders added an additional layer of design complexity.",
+      solutions:
+        "Data was cleaned and standardized to ensure consistency across all web metrics before being loaded into Tableau. Custom calculated fields were developed to accurately compute KPIs such as bounce rate trends, click-through rate performance, and page load time distributions that went beyond Tableau's native aggregations. Advanced Tableau visualizations were used to present these metrics interactively, allowing stakeholders to filter and drill down by relevant dimensions. A PowerPoint deck was produced alongside the dashboard to support formal reporting and presentation contexts.",
+      results:
+        "The completed dashboard delivered a unified, interactive view of web marketing performance across all tracked KPIs. Stakeholders gained the ability to identify underperforming pages, monitor click-through rate trends, and correlate page load times with bounce rate behavior in real time. The combination of a live Tableau dashboard and a structured PowerPoint presentation ensured the insights were actionable at both the analytical and executive level.",
+      features: [
+        "Web KPI tracking across page load times, bounce rates, and click-through rates",
+        "Custom calculated fields and equations for precise metric engineering",
+        "Data cleaning and transformation pipeline for consistent, reliable inputs",
+        "Interactive Tableau visualizations with dimension-level filtering and drill-down",
+        "Funnel performance analysis to identify drop-off points across the marketing journey",
+        "PowerPoint integration for executive-ready stakeholder reporting",
+      ],
     },
   },
   {
@@ -237,13 +262,13 @@ export const Web: Project[] = [
     longDesc: "Community platform for networking using NFC chip technology",
     skills: ["analytics", "html", "css", "javascript", "vue"],
     icon: "",
-    featured: false,
+    featured: true,
     timeline: {
       duration: "1 week",
       startDate: "09-01-24",
       endDate: "09-10-24",
     },
-    tags: ["html", "css", "tailwind", "javascript", "vue"],
+    tags: ["html", "css", "tailwind", "javascript", "vue", "php", "laravel"],
     status: "completed",
     liveUrl: "https://mcx-nuxt.vercel.app/",
     videoUrl: "",
@@ -403,12 +428,14 @@ export const Web: Project[] = [
 export const Hardware: Project[] = [
   {
     id: "1",
-    title: "Power Pulse Home Engery Monitoring System",
+    title: "Power Pulse Home Energy Monitoring System",
     image: PowerPulse.src,
     modal: true,
     category: "IOT",
-    description: "Home Energy Monitoring System with mobile app",
-    longDesc: "Home Energy Monitoring System with mobile app",
+    description:
+      "Non-invasive IoT energy monitoring system with real-time cloud dashboards and mobile app visualization.",
+    longDesc:
+      "Power Pulse is a non-invasive home energy monitoring system built on the ESP32 microcontroller. It leverages CT and voltage sensors to measure real-time power consumption without requiring any direct electrical wiring modifications. Data is processed on-device and transmitted to cloud infrastructure via AWS and Azure, where it is stored, analyzed, and surfaced through a responsive React-based dashboard and mobile application. The system displays live voltage, current, power, and cumulative kilowatt-hour consumption, enabling homeowners to monitor and optimize their energy usage remotely.",
     skills: ["analytics", "circuits", "rtos", "i2c", "pcb", "cloud", "react"],
     icon: "",
     featured: true,
@@ -417,15 +444,75 @@ export const Hardware: Project[] = [
       startDate: "09-01-24",
       endDate: "09-10-24",
     },
-    tags: ["circuits", "pcb", "azure", "aws", "iot"],
+    tags: ["circuits", "pcb", "azure", "aws", "iot", "C"],
     status: "completed",
-    videoUrl: "",
+    videoUrl: "https://youtu.be/ewC8UrDEJRQ?si=Gs0k5jgpHPXaxphQ",
     details: {
-      overview: "",
-      challenges: "",
-      solutions: "",
-      results: "",
-      features: [""],
+      overview:
+        "Power Pulse is an IoT-based home energy monitoring system designed to automate the collection and visualization of residential energy consumption data. Using non-invasive current and voltage sensors interfaced with an ESP32 microcontroller, the system captures real-time electrical metrics and transmits them to AWS and Azure cloud services. A React-based dashboard provides users with an intuitive interface to monitor voltage, current, power draw, and kilowatt-hour totals from any device.",
+      challenges:
+        "Existing commercial energy monitors were either cost-prohibitive or dependent on closed subscription platforms with limited customization. Capturing accurate AC voltage and current data without invasive electrical modifications posed hardware integration challenges. Ensuring reliable data transmission, cloud scalability, and a seamless user experience across local and remote access scenarios required careful architectural planning.",
+      solutions:
+        "Non-invasive sensing was achieved using the SCT-013 split-core CT sensor and the ZMPT101B AC voltage sensor, eliminating the need for direct wiring modifications. The ESP32 microcontroller was selected for its processing power, built-in Wi-Fi, and compatibility with the sensor suite. Cloud infrastructure was built on AWS IoT Core, DynamoDB, S3, and Lambda for serverless, scalable data handling. A React frontend was developed to deliver a visually rich dashboard as an alternative to basic serial monitor outputs used in comparable projects.",
+      results:
+        "The completed system successfully captures and transmits real-time energy consumption data to the cloud, displaying live readings of voltage, current, power, and kWh through a responsive dashboard. The non-invasive hardware setup requires no licensed electrical work, and the serverless AWS architecture keeps operational costs minimal. Power Pulse demonstrates a viable, scalable alternative to both expensive commercial monitors and limited closed-platform IoT solutions.",
+      features: [
+        "Non-invasive AC current and voltage sensing via SCT-013 and ZMPT101B sensors",
+        "Real-time data processing and transmission using ESP32 with built-in Wi-Fi",
+        "Cloud data pipeline built on AWS IoT Core, DynamoDB, S3, and Lambda",
+        "React-based dashboard displaying live voltage, current, power, and kWh metrics",
+        "Remote accessibility via internet-connected dashboard and mobile application",
+        "Serverless architecture designed for scalability and minimal operational cost",
+        "Custom PCB design for a production-grade hardware implementation",
+      ],
+    },
+  },
+  {
+    id: "2",
+    title: "HDMI Video Processing on Zybo Z7-20 FPGA",
+    image: Zybo.src,
+    modal: true,
+    category: "IOT",
+    description:
+      "Real-time HDMI video transmission and processing using a Zybo Z7-20 FPGA with interrupt-driven architecture.",
+    longDesc:
+      "Designed and implemented a Zynq-based embedded system to capture, process, and output HDMI video. The system uses AXI video pipelines, VDMA, and interrupt handling to enable real-time video streaming and manipulation between input and display.",
+    skills: [
+      "embedded systems",
+      "fpga",
+      "verilog",
+      "c",
+      "video processing",
+      "interrupts",
+      "zynq",
+      "hardware-software integration",
+    ],
+    icon: "",
+    featured: true,
+    timeline: {
+      duration: "1 week",
+      startDate: "04-15-25",
+      endDate: "04-22-25",
+    },
+    tags: ["FPGA", "Zynq", "HDMI", "C", "Verilog", "Embedded"],
+    status: "completed",
+    videoUrl: "https://youtube.com/shorts/mdwsWR4utwU?si=KS5I3HMolQvgAs0b",
+    details: {
+      overview:
+        "Built an HDMI video pipeline on a Zybo Z7-20 using Vivado and SDK. Integrated input/output modules, AXI streaming, and processing system for real-time video display.",
+      challenges:
+        "Managing multiple interrupt sources, synchronizing video timing, and ensuring stable HDMI signal processing without frame drops.",
+      solutions:
+        "Implemented an interrupt-driven architecture combining VDMA, VTC, and GPIO signals through a concat block to efficiently handle events and reduce CPU polling.",
+      results:
+        "Successfully demonstrated real-time HDMI input/output with frame buffering, resolution control, and visual effects via a menu-driven interface.",
+      features: [
+        "Interrupt-driven video processing",
+        "HDMI input and output pipeline",
+        "AXI VDMA frame buffering",
+        "Real-time video effects (scaling, inversion)",
+        "Menu-based user control",
+      ],
     },
   },
 ];
@@ -437,26 +524,38 @@ export const Devops: Project[] = [
     modal: true,
     category: "Cloud",
     description:
-      "Deploying a Spring Boot Application to AWS and the servies involved.",
+      "Production-grade Spring Boot deployment on AWS featuring Redis caching, RabbitMQ messaging, EC2 auto-scaling, and Route 53 hosted zone configuration.",
     longDesc:
-      "Deploying a Spring Boot Application to AWS and the servies involved.",
-    skills: ["analytics", "circuits", "rtos", "i2c", "pcb", "cloud", "react"],
+      "A full cloud deployment project demonstrating the end-to-end process of taking a Spring Boot application to production on AWS. The deployment pipeline involved packaging a Maven-built WAR file, storing it in S3, and deploying it across multiple EC2 instances configured for failover and auto-scaling. The project showcases Redis caching as a core performance optimization — demonstrating the measurable difference between first-load database queries and subsequent cache hits. Additional infrastructure included RabbitMQ for message brokering, Spring Security for application-level protection, and Route 53 for hosted zone and DNS management.",
+    skills: ["cloud"],
     icon: "",
     videoUrl: "https://youtu.be/1Z6E46F5H-o?si=PRXiwwBGeRq5Mut3",
     featured: true,
     status: "completed",
-    tags: ["aws","java","spring"],
+    tags: ["aws", "java", "spring", "redis", "devops"],
     timeline: {
       duration: "1 week",
       startDate: "09-01-24",
       endDate: "09-10-24",
     },
     details: {
-      overview: "",
-      challenges: "",
-      solutions: "",
-      results: "",
-      features: [""],
+      overview:
+        "This project demonstrates a production-ready deployment of a Spring Boot application on AWS, covering the full spectrum of cloud infrastructure setup and application delivery. The Maven-built WAR file was uploaded via the AWS CLI and stored in an S3 bucket before being deployed to EC2 instances configured for high availability through failover and auto-scaling groups. Redis caching was implemented as the centerpiece of the project, visually demonstrating the performance delta between a cold database read on first load and a cache-served response on subsequent requests. Supporting infrastructure included RabbitMQ for asynchronous message brokering, Spring Security for securing application endpoints, and Route 53 for DNS and hosted zone management.",
+      challenges:
+        "Configuring a resilient multi-EC2 deployment with proper failover behavior and auto-scaling policies required careful AWS infrastructure planning. Integrating Redis caching into the Spring Boot application while ensuring cache invalidation and consistency with the underlying database added architectural complexity. Setting up RabbitMQ alongside the application stack and securing the entire system with Spring Security principles demanded a coordinated approach across multiple AWS services. Managing the full deployment pipeline — from Maven build through CLI upload, S3 storage, and EC2 provisioning — without a CI/CD tool required precise manual orchestration.",
+      solutions:
+        "The application was packaged as a WAR file using Maven and uploaded to an S3 bucket via the AWS CLI, establishing a reliable artifact storage and retrieval workflow. Multiple EC2 instances were provisioned and configured within an auto-scaling group with failover policies to ensure high availability under load. Redis was integrated into the Spring Boot application to cache database responses, with the caching behavior demonstrated live — showing a first-request database hit followed by a significantly faster cache-served response on repeat requests. RabbitMQ was deployed as the message broker for asynchronous communication, Spring Security was configured to enforce authentication and authorization, and Route 53 was used to manage the hosted zone and route traffic to the load-balanced EC2 fleet.",
+      results:
+        "The deployment successfully demonstrated a production-grade AWS architecture capable of handling failover, scaling under load, and efficient data retrieval through Redis caching. The Redis demonstration clearly illustrated the performance improvement between database-sourced and cache-sourced responses, providing a tangible example of caching as a scalability strategy. The full infrastructure stack — EC2, S3, RabbitMQ, Redis, Route 53, and Spring Security — operated cohesively, validating the deployment pipeline and cloud architecture design.",
+      features: [
+        "End-to-end Spring Boot deployment pipeline via Maven build, AWS CLI, and S3 artifact storage",
+        "Multi-EC2 instance deployment with auto-scaling and failover configuration for high availability",
+        "Redis caching implementation demonstrating live performance comparison between database and cache reads",
+        "RabbitMQ integration for asynchronous message brokering within the application stack",
+        "Spring Security configuration for endpoint authentication and authorization",
+        "Route 53 hosted zone setup for DNS management and traffic routing",
+        "Load-balanced EC2 fleet architecture designed for production resilience and scalability",
+      ],
     },
   },
 ];
