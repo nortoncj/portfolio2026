@@ -267,12 +267,24 @@ export default function InsightsSectionClient({
     });
   }, [articles, activeCat, query]);
 
-  const visible = filtered.slice(0, page * PAGE_SIZE);
-  const hasMore = visible.length < filtered.length;
+  const featured = useMemo(() => {
+    if (activeCat !== "all") return undefined;
 
-  const featured =
-    activeCat === "all" ? visible.find((a) => a.featured) : undefined;
-  const rest = visible.filter((a) => !featured || a.slug !== featured.slug);
+    return [...filtered]
+      .filter((a) => a.featured)
+      .sort(
+        (a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime(),
+      )[0];
+  }, [filtered, activeCat]);
+
+  const nonFeatured = useMemo(() => {
+    if (!featured) return filtered;
+    return filtered.filter((a) => a.slug !== featured.slug);
+  }, [filtered, featured]);
+
+  const visible = nonFeatured.slice(0, page * PAGE_SIZE);
+  const hasMore = visible.length < nonFeatured.length;
+
 
   const handleCat = useCallback((key: string) => {
     setActiveCat(key);
@@ -285,6 +297,7 @@ export default function InsightsSectionClient({
   }, []);
 
   const catLabel = categories.find((c) => c.key === activeCat)?.label ?? "All";
+const renderedCount = visible.length + (featured ? 1 : 0);
 
   return (
     <>
@@ -322,8 +335,8 @@ export default function InsightsSectionClient({
             </div>
 
             <span className="results-count" aria-live="polite">
-              Showing <strong>{visible.length}</strong> of{" "}
-              <strong>{filtered.length}</strong> articles
+              Showing <strong>{renderedCount}</strong> of{" "}
+              <strong>{renderedCount}</strong> articles
             </span>
           </div>
 
@@ -361,7 +374,7 @@ export default function InsightsSectionClient({
         <div className="cards-grid" role="list" aria-label="Article list">
           {featured && <FeaturedCard article={featured} />}
 
-          {rest.map((article) => (
+          {visible.map((article) => (
             <ArticleCard key={article.slug} article={article} />
           ))}
 
