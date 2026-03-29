@@ -4,8 +4,9 @@ import MainHeader from "@/components/sections/header/mainHeader";
 import Footer from "@/components/sections/footer/Footer2";
 
 export const metadata: Metadata = {
-  title: "Chris Norton Jr | Systems Engineer",
-  description: "Marketing, Development and Deployment ",
+  title: "Chris Norton Jr | Portfolio",
+  description:
+    "Full-Stack Developer. Cloud Engineer. Marketing Technologist. Projects, breakdowns, and insights across DevOps, Embedded Systems, and Web Development — built to inform, impress, and collaborate.",
 };
 
 export default function FrontLayout({
