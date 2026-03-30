@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PostPreview } from "@/types/Post";
 import "@css/insights/style.css";
-import { readingTime } from "./postPage";
+
 
 
 type Article = {
