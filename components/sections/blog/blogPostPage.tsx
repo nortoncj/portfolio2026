@@ -10,7 +10,14 @@ import {
 } from "./components/portableTextComponents";
 import "@css/insights/post.css";
 import { shareItems } from "@/data/socials";
-import { FaCopy, FaEnvelope, FaFacebookF, FaLink, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
+import {
+  FaCopy,
+  FaEnvelope,
+  FaFacebookF,
+  FaLink,
+  FaLinkedinIn,
+  FaXTwitter,
+} from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 
 type Category = {
@@ -177,6 +184,8 @@ export default function BlogPostPage({
     [post.body],
   );
 
+  const showFloatingShare = progress > 5 && progress < 100;
+
   useEffect(() => {
     const update = () => {
       const el = document.getElementById("articleContent");
@@ -249,7 +258,7 @@ export default function BlogPostPage({
       </div>
 
       <aside
-        className={`bp-share-sidebar ${progress > 5 ? "bp-is-visible" : ""}`}
+        className={`bp-share-sidebar ${showFloatingShare ? "bp-is-visible" : ""}`}
         aria-label="Share this article"
       >
         <span className="bp-sidebar-label">Share</span>
@@ -265,7 +274,7 @@ export default function BlogPostPage({
             )
           }
         >
-          <FaXTwitter  />
+          <FaXTwitter />
         </button>
 
         <button
@@ -279,7 +288,7 @@ export default function BlogPostPage({
             )
           }
         >
-          <FaLinkedinIn  />
+          <FaLinkedinIn />
         </button>
 
         <button
@@ -311,7 +320,7 @@ export default function BlogPostPage({
             (window.location.href = `mailto:?subject=${encodeURIComponent(document.title)}&body=${encodeURIComponent(window.location.href)}`)
           }
         >
-          <FaEnvelope  />
+          <FaEnvelope />
         </button>
       </aside>
 
