@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity";
+import { defineField, defineType, defineArrayMember } from "sanity";
 
 export default defineType({
   name: "post",
@@ -10,8 +10,9 @@ export default defineType({
       name: "title",
       title: "Title",
       type: "string",
-      validation: (Rule) => Rule.required().min(10).max(100),
+      validation: (rule) => rule.required().min(10).max(100),
     }),
+
     defineField({
       name: "slug",
       title: "Slug",
@@ -20,23 +21,26 @@ export default defineType({
         source: "title",
         maxLength: 96,
       },
-      validation: (Rule) => Rule.required(),
+      validation: (rule) => rule.required(),
     }),
+
     defineField({
       name: "publishedAt",
       title: "Published At",
       type: "datetime",
       initialValue: () => new Date().toISOString(),
-      validation: (Rule) => Rule.required(),
+      validation: (rule) => rule.required(),
     }),
+
     defineField({
       name: "excerpt",
       title: "Excerpt",
       type: "text",
       rows: 4,
-      validation: (Rule) => Rule.required().min(50).max(160),
-      description: "Brief summary of the post (50-160 characters)",
+      description: "Brief summary of the post (50–160 characters)",
+      validation: (rule) => rule.required().min(50).max(160),
     }),
+
     defineField({
       name: "image",
       title: "Featured Image",
@@ -45,31 +49,33 @@ export default defineType({
         hotspot: true,
       },
       fields: [
-        {
+        defineField({
           name: "alt",
           title: "Alt Text",
           type: "string",
-          validation: (Rule) => Rule.required(),
-        },
-        {
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
           name: "caption",
           title: "Caption",
           type: "string",
-        },
+        }),
       ],
     }),
+
     defineField({
       name: "video",
       title: "Featured Video URL",
       type: "url",
-      description: "Optional video instead of image",
+      description: "Optional video instead of an image",
     }),
+
     defineField({
       name: "body",
       title: "Content",
       type: "array",
       of: [
-        {
+        defineArrayMember({
           type: "block",
           styles: [
             { title: "Normal", value: "normal" },
@@ -92,56 +98,66 @@ export default defineType({
             annotations: [
               {
                 name: "link",
-                type: "object",
                 title: "Link",
+                type: "object",
                 fields: [
-                  {
+                  defineField({
                     name: "href",
                     title: "URL",
                     type: "url",
-                  },
-                  {
+                    validation: (rule) =>
+                      rule.uri({
+                        allowRelative: false,
+                        scheme: ["http", "https", "mailto", "tel"],
+                      }),
+                  }),
+                  defineField({
                     name: "blank",
                     title: "Open in new tab",
                     type: "boolean",
-                  },
+                    initialValue: true,
+                  }),
                 ],
               },
             ],
           },
-        },
-        {
+        }),
+
+        defineArrayMember({
           type: "image",
           options: { hotspot: true },
           fields: [
-            {
+            defineField({
               name: "alt",
               title: "Alt Text",
               type: "string",
-              validation: (Rule) => Rule.required(),
-            },
-            {
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
               name: "caption",
               title: "Caption",
               type: "string",
-            },
+            }),
           ],
-        },
-        {
+        }),
+
+        defineArrayMember({
           name: "code",
           title: "Code Block",
           type: "object",
           fields: [
-            {
+            defineField({
               name: "code",
               title: "Code",
               type: "text",
-              rows: 10,
-            },
-            {
+              rows: 12,
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
               name: "language",
               title: "Language",
               type: "string",
+              initialValue: "typescript",
               options: {
                 list: [
                   { title: "JavaScript", value: "javascript" },
@@ -155,55 +171,152 @@ export default defineType({
                   { title: "YAML", value: "yaml" },
                 ],
               },
-            },
-            {
+            }),
+            defineField({
               name: "filename",
               title: "Filename",
               type: "string",
-            },
+            }),
           ],
-        },
+          preview: {
+            select: {
+              filename: "filename",
+              language: "language",
+            },
+            prepare({ filename, language }) {
+              return {
+                title: filename || "Code Block",
+                subtitle: language
+                  ? `${String(language).toUpperCase()}`
+                  : "Code snippet",
+              };
+            },
+          },
+        }),
+
+        // ---------------------------------------
+        // Legacy table support (existing content)
+        // ---------------------------------------
+        defineArrayMember({
+          type: "table",
+          title: "Legacy Table",
+        }),
+
+        // ---------------------------------------
+        // New enhanced table object
+        // ---------------------------------------
+        defineArrayMember({
+          name: "contentTable",
+          title: "Enhanced Table",
+          type: "object",
+          options: {
+            collapsible: true,
+            collapsed: false,
+          },
+          fields: [
+            defineField({
+              name: "table",
+              title: "Table Data",
+              type: "table",
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "caption",
+              title: "Caption",
+              type: "string",
+              description: "Optional caption shown below the table",
+            }),
+            defineField({
+              name: "hasHeaderRow",
+              title: "Use first row as header",
+              type: "boolean",
+              initialValue: true,
+            }),
+            defineField({
+              name: "variant",
+              title: "Style Variant",
+              type: "string",
+              initialValue: "default",
+              options: {
+                list: [
+                  { title: "Default", value: "default" },
+                  { title: "Striped", value: "striped" },
+                  { title: "Compact", value: "compact" },
+                  { title: "Comparison", value: "comparison" },
+                ],
+                layout: "radio",
+              },
+            }),
+            defineField({
+              name: "note",
+              title: "Table Note",
+              type: "text",
+              rows: 2,
+              description: "Optional note, source line, or disclaimer",
+            }),
+          ],
+          preview: {
+            select: {
+              caption: "caption",
+              rows: "table.rows",
+              variant: "variant",
+            },
+            prepare({ caption, rows, variant }) {
+              const rowCount = Array.isArray(rows) ? rows.length : 0;
+              return {
+                title: caption || "Enhanced Table",
+                subtitle: `${rowCount} row${rowCount === 1 ? "" : "s"} • ${
+                  variant || "default"
+                }`,
+              };
+            },
+          },
+        }),
       ],
     }),
+
     defineField({
       name: "categories",
       title: "Categories",
       type: "array",
-      of: [{ type: "reference", to: { type: "category" } }],
-      validation: (Rule) => Rule.min(1).max(3),
+      of: [{ type: "reference", to: [{ type: "category" }] }],
+      validation: (rule) => rule.min(1).max(3),
     }),
+
     defineField({
       name: "tags",
       title: "Tags",
       type: "array",
-      of: [{ type: "reference", to: { type: "tag" } }],
-      validation: (Rule) => Rule.max(8),
+      of: [{ type: "reference", to: [{ type: "tag" }] }],
+      validation: (rule) => rule.max(8),
     }),
+
     defineField({
       name: "featured",
       title: "Featured Post",
       type: "boolean",
       initialValue: false,
     }),
+
     defineField({
       name: "seo",
       title: "SEO Settings",
       type: "object",
       fields: [
-        {
+        defineField({
           name: "title",
           title: "SEO Title",
           type: "string",
-          validation: (Rule) => Rule.max(60),
-        },
-        {
+          validation: (rule) => rule.max(60),
+        }),
+        defineField({
           name: "description",
           title: "SEO Description",
           type: "text",
           rows: 3,
-          validation: (Rule) => Rule.max(160),
-        },
-        {
+          validation: (rule) => rule.max(160),
+        }),
+        defineField({
           name: "keywords",
           title: "Keywords",
           type: "array",
@@ -211,10 +324,11 @@ export default defineType({
           options: {
             layout: "tags",
           },
-        },
+        }),
       ],
     }),
   ],
+
   orderings: [
     {
       title: "Published Date, New",
@@ -227,11 +341,12 @@ export default defineType({
       by: [{ field: "publishedAt", direction: "asc" }],
     },
     {
-      title: "Title A-Z",
+      title: "Title A–Z",
       name: "titleAsc",
       by: [{ field: "title", direction: "asc" }],
     },
   ],
+
   preview: {
     select: {
       title: "title",
@@ -242,7 +357,7 @@ export default defineType({
     prepare({ title, subtitle, media, published }) {
       return {
         title,
-        subtitle: subtitle ? subtitle.slice(0, 60) + "..." : "",
+        subtitle: subtitle ? `${String(subtitle).slice(0, 60)}...` : "",
         media,
         description: published
           ? `Published: ${new Date(published).toLocaleDateString()}`

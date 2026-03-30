@@ -6,7 +6,8 @@
  * https://nextjs.org/docs/messages/sync-dynamic-apis
  */
 
-import BlogPostPage from "@/components/sections/blog/postPage";
+// import BlogPostPage from "@/components/sections/blog/postPage";
+import BlogPostPage from "@/components/sections/blog/blogPostPage";
 import { getPost, getRelatedPosts } from "@/sanity/sanity-utils";
 import type { Metadata } from "next";
 

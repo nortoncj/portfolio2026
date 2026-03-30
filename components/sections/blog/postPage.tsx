@@ -49,14 +49,13 @@ import Head from "next/head";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextComponents } from "@portabletext/react";
+import { portableTextComponents } from "@/components/sections/blog/components/portableTextComponents";
 import type { PortableTextBlock } from "@portabletext/types";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TYPES
 // ─────────────────────────────────────────────────────────────────────────────
-
-
 
 interface TOCItem {
   id: string;
@@ -180,7 +179,6 @@ export function readingTime(blocks: any[]): number {
   return Math.max(1, Math.ceil(words / 220));
 }
 
-
 function extractTOC(blocks: any[]): TOCItem[] {
   return blocks
     .filter(
@@ -221,7 +219,7 @@ function youtubeEmbed(url: string): string | null {
 // GLOBAL STYLES  (injected once via useEffect)
 // ─────────────────────────────────────────────────────────────────────────────
 
-import "@css/insights/post.css";
+import "@css/insights/postPage.css";
 import { Post, RelatedPost } from "@/types/Post";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -491,49 +489,64 @@ function ShareSidebar({ title, visible }: { title: string; visible: boolean }) {
 
   return (
     <aside
-      className={`bp-share-sidebar${visible ? " visible" : ""}`}
+      className={`bp-share-sidebar ${progress > 5 ? "bp-is-visible" : ""}`}
       aria-label="Share this article"
     >
       <span className="bp-sidebar-label">Share</span>
+
       <button
-        className="bp-sidebar-btn tw"
-        data-tip="Share on X"
-        aria-label="Share on X"
-        onClick={() => share("twitter")}
+        className="bp-sidebar-btn bp-sidebar-btn-x"
+        onClick={() =>
+          window.open(
+            `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(document.title)}`,
+            "_blank",
+            "noopener,width=600,height=450",
+          )
+        }
       >
-        <IconTwitter />
+        X
       </button>
+
       <button
-        className="bp-sidebar-btn li"
-        data-tip="Share on LinkedIn"
-        aria-label="Share on LinkedIn"
-        onClick={() => share("linkedin")}
+        className="bp-sidebar-btn bp-sidebar-btn-li"
+        onClick={() =>
+          window.open(
+            `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`,
+            "_blank",
+            "noopener,width=600,height=500",
+          )
+        }
       >
-        <IconLinkedIn />
+        in
       </button>
+
       <button
-        className="bp-sidebar-btn fb"
-        data-tip="Share on Facebook"
-        aria-label="Share on Facebook"
-        onClick={() => share("facebook")}
+        className="bp-sidebar-btn bp-sidebar-btn-fb"
+        onClick={() =>
+          window.open(
+            `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`,
+            "_blank",
+            "noopener,width=600,height=450",
+          )
+        }
       >
-        <IconFacebook />
+        f
       </button>
+
       <button
-        className={`bp-sidebar-btn cp${copied ? " copied" : ""}`}
-        data-tip={copied ? "Copied!" : "Copy link"}
-        aria-label="Copy link"
-        onClick={() => share("copy")}
+        className="bp-sidebar-btn bp-sidebar-btn-copy"
+        onClick={() => navigator.clipboard.writeText(window.location.href)}
       >
-        <IconCopy />
+        ⧉
       </button>
+
       <button
-        className="bp-sidebar-btn em"
-        data-tip="Share via Email"
-        aria-label="Share via email"
-        onClick={() => share("email")}
+        className="bp-sidebar-btn bp-sidebar-btn-email"
+        onClick={() =>
+          (window.location.href = `mailto:?subject=${encodeURIComponent(document.title)}&body=${encodeURIComponent(window.location.href)}`)
+        }
       >
-        <IconEmail />
+        ✉
       </button>
     </aside>
   );
@@ -690,7 +703,7 @@ function RelatedPostCard({
   post,
   index,
 }: {
-  post: RelatedPost
+  post: RelatedPost;
   index: number;
 }) {
   const cat = post.categories[0];

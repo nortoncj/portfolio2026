@@ -19,7 +19,7 @@ export default async function Home() {
       <AboutSection />
       {/* <About /> */}
       <BlogSection posts={posts} />
-      <ContactSection />
+      {/* <ContactSection /> */}
     </main>
   );
 }

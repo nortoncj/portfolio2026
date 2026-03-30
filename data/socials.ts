@@ -1,5 +1,33 @@
 import { Socials } from "@/types/Info";
-import { FaXTwitter, FaYoutube, FaLinkedin, FaGithub } from "react-icons/fa6";
+import { FaCopy, FaEnvelope } from "react-icons/fa";
+import { FaXTwitter, FaYoutube, FaLinkedin, FaGithub, FaFacebook, FaLink } from "react-icons/fa6";
+
+export const shareItems = [
+  {
+    name: "twitter",
+    icon: FaXTwitter,
+  },
+  {
+    name: "facebook",
+    icon: FaFacebook,
+  },
+  {
+    name: "linkedin",
+    icon: FaLinkedin,
+  },
+  {
+    name: "copy",
+    icon: FaCopy,
+  },
+  {
+    name: "link",
+    icon: FaLink,
+  },
+  {
+    name: "email",
+    icon: FaEnvelope,
+  },
+];
 export const social: Socials[] = [
   // {
   //   name: "x",
