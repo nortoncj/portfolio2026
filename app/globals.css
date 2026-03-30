@@ -97,8 +97,10 @@
   :root {
     /* --background: #1a1a1a; */
     /* --foreground: #f4f4f4; */
-    --background: var(--charcoal);
-    --foreground: var(--cream);
+    /* --background: var(--charcoal); */
+    /* --foreground: var(--cream); */
+    --background: var(--cream);
+    --foreground: var(--charcoal);
   }
 }
 

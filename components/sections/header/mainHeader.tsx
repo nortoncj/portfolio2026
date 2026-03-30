@@ -2,10 +2,11 @@
 import React from "react";
 import { useState, useRef, useEffect } from "react";
 import "@css/styles.css";
-import { FaBars } from "react-icons/fa6";
+import { FaBars, FaMoon } from "react-icons/fa6";
 import Logo from "@images/logo2.png";
 import Image from "next/image";
 import Link from "next/link";
+import ThemeChanger from "./themeChanger";
 
 function MainHeader() {
   const [open, setOpen] = useState(false);
@@ -33,11 +34,11 @@ function MainHeader() {
 
   return (
     <header>
-      <nav className="top-nav lightGlass">
+      <nav className="top-nav lightGlass dark:darkGlass">
         <div className="top-nav_left">
           <a className="logo-link flex items-center" href="/">
             <Image
-              alt="Chris Norton JR Systems Engineer"
+              alt="Chris Norton JR Engineer"
               className="w-12 h-12 p-0"
               src={Logo}
             />{" "}
@@ -60,6 +61,7 @@ function MainHeader() {
           <Link className="nav-link" href="#contact">
             Contact
           </Link>
+          {/* <ThemeChanger /> */}
         </div>
       </nav>
       <nav className="mobile-nav lightGlass">

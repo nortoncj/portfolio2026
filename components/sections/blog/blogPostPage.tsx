@@ -10,6 +10,8 @@ import {
 } from "./components/portableTextComponents";
 import "@css/insights/post.css";
 import { shareItems } from "@/data/socials";
+import { FaCopy, FaEnvelope, FaFacebookF, FaLink, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa";
 
 type Category = {
   slug: string;
@@ -159,7 +161,6 @@ function ShareButtons({ className = "" }: { className?: string }) {
   );
 }
 
-
 export default function BlogPostPage({
   post,
   relatedPosts,
@@ -264,7 +265,7 @@ export default function BlogPostPage({
             )
           }
         >
-          X
+          <FaXTwitter  />
         </button>
 
         <button
@@ -278,7 +279,7 @@ export default function BlogPostPage({
             )
           }
         >
-          in
+          <FaLinkedinIn  />
         </button>
 
         <button
@@ -292,7 +293,7 @@ export default function BlogPostPage({
             )
           }
         >
-          f
+          <FaFacebookF />
         </button>
 
         <button
@@ -300,7 +301,7 @@ export default function BlogPostPage({
           className="bp-sidebar-btn bp-sidebar-btn-copy"
           onClick={() => navigator.clipboard.writeText(window.location.href)}
         >
-          ⧉
+          <FaLink />
         </button>
 
         <button
@@ -310,11 +311,9 @@ export default function BlogPostPage({
             (window.location.href = `mailto:?subject=${encodeURIComponent(document.title)}&body=${encodeURIComponent(window.location.href)}`)
           }
         >
-          ✉
+          <FaEnvelope  />
         </button>
       </aside>
-
-      
 
       <header className="bp-hero">
         {post.video ? (

@@ -1,6 +1,6 @@
 import { Socials } from "@/types/Info";
 import { FaCopy, FaEnvelope } from "react-icons/fa";
-import { FaXTwitter, FaYoutube, FaLinkedin, FaGithub, FaFacebook, FaLink } from "react-icons/fa6";
+import { FaXTwitter, FaYoutube, FaLinkedin, FaGithub, FaLink, FaLinkedinIn, FaFacebookF } from "react-icons/fa6";
 
 export const shareItems = [
   {
@@ -9,11 +9,11 @@ export const shareItems = [
   },
   {
     name: "facebook",
-    icon: FaFacebook,
+    icon: FaFacebookF,
   },
   {
     name: "linkedin",
-    icon: FaLinkedin,
+    icon: FaLinkedinIn,
   },
   {
     name: "copy",
