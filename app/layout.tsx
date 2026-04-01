@@ -17,10 +17,20 @@ const jetBrains = JetBrains_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Chris Norton Jr | Systems Engineer",
-  description: "Marketing, Development and Deployment ",
-};
+export function buildMetadata({
+  title,
+  description,
+}: {
+  title?: string;
+  description?: string;
+}) {
+  return {
+    title: `${title || "Engineer"} | Chris Norton`,
+    description:
+      description ||
+      "Product Development, DevOps, Cloud and Martech. I build products, deploy them and grow them as a brand",
+  };
+}
 
 export default function RootLayout({
   children,

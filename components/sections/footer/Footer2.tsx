@@ -193,7 +193,7 @@ const NAV_COLS = [
       { label: "Hardware", href: "/projects/hardware" },
       { label: "DevOps & Cloud", href: "/projects/devops" },
       { label: "Automation", href: "/projects/automation" },
-      { label: "Hire Me →", href: "/contact" },
+      // { label: "Hire Me →", href: "/contact" },
     ],
   },
 ];
