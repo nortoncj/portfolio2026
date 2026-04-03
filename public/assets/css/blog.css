@@ -94,6 +94,9 @@
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
+.dark .section-heading {
+  color: var(--white);
+}
 .section-heading .grad {
   background: linear-gradient(135deg, #ff6188, #fc5fa3 45%, #ab9df2);
   -webkit-background-clip: text;
@@ -106,6 +109,9 @@
   color: var(--silver);
   line-height: 1.7;
   max-width: 520px;
+}
+.dark .section-sub {
+  color: rgba(252, 252, 250, 0.72);
 }
 
 /* ════════════════════════════════════════
@@ -259,6 +265,21 @@
   font-family: "JetBrains Mono", monospace;
   backdrop-filter: blur(10px);
 }
+.feat-cat.devops {
+  background: rgba(120, 220, 232, 0.2);
+  color: #78dce8;
+  border: 1px solid rgba(120, 220, 232, 0.38);
+}
+.feat-cat.automation {
+  background: rgba(171, 157, 242, 0.2);
+  color: #ab9df2;
+  border: 1px solid rgba(171, 157, 242, 0.38);
+}
+.feat-cat.ai {
+  background: rgba(200, 190, 255, 0.18);
+  color: #c8beff;
+  border: 1px solid rgba(200, 190, 255, 0.35);
+}
 .feat-cat.marketing {
   background: rgba(252, 95, 163, 0.22);
   color: #fc5fa3;
@@ -269,9 +290,9 @@
   color: #ff8fab;
   border: 1px solid rgba(255, 97, 136, 0.38);
 }
-.feat-cat.website,
+.feat-cat.websites,
 .feat-cat.web {
-  background: rgba();
+  background: rgba(197, 163, 255, 0.22);
   color: var(--color-blue-400);
   border: 1px solid rgba(97, 163, 255, 0.38);
 }
@@ -335,6 +356,9 @@
   display: flex;
   align-items: center;
   gap: 12px;
+}
+.dark .grid-title {
+  color: var(--white);
 }
 .grid-title::before {
   content: "";
@@ -514,6 +538,11 @@
   background: rgba(147, 146, 147, 0.22);
   color: #c0bfc0;
   border: 1px solid rgba(147, 146, 147, 0.42);
+}
+.cat-websites {
+  background: rgba(197, 163, 255, 0.22);
+  color: var(--color-blue-400);
+  border: 1px solid rgba(97, 163, 255, 0.38);
 }
 
 /* Card bottom content */

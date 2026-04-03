@@ -22,6 +22,7 @@ const SOCIAL_LINKS = [
     label: "GitHub",
     href: "https://github.com/nortoncj", // ← swap
     color: "#fcfcfa",
+    darkColor: "#ddd",
     hoverColor: "#ab9df2",
     icon: (
       <svg
@@ -39,6 +40,8 @@ const SOCIAL_LINKS = [
     label: "LinkedIn",
     href: "https://linkedin.com/in/chrisnortonjr", // ← swap
     color: "#fcfcfa",
+    darkColor: "#ddd",
+
     hoverColor: "#78dce8",
     icon: (
       <svg
@@ -73,6 +76,7 @@ const SOCIAL_LINKS = [
     label: "Email",
     href: "", // ← swap
     color: "#fcfcfa",
+    darkColor: "#ddd",
     hoverColor: "#ffd866",
     click: email(),
     icon: (
@@ -94,32 +98,20 @@ const SOCIAL_LINKS = [
     label: "CV",
     href: "",
     color: "#fcfcfa",
+    darkColor: "#ddd",
     click: CV(),
     hoverColor: "#a9dc76",
     icon: (
       <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
         width="17"
         height="17"
-        viewBox="0 0 24 24"
         fill="currentColor"
-        aria-hidden
+        viewBox="0 0 128 128"
       >
-        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-        <g
-          id="SVGRepo_tracerCarrier"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        ></g>
-        <g id="SVGRepo_iconCarrier">
-          {" "}
-          <path
-            d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12ZM16 12V13.5C16 14.8807 17.1193 16 18.5 16V16C19.8807 16 21 14.8807 21 13.5V12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21H16"
-            stroke="#000000"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>{" "}
-        </g>
+        <path d="M 32 6 C 24.8 6 19 11.8 19 19 L 19 109 C 19 116.2 24.8 122 32 122 L 96 122 C 103.2 122 109 116.2 109 109 L 109 43 C 109 41.3 107.7 40 106 40 C 104.3 40 103 41.3 103 43 L 103 109 C 103 112.9 99.9 116 96 116 L 32 116 C 28.1 116 25 112.9 25 109 L 25 19 C 25 15.1 28.1 12 32 12 L 83 12 L 83 19 C 83 26.2 88.8 32 96 32 L 104.40039 32 C 106.10039 32 109 32 109 29 C 109 22.9 106.60078 17.099219 102.30078 12.699219 C 97.900781 8.3992188 92.1 6 86 6 L 32 6 z M 89 12.300781 C 92.4 12.900781 95.5 14.5 98 17 C 100.5 19.5 102.09922 22.6 102.69922 26 L 96 26 C 92.1 26 89 22.9 89 19 L 89 12.300781 z M 41.900391 56 C 40.200391 56 38.900391 57.3 38.900391 59 C 38.900391 60.7 40.200391 62 41.900391 62 L 85.900391 62 C 87.600391 62 88.900391 60.7 88.900391 59 C 88.900391 57.3 87.600391 56 85.900391 56 L 41.900391 56 z M 41.900391 71 C 40.200391 71 38.900391 72.3 38.900391 74 C 38.900391 75.7 40.200391 77 41.900391 77 L 85.900391 77 C 87.600391 77 88.900391 75.7 88.900391 74 C 88.900391 72.3 87.600391 71 85.900391 71 L 41.900391 71 z M 42.099609 86 C 40.399609 86 39.099609 87.3 39.099609 89 C 39.099609 90.7 40.499609 92 42.099609 92 L 86.099609 92 C 87.799609 92 89.099609 90.7 89.099609 89 C 89.099609 87.3 87.799609 86 86.099609 86 L 42.099609 86 z"></path>
       </svg>
     ),
   },
@@ -127,6 +119,7 @@ const SOCIAL_LINKS = [
     label: "RSS Feed",
     href: "/insights/rss.xml",
     color: "#fcfcfa",
+    darkColor: "#ddd",
     hoverColor: "#a9dc76",
     icon: (
       <svg
@@ -169,7 +162,7 @@ const NAV_COLS = [
       { label: "About", href: "#about" },
       { label: "Projects", href: "#projects" },
       { label: "Insights", href: "#insights" },
-      { label: "Contact", href: "#contact" },
+      // { label: "Contact", href: "#contact" },
     ],
   },
   {
@@ -189,7 +182,7 @@ const NAV_COLS = [
   {
     title: "Work",
     links: [
-      { label: "Web Dev", href: "/projects/web-dev" },
+      { label: "Web Dev", href: "/projects/web" },
       { label: "Hardware", href: "/projects/hardware" },
       { label: "DevOps & Cloud", href: "/projects/devops" },
       { label: "Automation", href: "/projects/automation" },
@@ -210,6 +203,7 @@ function SocialBtn({
   const [hovered, setHovered] = React.useState(false);
   return (
     <Link
+      className="socialLinks"
       href={href}
       target={href.startsWith("mailto") ? undefined : "_blank"}
       rel="noopener noreferrer"
@@ -224,20 +218,8 @@ function SocialBtn({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: 40,
-        height: 40,
-        borderRadius: 12,
-        background: hovered ? "rgba(255,255,255,.12)" : "rgba(255,255,255,.06)",
-        border: `1px solid ${hovered ? hoverColor + "55" : "rgba(255,255,255,.1)"}`,
-        color: hovered ? hoverColor : color,
-        textDecoration: "none",
-        transition: "all 0.22s ease",
-        transform: hovered ? "translateY(-3px)" : "none",
-        boxShadow: hovered ? `0 6px 20px ${hoverColor}33` : "none",
-        flexShrink: 0,
+        color: hovered ? hoverColor : "var(--color-text)",
+        boxShadow: hovered ? `0 6px 20px ${hoverColor}33` : "0 1px 1px rgba(0,0,0,0.05)",
       }}
     >
       {icon}
@@ -251,10 +233,8 @@ export default function Footer() {
 
   return (
     <footer
-      className="footer-nav"
+      className="footer-nav "
       style={{
-        background: "linear-gradient(180deg, #2d2a2e 0%, #221f22 100%)",
-        color: "#fcfcfa",
         borderTop: "1px solid rgba(255,255,255,.06)",
         position: "relative",
         overflow: "hidden",
@@ -358,16 +338,16 @@ export default function Footer() {
               Chris Norton Jr.
             </h1>
             <h2
+              className="footer-subtitle"
               style={{
                 fontSize: "0.78rem",
                 fontWeight: 600,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "rgba(252,252,250,.45)",
                 fontFamily: "'JetBrains Mono', monospace",
               }}
             >
-              Systems Engineer · Full-Stack Dev
+              Engineer · Full-Stack Dev · Martech
             </h2>
           </div>
 
@@ -411,9 +391,9 @@ export default function Footer() {
 
           {/* Tagline */}
           <p
+            className="footer-text"
             style={{
               fontSize: "0.88rem",
-              color: "rgba(252,252,250,.55)",
               lineHeight: 1.7,
               maxWidth: 280,
             }}
@@ -431,9 +411,10 @@ export default function Footer() {
 
           {/* Location / timezone */}
           <p
+            className="footer-text"
             style={{
               fontSize: "0.72rem",
-              color: "rgba(252,252,250,.3)",
+              // color: "rgba(252,252,250,.3)",
               fontFamily: "'JetBrains Mono', monospace",
               display: "flex",
               alignItems: "center",
@@ -470,7 +451,6 @@ export default function Footer() {
                 fontWeight: 700,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "rgba(252,252,250,.35)",
                 fontFamily: "'JetBrains Mono', monospace",
                 marginBottom: "0.25rem",
               }}
@@ -500,12 +480,13 @@ export default function Footer() {
         }}
       >
         <p
+          className="footer-lower-title"
           style={{
             fontSize: "0.68rem",
             fontWeight: 700,
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            color: "rgba(252,252,250,.25)",
+            
             fontFamily: "'JetBrains Mono', monospace",
             marginBottom: "1rem",
           }}
@@ -543,9 +524,10 @@ export default function Footer() {
         >
           {/* Copyright */}
           <p
+            className="footer-text"
             style={{
               fontSize: "0.78rem",
-              color: "rgba(252,252,250,.3)",
+              // color: "rgba(252,252,250,.3)",
               fontFamily: "'JetBrains Mono', monospace",
             }}
           >
@@ -694,7 +676,7 @@ function FooterLink({
       onMouseLeave={() => setHovered(false)}
       style={{
         fontSize: "0.88rem",
-        color: hovered ? "#ff6188" : "rgba(252,252,250,.55)",
+        // color: hovered ? "#ff6188" : "rgba(252,252,250,.55)",
         textDecoration: "none",
         transition: "color 0.2s, transform 0.2s",
         transform: hovered ? "translateX(4px)" : "none",
@@ -739,6 +721,7 @@ function TechBadge({
     <span
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      className="tech-badge"
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -748,9 +731,9 @@ function TechBadge({
         fontSize: "0.73rem",
         fontFamily: "'JetBrains Mono', monospace",
         fontWeight: 600,
-        background: hovered ? `${color}1a` : "rgba(255,255,255,.05)",
-        border: `1px solid ${hovered ? color + "44" : "rgba(255,255,255,.09)"}`,
-        color: hovered ? color : "rgba(252,252,250,.45)",
+        background: hovered ? `${color}1a` : "var(--tech-badge-bg)",
+        border: `1px solid ${hovered ? color + "44" : "var(--tech-badge-border)"}`,
+        color: hovered ? color : "var(--tech-badge-text)",
         transition: "all 0.2s ease",
         cursor: "default",
         transform: hovered ? "translateY(-2px)" : "none",

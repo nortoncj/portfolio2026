@@ -15,7 +15,8 @@ function ThemeChanger() {
     const storedTheme = localStorage.getItem("theme") || "light";
     setTheme(storedTheme);
     document.documentElement.classList.toggle("dark", storedTheme === "dark");
-  });
+  }, []); // <-- important
+
   return (
     <button onClick={toggleTheme}>
       {theme === "light" ? <FaMoon /> : <CiLight color="white" />}{" "}

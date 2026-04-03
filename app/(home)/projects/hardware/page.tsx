@@ -38,8 +38,6 @@ import { Hardware as PROJECTS } from "@/data/project";
 import { Project } from "@/types/Post";
 import Hardware from "@images/embedded.jpg";
 import ProjectModal from "@/components/partials/projectModals";
-import { Metadata } from "next";
-import { buildMetadata } from "@/app/layout";
 
 // ─── DESIGN TOKENS (mirrors presets.css :root) ─────────────────
 const T = {
@@ -772,11 +770,7 @@ const SchemaOrgScripts: React.FC = () => {
   );
 };
 
-export const metadata: Metadata = buildMetadata({
-  title: "Hardware & Embedded Systems Projects",
-  description:
-    "A curated list of hardware and embedded systems projects including IoT devices, RTOS firmware, PCB designs, and embedded Linux gateways.",
-});
+
 
 
 

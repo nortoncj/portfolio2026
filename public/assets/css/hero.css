@@ -90,6 +90,9 @@
   letter-spacing: -0.02em;
   color: var(--charcoal);
 }
+.dark .hero-title {
+  color: var(--light-charcoal);
+}
 .hero-title .name {
   background: linear-gradient(135deg, #ff6188, #ab9df2);
   -webkit-background-clip: text;
@@ -102,6 +105,9 @@
   font-weight: 700;
   letter-spacing: -0.015em;
   color: var(--charcoal);
+}
+.dark .hero-subtitle {
+  color: var(--light-charcoal);
 }
 
 .hero-desc {
@@ -318,6 +324,9 @@
   overflow: hidden;
   background: #f0eef5;
 }
+.dark .photo-inner {
+  background: #1a1a1a;
+}
 .photo-inner img {
   width: 100%;
   height: 100%;
@@ -339,6 +348,10 @@
   gap: 10px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
+}
+.dark .badge {
+  background: rgba(18, 18, 18, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .badge-icon {
   width: 36px;
@@ -372,6 +385,9 @@
   font-size: 0.95rem;
   font-weight: 800;
   color: var(--charcoal);
+}
+.dark .badge-val {
+  color: var(--light-charcoal);
 }
 .badge-sub {
   font-size: 0.72rem;

@@ -160,7 +160,7 @@ export function SkillItem({ skill }: { skill: Skill }) {
                   className="skill-popover__tag"
                   style={{
                     background: badge.bg,
-                    color: badge.color,
+                    color: ` ${badge.color} dark:${badge.border}`,
                     border: `1px solid ${badge.border}`,
                   }}
                 >

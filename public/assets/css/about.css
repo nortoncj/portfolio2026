@@ -363,6 +363,11 @@
   transition: opacity 0.35s ease;
   z-index: 1;
 }
+.dark .edu-front {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.06);
+}
 .edu-card-wrap:hover .edu-front {
   opacity: 0;
 }
@@ -400,6 +405,13 @@
   color: var(--charcoal);
   letter-spacing: -0.01em;
 }
+.dark .edu-name {
+  color: var(--white);
+}
+.dark .edu-school {
+  color: var(--light-silver);
+}
+
 .edu-school {
   font-size: 0.82rem;
   color: var(--silver);

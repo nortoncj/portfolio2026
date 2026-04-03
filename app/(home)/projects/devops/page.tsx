@@ -242,8 +242,6 @@ import {
 import { VscAzure } from "react-icons/vsc";
 import { FcLinux } from "react-icons/fc";
 import ProjectModal from "@/components/partials/projectModals";
-import { Metadata } from "next";
-import { buildMetadata } from "@/app/layout";
 
 // ─── DERIVED CONSTANTS ────────────────────────────────────────────────────────
 const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
@@ -814,11 +812,6 @@ const schemaData = {
     },
   ],
 };
-export const metadata: Metadata = buildMetadata({
-  title: "DevOps Engineering Projects",
-  description:
-    "End-to-end CI/CD pipelines, container orchestration, infrastructure as code, and cloud automation built for production. Every project is designed for reliability, repeatability, and scale.",
-});
 
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 export default function DevOpsCategoryPage() {

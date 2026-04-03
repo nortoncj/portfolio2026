@@ -235,8 +235,6 @@ import { DiGoogleAnalytics } from "react-icons/di";
 import { Project } from "@/types/Post";
 import Link from "next/link";
 import ProjectModal from "@/components/partials/projectModals";
-import { buildMetadata } from "@/app/layout";
-import { Metadata } from "next";
 
 // ─── DERIVED CONSTANTS ────────────────────────────────────────────────────────
 const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
@@ -810,11 +808,7 @@ const schemaData = {
   ],
 };
 
-export const metadata: Metadata = buildMetadata({
-  title: "Digital Marketing Projects",
-  description:
-    "HTML email templates, SEO systems, Ad Campaigns, analytics dashboards, N8N automations, AI workflows, and full-funnel marketing campaigns.",
-});
+
 
 // ─── STAT COUNTER HOOK ────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 1400, start = false) {

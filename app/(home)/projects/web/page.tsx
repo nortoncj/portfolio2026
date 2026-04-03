@@ -204,8 +204,6 @@ import { BiLogoPostgresql } from "react-icons/bi";
 import { DiGoogleAnalytics } from "react-icons/di";
 import WebDev from "@images/webdev.jpg";
 import ProjectModal from "@/components/partials/projectModals";
-import { Metadata } from "next";
-import { buildMetadata } from "@/app/layout";
 
 // ─── DERIVED CONSTANTS ────────────────────────────────────────────────────────
 const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
@@ -799,11 +797,7 @@ const schemaData = {
   ],
 };
 
-export const metadata: Metadata = buildMetadata({
-  title: "Web Development Projects",
-  description:
-    "Full-stack web development projects spanning Next.js, Laravel, .NET, Vue, React, Node.js, and modern tooling.",
-});
+
 
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 export default function WebDevCategoryPage() {

@@ -6,11 +6,10 @@ import { email, social } from "@/data/socials";
 import Link from "next/link";
 import { Fader } from "./Fader";
 import { FaGear, FaGraduationCap, FaPlay } from "react-icons/fa6";
-import Photo from "@images/hero_headshot.png"
+import Photo from "@images/hero_headshot.png";
 import Image from "next/image";
 
 function Hero() {
-  
   return (
     <section className="hero blobGradient">
       <div className="hero-blob3"></div>
@@ -86,10 +85,7 @@ function Hero() {
         <div className="hero-right">
           <div className="photo-ring">
             <div className="photo-inner">
-              <Image
-                src={Photo}
-                alt="Chris Norton"
-              />
+              <Image src={Photo} alt="Chris Norton" />
             </div>
           </div>
 
@@ -114,8 +110,8 @@ function Hero() {
           </div>
         </div>
       </div>
-      
-{/* Modal */}
+
+      {/* Modal */}
     </section>
   );
 }
