@@ -1,6 +1,14 @@
 "use client";
 import React, { useEffect } from "react";
 import "@css/projects/devops.css";
+import { buildMetadata } from "@/app/layout";
+import { Metadata } from "next";
+
+export const metadata: Metadata = buildMetadata({
+  title: "DevOps Engineering Projects",
+  description:
+    "End-to-end CI/CD pipelines, container orchestration, infrastructure as code, and cloud automation built for production. Every project is designed for reliability, repeatability, and scale.",
+});
 export default function DevopsPage() {
   useEffect(() => {
     document.body.classList.add("js-ready");

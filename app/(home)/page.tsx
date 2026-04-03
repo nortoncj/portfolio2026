@@ -6,6 +6,9 @@ import Hero from "@/components/sections/hero/heroSection";
 import ProjectSection from "@/components/sections/projects/projectSection";
 import SkillSection from "@/components/sections/skills/skillSection";
 import { getPosts } from "@/sanity/sanity-utils";
+import { Metadata } from "next";
+import { buildMetadata } from "../layout";
+
 
 export const revalidate = 3600; // cache 60s
 

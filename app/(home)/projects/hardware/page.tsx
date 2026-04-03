@@ -38,6 +38,8 @@ import { Hardware as PROJECTS } from "@/data/project";
 import { Project } from "@/types/Post";
 import Hardware from "@images/embedded.jpg";
 import ProjectModal from "@/components/partials/projectModals";
+import { Metadata } from "next";
+import { buildMetadata } from "@/app/layout";
 
 // ─── DESIGN TOKENS (mirrors presets.css :root) ─────────────────
 const T = {
@@ -696,19 +698,19 @@ const SchemaOrgScripts: React.FC = () => {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://yourportfolio.dev",
+        item: "https://chrisnortonjr.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Projects",
-        item: "https://yourportfolio.dev/projects",
+        item: "https://chrisnortonjr.com/projects",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Hardware & Embedded Systems",
-        item: "https://yourportfolio.dev/projects/hardware",
+        item: "https://chrisnortonjr.com/projects/hardware",
       },
     ],
   };
@@ -719,7 +721,7 @@ const SchemaOrgScripts: React.FC = () => {
     name: "Hardware & Embedded Systems Projects by Christopher Norton",
     description:
       "A curated list of hardware and embedded systems projects including IoT devices, RTOS firmware, PCB designs, and embedded Linux gateways.",
-    url: "https://yourportfolio.dev/projects/hardware",
+    url: "https://chrisnortonjr.com/projects/hardware",
     numberOfItems: PROJECTS.length,
     itemListElement: PROJECTS.map((p, i) => ({
       "@type": "ListItem",
@@ -728,7 +730,7 @@ const SchemaOrgScripts: React.FC = () => {
         "@type": "SoftwareApplication",
         name: p.title,
         description: p.description,
-        url: `https://yourportfolio.dev/projects/hardware/${p.id}`,
+        url: `https://chrisnortonjr.com/projects/hardware/${p.id}`,
         image: p.image,
         applicationCategory: "HardwareApplication",
         keywords: p.tags.join(", "),
@@ -741,13 +743,13 @@ const SchemaOrgScripts: React.FC = () => {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Christopher Norton",
-    url: "https://yourportfolio.dev",
+    url: "https://chrisnortonjr.com",
     jobTitle: "Systems Engineer & Embedded Developer",
     knowsAbout: SKILLS.map((s) => s.name),
     hasCredential: [
       {
         "@type": "EducationalOccupationalCredential",
-        name: "AWS Solutions Architect",
+        name: "AWS Certified Cloud Practitioner",
       },
     ],
   };
@@ -769,6 +771,14 @@ const SchemaOrgScripts: React.FC = () => {
     </>
   );
 };
+
+export const metadata: Metadata = buildMetadata({
+  title: "Hardware & Embedded Systems Projects",
+  description:
+    "A curated list of hardware and embedded systems projects including IoT devices, RTOS firmware, PCB designs, and embedded Linux gateways.",
+});
+
+
 
 // ─── MAIN COMPONENT ────────────────────────────────────────────
 const HardwareCategoryPage: React.FC = () => {

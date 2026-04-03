@@ -235,6 +235,8 @@ import { DiGoogleAnalytics } from "react-icons/di";
 import { Project } from "@/types/Post";
 import Link from "next/link";
 import ProjectModal from "@/components/partials/projectModals";
+import { buildMetadata } from "@/app/layout";
+import { Metadata } from "next";
 
 // ─── DERIVED CONSTANTS ────────────────────────────────────────────────────────
 const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
@@ -762,19 +764,19 @@ const schemaData = {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://yourportfolio.dev/",
+          item: "https://chrisnortonjr.com/",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Projects",
-          item: "https://yourportfolio.dev/projects",
+          item: "https://chrisnortonjr.com/projects",
         },
         {
           "@type": "ListItem",
           position: 3,
           name: "Marketing",
-          item: "https://yourportfolio.dev/projects/marketing",
+          item: "https://chrisnortonjr.com/projects/marketing",
         },
       ],
     },
@@ -782,7 +784,7 @@ const schemaData = {
       "@type": "ItemList",
       name: "Digital Marketing Projects",
       description:
-        "HTML email templates, SEO systems, analytics dashboards, N8N automations, AI workflows, and full-funnel marketing campaigns.",
+        "HTML email templates, SEO systems, Ad Campaigns, analytics dashboards, N8N automations, AI workflows, and full-funnel marketing campaigns.",
       numberOfItems: PROJECTS.length,
       itemListElement: PROJECTS.map((p, i) => ({
         "@type": "ListItem",
@@ -807,6 +809,12 @@ const schemaData = {
     },
   ],
 };
+
+export const metadata: Metadata = buildMetadata({
+  title: "Digital Marketing Projects",
+  description:
+    "HTML email templates, SEO systems, Ad Campaigns, analytics dashboards, N8N automations, AI workflows, and full-funnel marketing campaigns.",
+});
 
 // ─── STAT COUNTER HOOK ────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 1400, start = false) {

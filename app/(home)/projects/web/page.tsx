@@ -204,6 +204,8 @@ import { BiLogoPostgresql } from "react-icons/bi";
 import { DiGoogleAnalytics } from "react-icons/di";
 import WebDev from "@images/webdev.jpg";
 import ProjectModal from "@/components/partials/projectModals";
+import { Metadata } from "next";
+import { buildMetadata } from "@/app/layout";
 
 // ─── DERIVED CONSTANTS ────────────────────────────────────────────────────────
 const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags))).sort();
@@ -751,19 +753,19 @@ const schemaData = {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://yourportfolio.dev/",
+          item: "https://chrisnortonjr.com/",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Projects",
-          item: "https://yourportfolio.dev/projects",
+          item: "https://chrisnortonjr.com/projects",
         },
         {
           "@type": "ListItem",
           position: 3,
           name: "Web Development",
-          item: "https://yourportfolio.dev/projects/web-dev",
+          item: "https://chrisnortonjr.com/projects/web-dev",
         },
       ],
     },
@@ -771,7 +773,7 @@ const schemaData = {
       "@type": "ItemList",
       name: "Web Development Projects",
       description:
-        "Full-stack web development projects spanning Next.js, React, Node.js, and modern tooling.",
+        "Full-stack web development projects spanning Next.js, Laravel, .NET, Vue, React, Node.js, and modern tooling.",
       numberOfItems: PROJECTS.length,
       itemListElement: PROJECTS.map((p, i) => ({
         "@type": "ListItem",
@@ -781,7 +783,7 @@ const schemaData = {
           name: p.title,
           description: p.description,
           url:
-            p.liveUrl ?? `https://yourportfolio.dev/projects/web-dev/${p.id}`,
+            p.liveUrl ?? `https://chrisnortonjr.com/projects/web-dev/${p.id}`,
           applicationCategory: "WebApplication",
           operatingSystem: "Web Browser",
         },
@@ -790,12 +792,18 @@ const schemaData = {
     {
       "@type": "Person",
       name: "Chris Norton",
-      url: "https://yourportfolio.dev/about",
+      url: "https://chrisnortonjr.com/about",
       jobTitle: "Full-Stack Web Developer & Systems Engineer",
       knowsAbout: SKILLS.map((s) => s.name),
     },
   ],
 };
+
+export const metadata: Metadata = buildMetadata({
+  title: "Web Development Projects",
+  description:
+    "Full-stack web development projects spanning Next.js, Laravel, .NET, Vue, React, Node.js, and modern tooling.",
+});
 
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 export default function WebDevCategoryPage() {
