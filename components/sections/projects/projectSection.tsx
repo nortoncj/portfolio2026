@@ -31,9 +31,9 @@ export default function ProjectSection() {
     <section id="projects" className="projects">
       <div className="projects-inner">
         <div className="reveal">
-          <h1 className="section-title">
+          <h2 className="section-title">
             Built across <span className="grad">every layer</span>
-          </h1>
+          </h2>
 
           <p className="section-sub">
             Pick a discipline and explore the projects behind it.

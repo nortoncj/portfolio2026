@@ -320,7 +320,7 @@ export default function Footer() {
         >
           {/* Name + title */}
           <div>
-            <h1
+            <h3
               style={{
                 fontSize: "1.4rem",
                 fontWeight: 900,
@@ -336,7 +336,7 @@ export default function Footer() {
               }}
             >
               Chris Norton Jr.
-            </h1>
+            </h3>
             <h2
               className="footer-subtitle"
               style={{
