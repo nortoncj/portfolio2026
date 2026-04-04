@@ -1,4 +1,4 @@
-import { buildMetadata } from "@/app/layout";
+import { buildMetadata } from "@/libs/SEO";
 import InsightsSectionClient from "@/components/sections/blog/InsightsSection";
 import { getPosts } from "@/sanity/sanity-utils";
 import { Metadata } from "next";
