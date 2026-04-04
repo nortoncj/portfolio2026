@@ -8,7 +8,6 @@ import SkillSection from "@/components/sections/skills/skillSection";
 import { buildMetadata } from "@/libs/SEO";
 import { getPosts } from "@/sanity/sanity-utils";
 import { Metadata } from "next";
-i
 
 export const metadata: Metadata = buildMetadata({});
 export const revalidate = 3600; // cache 60s
