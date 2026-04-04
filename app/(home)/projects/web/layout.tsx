@@ -1,4 +1,4 @@
-import { buildMetadata } from "@/app/layout";
+import { buildMetadata } from "@/libs/SEO";
 import { Metadata } from "next";
 import React from "react";
 export const metadata: Metadata = {

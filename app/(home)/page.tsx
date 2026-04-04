@@ -5,11 +5,12 @@ import ContactSection from "@/components/sections/contact/contactSection";
 import Hero from "@/components/sections/hero/heroSection";
 import ProjectSection from "@/components/sections/projects/projectSection";
 import SkillSection from "@/components/sections/skills/skillSection";
+import { buildMetadata } from "@/libs/SEO";
 import { getPosts } from "@/sanity/sanity-utils";
 import { Metadata } from "next";
-import { buildMetadata } from "../layout";
+i
 
-
+export const metadata: Metadata = buildMetadata({});
 export const revalidate = 3600; // cache 60s
 
 export default async function Home() {

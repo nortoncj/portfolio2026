@@ -20,13 +20,10 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@css/*": [
-        "./public/assets/css/*"
-      ],
-      "@images/*": [
-        "./public/assets/img/*"
-      ],
-      "@/components": ["./*"]
+      "@css/*": ["./public/assets/css/*"],
+      "@images/*": ["./public/assets/img/*"],
+      "@components/": ["./components/*"],
+      "@libs/*": ["./libs/*"]
     }
   },
   "include": [
