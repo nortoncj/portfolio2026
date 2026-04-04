@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import "@css/projects/devops.css";
-import { buildMetadata } from "@/app/layout";
+import { buildMetadata } from "@/libs/SEO";
 import { Metadata } from "next";
 
 export const metadata: Metadata = buildMetadata({
