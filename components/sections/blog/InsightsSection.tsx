@@ -365,9 +365,9 @@ const renderedCount = visible.length + (featured ? 1 : 0);
       {/* Main */}
       <main className="insights-main" id="main">
         <div className="section-header">
-          <h2 className="section-title">
+          <h1 className="section-title">
             {activeCat === "all" ? "All Articles" : catLabel}
-          </h2>
+          </h1>
           <span className="section-meta">Sorted by latest</span>
         </div>
 

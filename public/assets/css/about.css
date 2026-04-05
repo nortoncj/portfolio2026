@@ -76,14 +76,16 @@
 /* BAND 1 — BIO */
 .bio-grid {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1fr 760px;
   gap: 60px;
   align-items: center;
 }
+
 .bio-text {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  order: 2;
 }
 .bio-para {
   font-size: 1.05rem;
@@ -160,6 +162,7 @@
   position: relative;
   display: flex;
   justify-content: center;
+  order: 1;
 }
 .photo-ring-sm {
   width: 300px;

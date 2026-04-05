@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { CiLight } from "react-icons/ci";
-import { FaMoon } from "react-icons/fa6";
+import { FaMoon} from "react-icons/fa6";
+import { MdSunny } from "react-icons/md";
 
 function ThemeChanger() {
   const [theme, setTheme] = useState("light");
@@ -18,8 +18,18 @@ function ThemeChanger() {
   }, []); // <-- important
 
   return (
-    <button onClick={toggleTheme}>
-      {theme === "light" ? <FaMoon /> : <CiLight color="white" />}{" "}
+    <button
+      onClick={toggleTheme}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.filter =
+          " grayscale(0%) brightness(1.8) drop-shadow(0 3px 8px rgba(255, 139, 162, 0.6))";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.filter = "brightness(1)";
+      }}
+      className="theme-toggle-btn"
+    >
+      {theme === "light" ? <FaMoon /> : <MdSunny color="white" />}{" "}
     </button>
   );
 }

@@ -8,8 +8,10 @@ import { Fader } from "./Fader";
 import { FaGear, FaGraduationCap, FaPlay } from "react-icons/fa6";
 import Photo from "@images/hero_headshot.png";
 import Image from "next/image";
+import { Play } from "./Play";
 
 function Hero() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <section className="hero blobGradient">
       <div className="hero-blob3"></div>
@@ -48,6 +50,7 @@ function Hero() {
             </Link>
 
             {/* Play */}
+            {/* <Play onClick={() => setModalOpen(true)} /> */}
           </div>
 
           <div className="hero-socials fade-up delay-5">
@@ -112,6 +115,11 @@ function Hero() {
       </div>
 
       {/* Modal */}
+      <VideoModal
+        open={modalOpen}
+        url="https://youtube.com"
+        onClose={() => setModalOpen(false)}
+      />
     </section>
   );
 }
