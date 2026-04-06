@@ -27,6 +27,9 @@ export function buildMetadata({
     alternates: {
       canonical: url,
     },
+    other: {
+      "google-site-verification": "7JxhJ8Q3PXbQgekYOnrwz4G3K6tFCe-2yIUdsZjeAhw",
+    },
 
     // -------------------------
     // 🟦 OPEN GRAPH (FB, LinkedIn, Slack, Discord)
