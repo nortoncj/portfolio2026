@@ -66,15 +66,15 @@ function MainHeader() {
           <ThemeChanger />
         </div>
       </nav>
-      <nav className="mobile-nav lightGlass">
+      <nav className="mobile-nav lightGlass dark:darkGlass">
         <div className="mobile-nav_left">
-          <a className="logo-link" href="/">
+          <Link className="logo-link" href="/">
             <Image
               alt="Chris Norton JR Systems Engineer"
               className="w-12 h-12 p-0"
               src={Logo}
             />
-          </a>
+          </Link>
         </div>
         <button
           id="menuBtn"
@@ -82,8 +82,11 @@ function MainHeader() {
           onClick={toggleMenu}
           className="mobile-nav_right bg-transparent border-0"
         >
-          <FaBars />
+          <FaBars className="nav-link" />
         </button>
+        <div className="mobile-nav_right">
+          <ThemeChanger />
+        </div>
       </nav>
       <div
         id="mobileMenu"
