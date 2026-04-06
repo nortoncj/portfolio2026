@@ -18,12 +18,6 @@ const jetBrains = JetBrains_Mono({
   subsets: ["latin"],
 });
 
-
-
-
-
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,6 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <meta
+        name="google-site-verification"
+        content="7JxhJ8Q3PXbQgekYOnrwz4G3K6tFCe-2yIUdsZjeAhw"
+      />
       <body
         className={`${inter.variable} ${playfair.variable} ${jetBrains.variable} antialiased`}
       >
