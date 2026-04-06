@@ -19,6 +19,7 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
+import { getYouTubeEmbedUrl } from "@/libs/video";
 
 type Category = {
   slug: string;
@@ -329,7 +330,7 @@ export default function BlogPostPage({
         {post.video ? (
           <iframe
             className="bp-hero-video"
-            src={post.video}
+            src={getYouTubeEmbedUrl(post.video)}
             title={post.title}
             allow="autoplay; encrypted-media; picture-in-picture"
             allowFullScreen
