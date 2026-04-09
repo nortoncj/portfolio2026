@@ -183,7 +183,7 @@ const NAV_COLS = [
     title: "Work",
     links: [
       { label: "Web Dev", href: "/projects/web" },
-      { label: "Hardware", href: "/projects/hardware" },
+      { label: "Engineering", href: "/projects/engineering" },
       { label: "DevOps & Cloud", href: "/projects/devops" },
       { label: "Automation", href: "/projects/automation" },
       // { label: "Hire Me →", href: "/contact" },
