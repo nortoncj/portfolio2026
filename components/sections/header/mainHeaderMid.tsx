@@ -58,9 +58,9 @@ function MainHeader() {
           <Link className="nav-link" href="#insights">
             Insights
           </Link>
-          <Link className="nav-link" href="#contact">
+          {/* <Link className="nav-link" href="#contact">
             Contact
-          </Link>
+          </Link> */}
         </div>
         <div className="top_nav_right">
           <ThemeChanger />
