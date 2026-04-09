@@ -7,7 +7,7 @@ function Footer() {
       <div className="footer_upper">
         <div className="footer-main">
           <div className="footer-section">
-            <h1>Chris Norton Jr.</h1>
+            {/* <h1>Chris Norton Jr.</h1> */}
             <h2>Systems Engineer</h2>
             <p>
               Build systems that scale. <br />

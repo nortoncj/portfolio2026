@@ -133,7 +133,7 @@ export default function ProjectSection() {
             <div className="cat-accent ac-auto"></div>
           </Link>
 
-          <Link href="projects/hardware" className="cat-tile reveal d4">
+          <Link href="projects/engineering" className="cat-tile reveal d4">
             {/* <div className="cat-bg"></div> */}
             <Image
               src={Embedded}
@@ -152,7 +152,7 @@ export default function ProjectSection() {
               <div className="cat-title">
                 Embedded Systems
                 <br />
-                &amp; Hardware Design
+                &amp; Engineering
               </div>
               <div className="cat-arrow">
                 View projects <span className="arrow-circle">→</span>

@@ -25,7 +25,7 @@ const TABS = [
   { key: "marketing", label: "Marketing", skills: emailSkills },
   { key: "devops", label: "DevOps", skills: devopsSkills },
   { key: "web", label: "Web", skills: webSkills },
-  { key: "hardware", label: "Hardware", skills: engineeringSkills },
+  { key: "engineering", label: "Engineering", skills: engineeringSkills },
 ] as const;
 
 type TabKey = (typeof TABS)[number]["key"];

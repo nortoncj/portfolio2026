@@ -17,17 +17,17 @@ function Hero() {
       <div className="hero-blob3"></div>
       <div className="hero-grid">
         <div className="hero-left">
-          <h1 className="hero-title fade-up">
+          <h2 className="hero-title fade-up">
             Hi, I'm <span className="name">Chris</span>
-          </h1>
+          </h2>
 
-          <h2 className="hero-subtitle fade-up delay-1">
+          <h1 className="hero-subtitle fade-up delay-1">
             I Build
             <span id="" className="code ">
               {" "}
               <Fader />
             </span>
-          </h2>
+          </h1>
 
           <p className="hero-desc fade-up delay-2">
             Multi-disciplinary engineer specializing in

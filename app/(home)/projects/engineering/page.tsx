@@ -984,7 +984,7 @@ const HardwareCategoryPage: React.FC = () => {
                 {[
                   { href: "/", label: "Home" },
                   { href: "/projects", label: "Projects" },
-                  { href: "/projects/hardware", label: "Hardware" },
+                  { href: "/projects/engineering", label: "Engineering" },
                 ].map((crumb, i, arr) => (
                   <React.Fragment key={crumb.href}>
                     <li
@@ -1062,7 +1062,7 @@ const HardwareCategoryPage: React.FC = () => {
                   }}
                 >
                   <span style={{ fontSize: "1.1rem" }}></span>
-                  Hardware &amp; Embedded Systems
+                  Embedded Systems, Hardware &amp; Engineering
                 </span>
               </motion.div>
 
