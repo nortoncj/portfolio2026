@@ -143,7 +143,7 @@ export function SkillItem({ skill }: { skill: Skill }) {
           {/* Header */}
           <div className="skill-popover__header">
             <span className={`skill-popover__icon ${skill.style ?? ""}`}>
-              <Icon color="white" size={13} />
+              <Icon color={skill.color || "white"} size={13} />
             </span>
             <strong className="skill-popover__name">{skill.name}</strong>
           </div>

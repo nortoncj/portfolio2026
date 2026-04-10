@@ -22,7 +22,7 @@ import "@css/skills.css";
 import { SkillItem } from "./skillItem";
 
 const TABS = [
-  { key: "marketing", label: "Marketing", skills: emailSkills },
+  { key: "marketing", label: "Automation", skills: emailSkills },
   { key: "devops", label: "DevOps", skills: devopsSkills },
   { key: "web", label: "Web", skills: webSkills },
   { key: "engineering", label: "Engineering", skills: engineeringSkills },

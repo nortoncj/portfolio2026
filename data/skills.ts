@@ -227,7 +227,7 @@ export const emailSkills: Skill[] = [
     icon: FaMailchimp,
     description: "Email marketing and automation service",
     tags: ["Campaigns", "Templates", "Analytics"],
-    color: "text-black",
+    color: "black",
     badgeColor:
       "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
     style: gradients.yellow.default,
@@ -363,7 +363,8 @@ export const webSkills: Skill[] = [
   {
     name: "Python",
     icon: FaPython,
-    description: "High-level programming for web and data science",
+    description:
+      "High-level programming for web and data science and web frameworks like Django and FastAPI",
     tags: ["Backend", "Data", "ML"],
     badgeColor:
       "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
@@ -530,6 +531,16 @@ export const engineeringSkills: Skill[] = [
     badgeColor:
       "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
     style: gradients.blue.default,
+  },
+  {
+    name: "Python",
+    icon: FaPython,
+    description:
+      "High-level programming for data analysis, automation, and machine learning with MatLab, NumPy, and SciPy. GUI development with Tkinter and PyQt.",
+    tags: ["Backend", "Data", "ML"],
+    badgeColor:
+      "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
+    style: gradients.yellow.default,
   },
   // {
   //   name: "TensorFlow",

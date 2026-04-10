@@ -70,7 +70,7 @@ function MainHeader() {
         <div className="mobile-nav_left">
           <Link className="logo-link" href="/">
             <Image
-              alt="Chris Norton JR Systems Engineer"
+              alt="Chris Norton JR Engineer"
               className="w-12 h-12 p-0"
               src={Logo}
             />

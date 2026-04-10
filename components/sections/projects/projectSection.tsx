@@ -40,7 +40,7 @@ export default function ProjectSection() {
           </p>
           <div className="section-label">
             {" "}
-            <FaTools color="black" /> My Work
+            <FaTools color="" /> My Work
           </div>
         </div>
 
@@ -105,7 +105,7 @@ export default function ProjectSection() {
             <div className="cat-accent ac-web"></div>
           </Link>
 
-          <Link href="projects/marketing" className="cat-tile reveal d3">
+          <Link href="projects/automation" className="cat-tile reveal d3">
             {/* <div className="cat-bg"></div> */}
             <Image
               src={Marketing}
