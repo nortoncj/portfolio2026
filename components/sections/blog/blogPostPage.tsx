@@ -19,8 +19,7 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
-import { getYouTubeEmbedUrl } from "@/libs/video";
-
+import { getYouTubeEmbedUrl } from "@libs/video";
 type Category = {
   slug: string;
   title: string;
@@ -327,22 +326,12 @@ export default function BlogPostPage({
       </aside>
 
       <header className="bp-hero">
-        {post.video ? (
-          <iframe
-            className="bp-hero-video"
-            src={getYouTubeEmbedUrl(post.video)}
-            title={post.title}
-            allow="autoplay; encrypted-media; picture-in-picture"
-            allowFullScreen
-          />
-        ) : (
-          <div
-            className="bp-hero-bg"
-            style={{ backgroundImage: `url(${post.image?.asset?.url || ""})` }}
-            aria-label={post.image?.alt || post.title}
-            role="img"
-          />
-        )}
+        <div
+          className="bp-hero-bg"
+          style={{ backgroundImage: `url(${post.image?.asset?.url || ""})` }}
+          aria-label={post.image?.alt || post.title}
+          role="img"
+        />
 
         <div className="bp-hero-overlay" />
         <div className="bp-hero-mesh" />
@@ -392,6 +381,20 @@ export default function BlogPostPage({
           </div>
         </div>
       </header>
+
+      {post.video ? (
+        <section className="bp-video-section">
+          <div className="bp-video-container">
+            <iframe
+              className="bp-video-player"
+              src={getYouTubeEmbedUrl(post.video)}
+              title={post.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        </section>
+      ) : null}
 
       <div className="bp-layout">
         <main className="bp-main" id="articleContent">

@@ -1118,6 +1118,48 @@
   }
 }
 
+/* ── Featured Video (below hero) ───────────────────── */
+.bp-video-section {
+  max-width: 1180px;
+  margin: -2rem auto 0;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 5;
+}
+
+.bp-video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  border-radius: var(--border-radius-large);
+  overflow: hidden;
+  background: rgba(20, 18, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 97, 136, 0.06);
+}
+
+.bp-video-player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 760px) {
+  .bp-video-section {
+    padding: 0 1rem;
+    margin-top: -1.25rem;
+  }
+
+  .bp-video-container {
+    border-radius: var(--border-radius-medium);
+  }
+}
+
+
 @media (max-width: 760px) {
   .bp-hero {
     min-height: 540px;
