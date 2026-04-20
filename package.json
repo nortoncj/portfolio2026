@@ -14,7 +14,6 @@
     "@sanity/image-url": "^1.2.0",
     "@sanity/table": "^2.0.1",
     "@sanity/vision": "^4.22.0",
-    "clarity-js": "^0.8.61",
     "next": "16.1.6",
     "next-sanity": "^11.6.12",
     "react": "19.2.3",
