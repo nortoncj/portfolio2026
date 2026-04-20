@@ -321,9 +321,14 @@
   border-color: rgba(255, 216, 102, 0.35);
 }
 .cat-hardware {
-  background: rgba(147, 146, 147, 0.16);
-  color: rgba(45, 42, 46, 0.78);
-  border-color: rgba(147, 146, 147, 0.28);
+  background: rgba(255, 152, 102, 0.2);
+  color: #ff9866;
+  border: 1px solid rgba(255, 152, 102, 0.38);
+}
+.cat-website {
+  background: rgba(197, 163, 255, 0.22);
+  color: var(--color-blue-400);
+  border: 1px solid rgba(97, 163, 255, 0.38);
 }
 .cat-software {
   background: rgba(120, 220, 232, 0.12);

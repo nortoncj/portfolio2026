@@ -107,8 +107,8 @@ function BlogSection({ posts }: { posts: Post[] }) {
                   {cat.title}
                 </span>
               ))}
-              <span className="feat-cat marketing">Marketing</span>
-              <span className="feat-cat seo">SEO</span>
+              {/* <span className="feat-cat marketing">Marketing</span>
+              <span className="feat-cat seo">SEO</span> */}
             </div>
 
             <h3 className="feat-title">{featured.title}</h3>

@@ -535,11 +535,11 @@
   border: 1px solid rgba(252, 95, 163, 0.38);
 }
 .cat-hardware {
-  background: rgba(147, 146, 147, 0.22);
-  color: #c0bfc0;
-  border: 1px solid rgba(147, 146, 147, 0.42);
+  background: rgba(255, 152, 102, 0.2);
+  color: #ff9866;
+  border: 1px solid rgba(255, 152, 102, 0.38);
 }
-.cat-websites {
+.cat-website {
   background: rgba(197, 163, 255, 0.22);
   color: var(--color-blue-400);
   border: 1px solid rgba(97, 163, 255, 0.38);
