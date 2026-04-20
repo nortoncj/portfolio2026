@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import Clarity from "@microsoft/clarity";
+
+// Make sure to add your actual project id instead of "yourProjectId".
+const projectId = process.env.CLARITY_PROJECT_ID || "yourProjectId";
+
+Clarity.init(projectId);
 
 
 const inter = Inter({
