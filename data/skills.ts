@@ -651,6 +651,7 @@ export const certifications: Cert[] = [
     issuer: "HubSpot Academy",
     year: "2025",
     icon: FaEnvelope,
+    description:"Email automation Cert teachs about deliverability to drive conversion"
     // gradient: "from-green-500 to-emerald-500",
     gradient: "from-orange-500 to-amber 500",
      style: gradients.red.default ,
