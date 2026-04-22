@@ -44,6 +44,8 @@ type Post = {
   publishedAt: string;
   _createdAt?: string;
   body: any[];
+  link?: string;
+  git?: string;
   image?: SanityImage;
   video?: string;
   categories?: Category[];

@@ -18,7 +18,6 @@ link?:string;
   };
 
   video?: string;
-
   body: (PortableTextBlock | PortableTextObject)[];
 
   categories: {
