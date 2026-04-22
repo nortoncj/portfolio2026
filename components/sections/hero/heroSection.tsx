@@ -117,7 +117,7 @@ function Hero() {
       {/* Modal */}
       <VideoModal
         open={modalOpen}
-        url="https://youtu.be/NMWM5lHDySE"
+        url="https://www.youtube.com/embed/NMWM5lHDySE?autoplay=1&mute=1"
         onClose={() => setModalOpen(false)}
       />
     </section>
