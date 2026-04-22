@@ -62,7 +62,7 @@ function SkillSection() {
 
   const currentSkills = TABS.find((t) => t.key === active)!.skills;
   return (
-    <section className="skills-section">
+    <section id="skills" className="skills-section">
       <div className="lightGlass text-center center skillsNav">
         <div
           className="nav nav-tabs text-center center skills-nav"

@@ -77,7 +77,7 @@ export default function ProjectSection() {
             <div className="cat-accent ac-devops"></div>
           </Link>
 
-          <Link href="projects/web" className="cat-tile reveal d2">
+          <Link href="projects/software" className="cat-tile reveal d2">
             {/* <div className="cat-bg"></div> */}
             <Image
               src={WebDev}

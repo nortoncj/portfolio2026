@@ -46,16 +46,16 @@ function MainHeader() {
           </a>
         </div>
         <div className="top_nav_middle">
-          <Link className="nav-link" href="#skills">
+          <Link className="nav-link" href="/#skills">
             Skills
           </Link>
-          <Link className="nav-link" href="#about">
+          <Link className="nav-link" href="/#about">
             About
           </Link>
-          <Link className="nav-link" href="#projects">
+          <Link className="nav-link" href="/#projects">
             Projects
           </Link>
-          <Link className="nav-link" href="#insights">
+          <Link className="nav-link" href="/#insights">
             Insights
           </Link>
           {/* <Link className="nav-link" href="#contact">
@@ -93,19 +93,19 @@ function MainHeader() {
         ref={menuRef}
         className={`mobile-menu lightGlass glow-pulse ${open ? "mobile-active" : ""}`}
       >
-        <Link className="mobile-menu-link" href="#skills">
+        <Link className="mobile-menu-link" href="/#skills">
           Skills
         </Link>
-        <Link className="mobile-menu-link" href="#about">
+        <Link className="mobile-menu-link" href="/#about">
           About
         </Link>
-        <Link className="mobile-menu-link" href="#projects">
+        <Link className="mobile-menu-link" href="/#projects">
           Projects
         </Link>
-        <Link className="mobile-menu-link" href="#insights">
+        <Link className="mobile-menu-link" href="/#insights">
           Insights
         </Link>
-        <Link className="mobile-menu-link" href="#contact">
+        <Link className="mobile-menu-link" href="/#contact">
           Contact
         </Link>
       </div>
