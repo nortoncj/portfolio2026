@@ -457,10 +457,14 @@
   background: linear-gradient(135deg, #ff6188 0%, #fc5fa3 60%, #ab9df2 100%);
 }
 .edu-back-cert1 {
+  background: linear-gradient(135deg, #5a5188, #48757a )
+}
+.edu-back-cert5 {
   background: linear-gradient(135deg, #ab9df2, #78dce8);
 }
 .edu-back-cert2 {
-  background: linear-gradient(135deg, #78dce8, #a9dc76);
+  /* background: linear-gradient(135deg, #78dce8, #a9dc76); */
+  background: linear-gradient(135deg, #e89678, #d7dc76);
 }
 .edu-back-cert3 {
   background: linear-gradient(135deg, #ffd866, #ff6188);

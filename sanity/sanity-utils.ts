@@ -52,6 +52,8 @@ export async function getPost(slug: string): Promise<Post> {
         caption
       },
       video,
+      git,
+      link,
       body[]{
         ...,
         _type == "image" => {

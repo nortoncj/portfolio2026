@@ -50,7 +50,7 @@ function Hero() {
             </Link>
 
             {/* Play */}
-            {/* <Play onClick={() => setModalOpen(true)} /> */}
+            <Play onClick={() => setModalOpen(true)} />
           </div>
 
           <div className="hero-socials fade-up delay-5">
@@ -117,7 +117,7 @@ function Hero() {
       {/* Modal */}
       <VideoModal
         open={modalOpen}
-        url="https://youtube.com"
+        url="https://youtu.be/NMWM5lHDySE"
         onClose={() => setModalOpen(false)}
       />
     </section>

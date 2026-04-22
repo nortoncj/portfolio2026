@@ -515,6 +515,59 @@ export const Hardware: Project[] = [
       ],
     },
   },
+  {
+    id: "3",
+    title: "Hardware-in-the-Loop Signal Processing Pipeline",
+    image: Zybo.src,
+    modal: true,
+    category: "IOT",
+    description:
+      "Built a real-time Python WebSocket dashboard visualizing raw vs. HDL-filtered sensor telemetry.",
+    longDesc:
+      "Built a Hardware-in-the-Loop signal processing pipeline on a custom Buildroot Linux system (RPi 4), integrating Verilator-based RTL simulation of VHDL DSP modules with live sensor data streamed from an ESP32 FreeRTOS node over UART. Implemented a CI/CD pipeline using GitHub Actions to run automated RTL testbenches on each commit, mirroring pre-silicon verification workflows. Developed a real-time Python dashboard visualizing raw vs. HDL-filtered sensor telemetry.",
+    skills: [
+      "Linux",
+      "Verilator",
+      "GHDL",
+      "RTL",
+      "VDHL",
+      "Verilog",
+      "MQTT",
+      "UART",
+      "SPI",
+      "ESP32",
+      "Python",
+      "CI/CD",
+      "DevOps"
+    ],
+    icon: "",
+    featured: false,
+    timeline: {
+      duration: "1 month",
+      startDate: "04-20-26",
+      endDate: "05-20-26",
+    },
+    tags: ["FPGA", "SPI","Linux","RTL","UART", "Python", "Verilog", "Embedded"],
+    status: "in-progress",
+    videoUrl: "",
+    details: {
+      overview:
+        "Engineered a Hardware-in-the-Loop signal processing pipeline on a custom Buildroot Linux system (Raspberry Pi 5), running Verilator-compiled VHDL FIR filter modules against live accelerometer and temperature data streamed from an ESP32 FreeRTOS node over UART. Implemented automated RTL regression testing via GitHub Actions CI/CD, replicating pre-silicon verification workflows. Built a real-time Python WebSocket dashboard visualizing raw vs. HDL-filtered sensor telemetry.",
+      challenges:
+        "Managing multiple interrupt sources, synchronizing video timing, and ensuring stable HDMI signal processing without frame drops.",
+      solutions:
+        "Implemented an interrupt-driven architecture combining VDMA, VTC, and GPIO signals through a concat block to efficiently handle events and reduce CPU polling.",
+      results:
+        "Successfully demonstrated real-time HDMI input/output with frame buffering, resolution control, and visual effects via a menu-driven interface.",
+      features: [
+        "Interrupt-driven video processing",
+        "HDMI input and output pipeline",
+        "AXI VDMA frame buffering",
+        "Real-time video effects (scaling, inversion)",
+        "Menu-based user control",
+      ],
+    },
+  },
 ];
 export const Devops: Project[] = [
   {

@@ -6,7 +6,8 @@ export type Post = {
   slug: string;
   publishedAt: string;
   excerpt: string;
-
+git?: string;
+link?:string;
   image?: {
     asset: {
       url: string;

@@ -610,6 +610,7 @@ export const education: Degree = {
     "Focused on Computer Engineering and Electrical Engineering with emphasis on embedded systems, automation, and software development. Honor Roll and Dean's List multiple semesters.",
   tags: ["Computer Engineering", "Electrical Engineering", "GPA: 3.4/4.0"],
   style: gradients.blue.default,
+  
 };
 export const certifications: Cert[] = [
   {
@@ -644,16 +645,17 @@ export const certifications: Cert[] = [
   //   style: gradients.blue.default,
   //    tags:[]
   // },
-  // {
-  //   id:2,
-  //   title: "HubSpot Email Marketing",
-  //   issuer: "HubSpot Academy",
-  //   year: "2023",
-  //   icon: FaCertificate,
-  //   gradient: "from-green-500 to-emerald-500",
-  //    style:
-  //    tags:[]
-  // },
+  {
+    id:2,
+    title: "HubSpot Email Marketing",
+    issuer: "HubSpot Academy",
+    year: "2025",
+    icon: FaEnvelope,
+    // gradient: "from-green-500 to-emerald-500",
+    gradient: "from-orange-500 to-amber 500",
+     style: gradients.red.default ,
+     tags:['hubspot','mailchimp','klayvio','litmus','salesforce',],
+  },
   // {
   //    id:3,
   //   title: "Advanced React & Next.js",

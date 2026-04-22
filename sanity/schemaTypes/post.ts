@@ -69,6 +69,18 @@ export default defineType({
       type: "url",
       description: "Optional video instead of an image",
     }),
+    defineField({
+      name: "git",
+      title:"Github Link",
+      type: "url",
+      description:"Optional github link",
+    }),
+    defineField({
+      name: "link",
+      title:"External Link",
+      type: "url",
+      description:"Optional external link",
+    }),
 
     defineField({
       name: "body",
