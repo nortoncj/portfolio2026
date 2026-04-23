@@ -78,7 +78,7 @@ const SOCIAL_LINKS = [
     color: "#fcfcfa",
     darkColor: "#ddd",
     hoverColor: "#ffd866",
-    click: email(),
+    click: email,
     icon: (
       <svg
         width="18"
@@ -99,7 +99,7 @@ const SOCIAL_LINKS = [
     href: "",
     color: "#fcfcfa",
     darkColor: "#ddd",
-    click: CV(),
+    click: CV,
     hoverColor: "#a9dc76",
     icon: (
       <svg
@@ -175,14 +175,14 @@ const NAV_COLS = [
       {
         label: "Resume / CV",
         href: "",
-        click: CV(),
+        click: CV,
       },
     ],
   },
   {
     title: "Work",
     links: [
-      { label: "Web Dev", href: "/projects/web" },
+      { label: "Web Dev", href: "/projects/software" },
       { label: "Engineering", href: "/projects/engineering" },
       { label: "DevOps & Cloud", href: "/projects/devops" },
       { label: "Automation", href: "/projects/automation" },
@@ -210,10 +210,6 @@ function SocialBtn({
       aria-label={label}
       onClick={
         click
-          ? click
-          : () => {
-              console.log("");
-            }
       }
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

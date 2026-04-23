@@ -94,7 +94,7 @@ export default function ProjectSection() {
             <div className="cat-overlay ov-web"></div>
             <div className="cat-content">
               <div className="cat-title">
-                Full-Stack Web
+                Software
                 <br />
                 Development
               </div>

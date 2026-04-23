@@ -52,12 +52,14 @@ export const social: Socials[] = [
 ];
 
 export const email = () => {
+  
   if (typeof window !== "undefined") {
     window.open("mailto:contact@chrisnortonjr.com");
   }
 };
 
 export const CV = () => {
+ 
   if (typeof window !== "undefined") {
     window.open(
       "https://docs.google.com/document/d/16Cp_Q5bbbjoZqqiHHOPIa31t2y3S4b2StQtIFcnjrFY/edit?usp=drive_link",
