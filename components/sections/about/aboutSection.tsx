@@ -85,7 +85,7 @@ export default function AboutSection() {
             </p>
             <div className="interest-row">
               <span className="interest-pill pill-cyan">
-                <FaUsers /> family
+                <FaUsers /> Family
               </span>
               <span className="interest-pill pill-purple">
                 {" "}
@@ -213,7 +213,7 @@ export default function AboutSection() {
                     <div className="edu-front-top">
                       <div className="edu-icon">
                         
-                       {cert.img ? (<Image height="50px" width="50px" href={cert.img} />) :  (<cert.icon color={cert.style} />) }
+                       <cert.icon color={cert.style} />
                       </div>
                       <span className="edu-badge eb-cert">Cert</span>
                     </div>
