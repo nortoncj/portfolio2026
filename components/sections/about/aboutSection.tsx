@@ -19,6 +19,7 @@ import {
 } from "react-icons/fa6";
 import aboutPicture from "@images/about_headshot.jpeg";
 import Image from "next/image";
+import Link from "next/link";
 import joMaloneLogo from "@images/logos/jo-malone.png";
 import carrierEnterpriseLogo from "@images/logos/carrier-enterprise.png";
 import newYorkLifeLogo from "@images/logos/new-york-life.png";
@@ -207,11 +208,12 @@ export default function AboutSection() {
             </div>
             {certifications.map((cert) => {
               return (
-                <div key={cert.id} className="edu-card-wrap">
+                <Link href={cert.link? (cert.link) : ""} key={cert.id} className="edu-card-wrap">
                   <div className="edu-front">
                     <div className="edu-front-top">
                       <div className="edu-icon">
-                        <cert.icon color={cert.style} />
+                        
+                       {cert.img ? (<Image height="50px" width="50px" href={cert.img} />) :  (<cert.icon color={cert.style} />) }
                       </div>
                       <span className="edu-badge eb-cert">Cert</span>
                     </div>
@@ -247,7 +249,7 @@ export default function AboutSection() {
                       })}
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

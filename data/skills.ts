@@ -50,6 +50,7 @@ import { LuWaves } from "react-icons/lu";
 import { SiCplusplus, SiPhp } from "react-icons/si";
 import { TbBrandCSharp, TbBrandMysql } from "react-icons/tb";
 
+
 // VIBRANT COLOR REFERENCE
 const colors = {
   // Enhanced burgundy/maroon
@@ -649,11 +650,13 @@ export const certifications: Cert[] = [
     id:2,
     title: "HubSpot Email Marketing",
     issuer: "HubSpot Academy",
-    year: "2025",
-    icon: FaEnvelope,
+    year: "2026",
+    icon: FaHubspot,
+    link:"https://app-na2.hubspot.com/academy/achievements/cjk3gl5v/en/1/chris-norton/email-marketing",
+    // img:"https://hubspot-credentials-na1.s3.amazonaws.com/prod/badges/user/2462064b782444fba644513b912220b5.png",
     description:"Email automation Cert teachs about deliverability to drive conversion",
     // gradient: "from-green-500 to-emerald-500",
-    gradient: "from-orange-500 to-amber 500",
+    gradient: "from-orange-500 to-amber-500",
      style: gradients.red.default ,
      tags:['hubspot','mailchimp','klayvio','litmus','salesforce',],
   },

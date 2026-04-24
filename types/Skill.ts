@@ -25,6 +25,8 @@ export type Cert = {
     title: string;
     issuer: string;
     year: string;
+    img?: string;
+    link?: string;
     description: string;
     tags: string[];
     icon: IconType;
