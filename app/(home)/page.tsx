@@ -9,7 +9,13 @@ import { buildMetadata } from "@/libs/SEO";
 import { getPosts } from "@/sanity/sanity-utils";
 import { Metadata } from "next";
 
-export const metadata: Metadata = buildMetadata({});
+export const metadata: Metadata = buildMetadata({
+  title: "Chris Norton",
+  description: "Engineer | Product Development | DevOps | Cloud | Martech",
+  image: "/og-image.png",
+  url: "https://chrisnortonjr.com",
+});
+
 export const revalidate = 3600; // cache 60s
 
 export default async function Home() {
