@@ -10,7 +10,7 @@ type MetadataInput = {
 export function buildMetadata({
   title,
   description,
-  image = "/og-default.png",
+  image = "/og-image.png",
   url = "https://chrisnorton.com",
 }: MetadataInput) {
   const fullTitle = `${title || "Engineer"} | Chris Norton`;
