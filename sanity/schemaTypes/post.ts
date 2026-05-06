@@ -37,8 +37,8 @@ export default defineType({
       title: "Excerpt",
       type: "text",
       rows: 4,
-      description: "Brief summary of the post (50–160 characters)",
-      validation: (rule) => rule.required().min(50).max(160),
+      description: "Brief summary of the post (50–400 characters)",
+      validation: (rule) => rule.required().min(50).max(400),
     }),
 
     defineField({
@@ -326,7 +326,7 @@ export default defineType({
           title: "SEO Description",
           type: "text",
           rows: 3,
-          validation: (rule) => rule.max(160),
+          validation: (rule) => rule.max(400),
         }),
         defineField({
           name: "keywords",
