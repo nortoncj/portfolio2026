@@ -34,7 +34,7 @@ import React, { useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaStar } from "react-icons/fa6";
 import { Project } from "@/types/Post";
-
+import "@css/projects/projectModal.css";
 // ─── MODAL PROPS ──────────────────────────────────────────────────────────────
 interface ProjectModalProps {
   project: Project | null;
@@ -237,9 +237,14 @@ const Card: React.FC<{
     style={{
       padding: "1.25rem 1.4rem",
       borderRadius: 16,
-      background: "rgba(249,248,246,.96)",
+      background: document.documentElement.classList.contains("dark")
+        ? "rgba(34,31,34,.92)"
+        : "rgba(249,248,246,.96)",
       border: `1px solid ${accent ? `rgba(${hexToRgb(accent)},.18)` : "rgba(45,42,46,.1)"}`,
       boxShadow: "0 2px 12px rgba(45,42,46,.06)",
+      color: document.documentElement.classList.contains("dark")
+        ? T.cream
+        : T.charcoal,
       ...style,
     }}
   >
@@ -268,7 +273,9 @@ const Chip: React.FC<{
     fontWeight: 600,
     background: `rgba(${rgb},.1)`,
     border: `1px solid rgba(${rgb},.28)`,
-    color: accent,
+    color: document.documentElement.classList.contains("dark")
+      ? T.cream
+      : accent,
     textDecoration: "none",
     whiteSpace: "nowrap" as const,
     transition: "background 0.2s, transform 0.15s",
@@ -324,13 +331,17 @@ const CtaButton: React.FC<{
         ...(isPrimary
           ? {
               background: grad ?? T.purple,
-              color: T.charcoal,
+              color: document.documentElement.classList.contains("dark")
+                ? T.cream
+                : T.charcoal,
               border: "none",
               boxShadow: `0 6px 20px rgba(${hexToRgb(accent ?? T.purple)},.35)`,
             }
           : {
               background: "rgba(45,42,46,.06)",
-              color: T.charcoal,
+              color: document.documentElement.classList.contains("dark")
+                ? T.cream
+                : T.charcoal,
               border: "1px solid rgba(45,42,46,.15)",
             }),
       }}
@@ -584,7 +595,9 @@ export default function ProjectModal({
             exit={{ opacity: 0, scale: 0.94, y: 24 }}
             transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
             style={{
-              background: T.cream,
+              background: document.documentElement.classList.contains("dark")
+                ? T.charcoal
+                : T.cream,
               borderRadius: 24,
               width: "100%",
               maxWidth: 860,
@@ -628,13 +641,17 @@ export default function ProjectModal({
                 height: 36,
                 borderRadius: 10,
                 border: "1px solid rgba(45,42,46,.15)",
-                background: "rgba(249,248,246,.92)",
+                background: document.documentElement.classList.contains("dark")
+                  ? "rgba(34,31,34,.92)"
+                  : "rgba(249,248,246,.92)",
                 backdropFilter: "blur(8px)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: "pointer",
-                color: T.silver,
+                color: document.documentElement.classList.contains("dark")
+                  ? T.white
+                  : T.silver,
                 transition: "all 0.18s",
               }}
               onMouseEnter={(e) => {
@@ -645,9 +662,16 @@ export default function ProjectModal({
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLButtonElement;
-                el.style.background = "rgba(249,248,246,.92)";
+                el.style.background =
+                  document.documentElement.classList.contains("dark")
+                    ? "rgba(34,31,34,.92)"
+                    : "rgba(249,248,246,.92)";
                 el.style.borderColor = "rgba(45,42,46,.15)";
-                el.style.color = T.silver;
+                el.style.color = document.documentElement.classList.contains(
+                  "dark",
+                )
+                  ? T.white
+                  : T.silver;
               }}
             >
               <IconClose />
@@ -839,7 +863,9 @@ export default function ProjectModal({
                 style={{
                   fontSize: "clamp(1.4rem, 4vw, 2rem)",
                   fontWeight: 900,
-                  color: T.charcoal,
+                  color: document.documentElement.classList.contains("dark")
+                    ? T.cream
+                    : T.charcoal,
                   lineHeight: 1.15,
                   letterSpacing: "-0.02em",
                   marginBottom: "0.75rem",
@@ -854,7 +880,9 @@ export default function ProjectModal({
                 <p
                   style={{
                     fontSize: "0.95rem",
-                    color: T.silver,
+                    color: document.documentElement.classList.contains("dark")
+                      ? T.cream
+                      : T.silver,
                     lineHeight: 1.75,
                     marginBottom: "1.25rem",
                     maxWidth: 680,
@@ -991,7 +1019,11 @@ export default function ProjectModal({
                             alignItems: "flex-start",
                             gap: 10,
                             fontSize: "0.9rem",
-                            color: T.charcoal,
+                            color: document.documentElement.classList.contains(
+                              "dark",
+                            )
+                              ? T.silver
+                              : T.charcoal,
                             lineHeight: 1.5,
                           }}
                         >
@@ -1065,7 +1097,11 @@ export default function ProjectModal({
                           style={{
                             fontSize: "0.66rem",
                             fontFamily: "'JetBrains Mono',monospace",
-                            color: T.muted,
+                            color: document.documentElement.classList.contains(
+                              "dark",
+                            )
+                              ? T.silver
+                              : T.muted,
                             textTransform: "uppercase",
                             letterSpacing: "0.08em",
                           }}
@@ -1076,7 +1112,11 @@ export default function ProjectModal({
                           style={{
                             fontSize: "0.9rem",
                             fontWeight: 700,
-                            color: T.charcoal,
+                            color: document.documentElement.classList.contains(
+                              "dark",
+                            )
+                              ? T.cream
+                              : T.charcoal,
                           }}
                         >
                           {timeline?.duration}
@@ -1109,7 +1149,11 @@ export default function ProjectModal({
                           style={{
                             fontSize: "0.66rem",
                             fontFamily: "'JetBrains Mono',monospace",
-                            color: T.muted,
+                            color: document.documentElement.classList.contains(
+                              "dark",
+                            )
+                              ? T.silver
+                              : T.muted,
                             textTransform: "uppercase",
                             letterSpacing: "0.08em",
                           }}
@@ -1120,14 +1164,26 @@ export default function ProjectModal({
                           style={{
                             fontSize: "0.85rem",
                             fontWeight: 600,
-                            color: T.charcoal,
+                            color: document.documentElement.classList.contains(
+                              "dark",
+                            )
+                              ? T.cream
+                              : T.charcoal,
                             fontFamily: "'JetBrains Mono',monospace",
                           }}
                         >
                           {fmtDate(timeline?.startDate ?? "")}
                           <br />
                           <span
-                            style={{ color: T.silver, fontSize: "0.78rem" }}
+                            style={{
+                              color:
+                                document.documentElement.classList.contains(
+                                  "dark",
+                                )
+                                  ? T.silver
+                                  : T.muted,
+                              fontSize: "0.78rem",
+                            }}
                           >
                             → {fmtDate(timeline?.endDate ?? "")}
                           </span>
@@ -1186,7 +1242,9 @@ export default function ProjectModal({
                     style={{
                       fontSize: "0.72rem",
                       fontFamily: "'JetBrains Mono',monospace",
-                      color: T.muted,
+                      color: document.documentElement.classList.contains("dark")
+                        ? T.silver
+                        : T.muted,
                       fontWeight: 600,
                     }}
                   >
