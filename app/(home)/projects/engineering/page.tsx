@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 /**
  * HardwareCategoryPage.tsx
  * ─────────────────────────────────────────────────────────────
@@ -41,26 +41,38 @@ import ProjectModal from "@/components/partials/projectModals";
 
 // ─── DESIGN TOKENS (mirrors presets.css :root) ─────────────────
 const T = {
-  burgundy: "#ff6188",
-  magenta: "#fc5fa3",
-  purple: "#ab9df2",
-  coral: "#ffd866", // ← primary hardware accent
-  mint: "#a9dc76",
-  blue: "#78dce8",
+  // core colors
+  burgundy: "#5ccfe6", // repurposed
+  magenta: "#4fb6ff",
+  purple: "#7aa2f7",
+
+  // PRIMARY CYAN / BLUE SYSTEM
+  cyan: "#78dce8",
+  cyanLight: "#8be9fd",
+  blue: "#4fa3ff",
+  blueDeep: "#3b82f6",
+
+  mint: "#7ee7ff",
+
   white: "#fcfcfa",
   cream: "#f9f8f6",
   charcoal: "#2d2a2e",
   slate: "#221f22",
   mid: "#2a272b",
   silver: "#939293",
-  // hardware palette
-  cat: "#ffd866", // coral/amber — circuit-board warmth
-  catRgb: "255,216,102",
-  catDark: "#e6c240",
-  catGlow: "rgba(255,216,102,0.28)",
-  gradPrimary: "linear-gradient(135deg,#ff6188 0%,#fc5fa3 50%,#ab9df2 100%)",
-  gradHw: "linear-gradient(135deg,#ffd866,#a9dc76)",
-  gradWarm: "linear-gradient(135deg,#ffd866,#ff6188)",
+
+  // MAIN CATEGORY ACCENT
+  cat: "#78dce8",
+  catRgb: "120,220,232",
+  catDark: "#4fa3ff",
+  catGlow: "rgba(120,220,232,0.28)",
+
+  // UPDATED GRADIENTS
+  gradPrimary: "linear-gradient(135deg,#78dce8 0%,#4fa3ff 50%,#7aa2f7 100%)",
+
+  gradHw: "linear-gradient(135deg,#78dce8,#4fa3ff)",
+
+  gradWarm: "linear-gradient(135deg,#4fa3ff,#7aa2f7)",
 } as const;
 
 // ─── TYPE DEFINITIONS ──────────────────────────────────────────
@@ -233,9 +245,9 @@ const STATUS_COLORS: Record<
     label: "Completed",
   },
   "in-progress": {
-    bg: "rgba(255,216,102,.18)",
-    border: "rgba(255,216,102,.45)",
-    color: "#ffd866",
+    bg: "rgba(169,220,118,.18)",
+    border: "rgba(169,220,118,.45)",
+    color: "#a9dc76",
     label: "In Progress",
   },
   concept: {
@@ -270,7 +282,7 @@ const scaleIn = {
 /** Animated proficiency bar */
 const SkillBar: React.FC<{ level: number; color?: string }> = ({
   level,
-  color = T.coral,
+  color = T.mint,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -304,7 +316,7 @@ const SkillBar: React.FC<{ level: number; color?: string }> = ({
 /** Level badge pill */
 const LevelBadge: React.FC<{ label: string }> = ({ label }) => {
   const colors: Record<string, { bg: string; color: string }> = {
-    Expert: { bg: "rgba(255,216,102,.18)", color: T.coral },
+    Expert: { bg: "rgba(169,220,118,.18)", color: T.mint },
     Advanced: { bg: "rgba(169,220,118,.15)", color: T.mint },
     Intermediate: { bg: "rgba(171,157,242,.15)", color: T.purple },
     Familiar: { bg: "rgba(147,146,147,.15)", color: T.silver },
@@ -346,7 +358,7 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
       variants={fadeUp}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
-      whileHover={{ y: -5, borderColor: `${T.coral}44` }}
+      whileHover={{ y: -5, borderColor: `${T.mint}44` }}
       style={{
         padding: "1.25rem",
         borderRadius: 16,
@@ -426,18 +438,18 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
               fontFamily: "'JetBrains Mono',monospace",
               background: "rgba(255,255,255,.06)",
               border: "1px solid rgba(255,255,255,.1)",
-              color: "rgba(252,252,250,.55)",
+              color: "rgba(120,220,232,.7)",
               textDecoration: "none",
               transition: "color 0.2s, background 0.2s",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color = T.coral;
+              (e.currentTarget as HTMLAnchorElement).style.color = T.mint;
               (e.currentTarget as HTMLAnchorElement).style.background =
                 `rgba(${T.catRgb},.12)`;
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLAnchorElement).style.color =
-                "rgba(252,252,250,.55)";
+                "rgba(169,220,118,.55)";
               (e.currentTarget as HTMLAnchorElement).style.background =
                 "rgba(255,255,255,.06)";
             }}
@@ -565,12 +577,12 @@ const ProjectCard: React.FC<{
               <p
                 style={{
                   fontSize: "0.85rem",
-                  color: "rgba(252,252,250,.8)",
+                  color: "rgba(169,220,118,.8)",
                   lineHeight: 1.65,
                   marginBottom: "1rem",
                 }}
               >
-                {project.longDesc}
+                {project.description}
               </p>
               <div style={{ display: "flex", gap: 10 }}></div>
             </motion.div>
@@ -624,7 +636,7 @@ const ProjectCard: React.FC<{
             letterSpacing: "-0.01em",
             marginBottom: "0.5rem",
             transition: "color 0.2s",
-            ...(hovered ? { color: T.coral } : {}),
+            ...(hovered ? { color: T.mint } : {}),
           }}
         >
           {project.title}
@@ -634,7 +646,7 @@ const ProjectCard: React.FC<{
           itemProp="description"
           style={{
             fontSize: "0.82rem",
-            color: "rgba(252,252,250,.6)",
+            color: "rgba(120,220,232,.65)",
             lineHeight: 1.6,
             marginBottom: "0.85rem",
           }}
@@ -657,12 +669,12 @@ const ProjectCard: React.FC<{
                 fontWeight: 500,
                 background: "rgba(255,255,255,.06)",
                 border: "1px solid rgba(255,255,255,.1)",
-                color: "rgba(252,252,250,.55)",
+                color: "rgba(120,220,232,.7)",
                 textDecoration: "none",
                 transition: "all 0.2s",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.color = T.coral;
+                (e.currentTarget as HTMLAnchorElement).style.color = T.cyan;
                 (e.currentTarget as HTMLAnchorElement).style.background =
                   `rgba(${T.catRgb},.14)`;
                 (e.currentTarget as HTMLAnchorElement).style.borderColor =
@@ -670,7 +682,7 @@ const ProjectCard: React.FC<{
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.color =
-                  "rgba(252,252,250,.55)";
+                  "rgba(169,220,118,.55)";
                 (e.currentTarget as HTMLAnchorElement).style.background =
                   "rgba(255,255,255,.06)";
                 (e.currentTarget as HTMLAnchorElement).style.borderColor =
@@ -769,10 +781,6 @@ const SchemaOrgScripts: React.FC = () => {
     </>
   );
 };
-
-
-
-
 
 // ─── MAIN COMPONENT ────────────────────────────────────────────
 const HardwareCategoryPage: React.FC = () => {
@@ -975,7 +983,7 @@ const HardwareCategoryPage: React.FC = () => {
                   padding: 0,
                   margin: 0,
                   fontSize: "0.78rem",
-                  color: "rgba(252,252,250,.5)",
+                  color: "rgba(169,220,118,.5)",
                   fontFamily: "'JetBrains Mono', monospace",
                 }}
                 itemScope
@@ -994,7 +1002,7 @@ const HardwareCategoryPage: React.FC = () => {
                     >
                       {i === arr.length - 1 ? (
                         <span
-                          style={{ color: T.coral, fontWeight: 600 }}
+                          style={{ color: T.cyan, fontWeight: 600 }}
                           itemProp="name"
                           aria-current="page"
                         >
@@ -1005,7 +1013,7 @@ const HardwareCategoryPage: React.FC = () => {
                           href={crumb.href}
                           itemProp="item"
                           style={{
-                            color: "rgba(252,252,250,.5)",
+                            color: "rgba(169,220,118,.5)",
                             textDecoration: "none",
                             transition: "color 0.2s",
                           }}
@@ -1014,7 +1022,7 @@ const HardwareCategoryPage: React.FC = () => {
                           }
                           onMouseLeave={(e) =>
                             ((e.target as HTMLElement).style.color =
-                              "rgba(252,252,250,.5)")
+                              "rgba(169,220,118,.5)")
                           }
                         >
                           <span itemProp="name">{crumb.label}</span>
@@ -1025,7 +1033,7 @@ const HardwareCategoryPage: React.FC = () => {
                     {i < arr.length - 1 && (
                       <li
                         aria-hidden
-                        style={{ color: "rgba(252,252,250,.25)" }}
+                        style={{ color: "rgba(169,220,118,.25)" }}
                       >
                         /
                       </li>
@@ -1056,7 +1064,7 @@ const HardwareCategoryPage: React.FC = () => {
                     border: `1px solid rgba(${T.catRgb},.35)`,
                     fontSize: "0.75rem",
                     fontWeight: 700,
-                    color: T.coral,
+                    color: T.cyan,
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
                   }}
@@ -1076,7 +1084,7 @@ const HardwareCategoryPage: React.FC = () => {
                   letterSpacing: "-0.05em",
                   lineHeight: 1.05,
                   marginBottom: "1rem",
-                  background: `linear-gradient(135deg, ${T.coral} 0%, ${T.mint} 60%, ${T.blue} 100%)`,
+                  background: `linear-gradient(135deg, ${T.mint} 0%, ${T.blue} 60%, ${T.purple} 100%)`,
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -1091,7 +1099,7 @@ const HardwareCategoryPage: React.FC = () => {
                 itemProp="description"
                 style={{
                   fontSize: "clamp(1rem, 2vw, 1.2rem)",
-                  color: "rgba(252,252,250,.65)",
+                  color: "rgba(120,220,232,.65)",
                   lineHeight: 1.7,
                   maxWidth: 620,
                   marginBottom: "2rem",
@@ -1122,7 +1130,7 @@ const HardwareCategoryPage: React.FC = () => {
                         fontSize: "1.85rem",
                         fontWeight: 900,
                         lineHeight: 1,
-                        background: `linear-gradient(135deg, ${T.coral}, ${T.mint})`,
+                        background: `linear-gradient(135deg, ${T.cyan}, ${T.blue})`,
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                         backgroundClip: "text",
@@ -1237,7 +1245,7 @@ const HardwareCategoryPage: React.FC = () => {
                       transition: "all 0.22s",
                       ...(activeSkillCat === cat.id
                         ? {
-                            background: `linear-gradient(135deg, ${T.coral}, ${T.mint})`,
+                            background: `linear-gradient(135deg, ${T.cyan}, ${T.mint})`,
                             borderColor: "transparent",
                             color: T.charcoal,
                             boxShadow: `0 4px 16px rgba(${T.catRgb},.45)`,
@@ -1245,7 +1253,7 @@ const HardwareCategoryPage: React.FC = () => {
                         : {
                             background: "rgba(255,255,255,.06)",
                             borderColor: "rgba(255,255,255,.14)",
-                            color: "rgba(252,252,250,.65)",
+                            color: "rgba(169,220,118,.65)",
                           }),
                     }}
                   >
@@ -1417,13 +1425,13 @@ const HardwareCategoryPage: React.FC = () => {
                         ? {
                             background: `rgba(${T.catRgb},.22)`,
                             borderColor: `rgba(${T.catRgb},.5)`,
-                            color: T.coral,
+                            color: T.cyan,
                             boxShadow: `0 2px 10px rgba(${T.catRgb},.25)`,
                           }
                         : {
                             background: "rgba(255,255,255,.05)",
                             borderColor: "rgba(255,255,255,.12)",
-                            color: "rgba(252,252,250,.55)",
+                            color: "rgba(120,220,232,.7)",
                           }),
                     }}
                   >
@@ -1460,7 +1468,7 @@ const HardwareCategoryPage: React.FC = () => {
                 aria-live="polite"
               >
                 Showing{" "}
-                <span style={{ color: T.coral, fontWeight: 700 }}>
+                <span style={{ color: T.cyan, fontWeight: 700 }}>
                   {filteredProjects.length}
                 </span>{" "}
                 of {PROJECTS.length} projects
@@ -1603,20 +1611,20 @@ const HardwareCategoryPage: React.FC = () => {
                         fontWeight: 500,
                         background: "rgba(255,255,255,.05)",
                         border: "1px solid rgba(255,255,255,.1)",
-                        color: "rgba(252,252,250,.6)",
+                        color: "rgba(120,220,232,.65)",
                         textDecoration: "none",
                         transition: "all 0.2s",
                       }}
                       onMouseEnter={(e) => {
                         const el = e.currentTarget as HTMLAnchorElement;
-                        el.style.color = T.coral;
+                        el.style.color = T.cyan;
                         el.style.background = `rgba(${T.catRgb},.13)`;
                         el.style.borderColor = `rgba(${T.catRgb},.35)`;
                         el.style.transform = "translateY(-2px)";
                       }}
                       onMouseLeave={(e) => {
                         const el = e.currentTarget as HTMLAnchorElement;
-                        el.style.color = "rgba(252,252,250,.6)";
+                        el.style.color = "rgba(120,220,232,.65)";
                         el.style.background = "rgba(255,255,255,.05)";
                         el.style.borderColor = "rgba(255,255,255,.1)";
                         el.style.transform = "none";
@@ -1672,7 +1680,7 @@ const HardwareCategoryPage: React.FC = () => {
                 left: 0,
                 right: 0,
                 height: 2,
-                background: `linear-gradient(90deg, ${T.coral}, ${T.mint})`,
+                background: `linear-gradient(90deg, ${T.cyan}, ${T.mint})`,
                 backgroundSize: "200%",
               }}
             />
@@ -1688,7 +1696,7 @@ const HardwareCategoryPage: React.FC = () => {
                 border: `1px solid rgba(${T.catRgb},.3)`,
                 fontSize: "0.72rem",
                 fontWeight: 700,
-                color: T.coral,
+                color: T.cyan,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
                 marginBottom: "1rem",
@@ -1709,7 +1717,7 @@ const HardwareCategoryPage: React.FC = () => {
               Got a hardware project that needs{" "}
               <span
                 style={{
-                  background: `linear-gradient(135deg, ${T.coral}, ${T.mint})`,
+                  background: `linear-gradient(135deg, ${T.cyan}, ${T.mint})`,
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -1722,7 +1730,7 @@ const HardwareCategoryPage: React.FC = () => {
             <p
               style={{
                 fontSize: "1rem",
-                color: "rgba(252,252,250,.62)",
+                color: "rgba(169,220,118,.62)",
                 lineHeight: 1.65,
                 maxWidth: 520,
                 margin: "0 auto 2rem",
@@ -1740,7 +1748,7 @@ const HardwareCategoryPage: React.FC = () => {
                 flexWrap: "wrap",
               }}
             >
-              <a
+              <Link
                 href="/contact"
                 style={{
                   display: "inline-flex",
@@ -1748,7 +1756,7 @@ const HardwareCategoryPage: React.FC = () => {
                   gap: 8,
                   padding: "13px 30px",
                   borderRadius: 999,
-                  background: `linear-gradient(135deg, ${T.coral}, ${T.mint})`,
+                  background: `linear-gradient(135deg, ${T.mint}, ${T.blue})`,
                   color: T.charcoal,
                   fontFamily: "'Inter',sans-serif",
                   fontSize: "0.9rem",
@@ -1783,8 +1791,8 @@ const HardwareCategoryPage: React.FC = () => {
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
                 Start a Project
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/projects"
                 style={{
                   display: "inline-flex",
@@ -1794,7 +1802,7 @@ const HardwareCategoryPage: React.FC = () => {
                   borderRadius: 999,
                   background: "transparent",
                   border: "1px solid rgba(255,255,255,.2)",
-                  color: "rgba(252,252,250,.8)",
+                  color: "rgba(169,220,118,.8)",
                   fontFamily: "'Inter',sans-serif",
                   fontSize: "0.9rem",
                   fontWeight: 600,
@@ -1812,7 +1820,7 @@ const HardwareCategoryPage: React.FC = () => {
                   const el = e.currentTarget as HTMLAnchorElement;
                   el.style.background = "transparent";
                   el.style.borderColor = "rgba(255,255,255,.2)";
-                  el.style.color = "rgba(252,252,250,.8)";
+                  el.style.color = "rgba(169,220,118,.8)";
                   el.style.transform = "none";
                 }}
               >
@@ -1829,7 +1837,7 @@ const HardwareCategoryPage: React.FC = () => {
                   <polyline points="12 19 5 12 12 5" />
                 </svg>
                 All Projects
-              </a>
+              </Link>
             </div>
           </motion.section>
         </main>

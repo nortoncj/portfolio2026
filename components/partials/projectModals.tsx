@@ -129,19 +129,19 @@ const CATEGORY_COLORS: Record<
   },
   // Hardware / Embedded
   hardware: {
-    accent: T.coral,
-    rgb: "255,216,102",
-    grad: `linear-gradient(135deg,${T.coral},${T.mint})`,
+    accent: T.blue,
+    rgb: "120,220,232",
+    grad: `linear-gradient(135deg,${T.blue},${T.mint})`,
   },
   embedded: {
-    accent: T.coral,
-    rgb: "255,216,102",
-    grad: `linear-gradient(135deg,${T.coral},${T.mint})`,
+    accent: T.blue,
+    rgb: "120,220,232",
+    grad: `linear-gradient(135deg,${T.blue},${T.mint})`,
   },
   iot: {
-    accent: T.coral,
-    rgb: "255,216,102",
-    grad: `linear-gradient(135deg,${T.coral},${T.blue})`,
+    accent: T.blue,
+    rgb: "120,220,232",
+    grad: `linear-gradient(135deg,${T.blue},${T.purple})`,
   },
 };
 

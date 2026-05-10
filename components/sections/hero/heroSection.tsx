@@ -6,7 +6,7 @@ import { email, social } from "@/data/socials";
 import Link from "next/link";
 import { Fader } from "./Fader";
 import { FaGear, FaGraduationCap, FaPlay } from "react-icons/fa6";
-import Photo from "@images/hero_headshot.png";
+import Photo from "@images/hero_headshot.webp";
 import Image from "next/image";
 import { Play } from "./Play";
 
