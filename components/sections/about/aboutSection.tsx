@@ -17,7 +17,7 @@ import {
   FaUsers,
   FaWrench,
 } from "react-icons/fa6";
-import aboutPicture from "@images/about_headshot.jpeg";
+import aboutPicture from "@images/about_headshot.webp";
 import Image from "next/image";
 import Link from "next/link";
 import joMaloneLogo from "@images/logos/jo-malone.png";

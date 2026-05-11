@@ -21,7 +21,7 @@ import React, {
   useMemo,
 } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import DevOps from "@images/devops.jpg";
+import DevOps from "@images/devops.webp";
 
 // ─── DESIGN TOKENS (mirrors globals.css :root) ────────────────────────────────
 const T = {

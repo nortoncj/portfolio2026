@@ -36,7 +36,7 @@ import { FaTools } from "react-icons/fa";
 import { IconType } from "react-icons";
 import { Hardware as PROJECTS } from "@/data/project";
 import { Project } from "@/types/Post";
-import Hardware from "@images/embedded.jpg";
+import Hardware from "@images/embedded.webp";
 import ProjectModal from "@/components/partials/projectModals";
 
 // ─── DESIGN TOKENS (mirrors presets.css :root) ─────────────────

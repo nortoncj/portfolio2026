@@ -23,7 +23,7 @@ import React, {
   useMemo,
 } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import Marketing from "@images/marketing.jpg";
+import Marketing from "@images/marketing.webp";
 
 // ─── DESIGN TOKENS (mirrors globals.css :root) ────────────────────────────────
 const T = {

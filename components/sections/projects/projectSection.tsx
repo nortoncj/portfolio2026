@@ -2,10 +2,10 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import "@css/projects.css";
-import Devops from "@images/devops.jpg";
-import WebDev from "@images/webdev.jpg";
-import Marketing from "@images/marketing.jpg";
-import Embedded from "@images/embedded.jpg";
+import Devops from "@images/devops.webp";
+import WebDev from "@images/webdev.webp";
+import Marketing from "@images/marketing.webp";
+import Embedded from "@images/embedded.webp";
 import Image from "next/image";
 import { FaTools } from "react-icons/fa";
 

@@ -202,7 +202,7 @@ import { SiGraphql, SiTypescript } from "react-icons/si";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { BiLogoPostgresql } from "react-icons/bi";
 import { DiGoogleAnalytics } from "react-icons/di";
-import WebDev from "@images/webdev.jpg";
+import WebDev from "@images/webdev.webp";
 import ProjectModal from "@/components/partials/projectModals";
 
 // ─── DERIVED CONSTANTS ────────────────────────────────────────────────────────
@@ -796,8 +796,6 @@ const schemaData = {
     },
   ],
 };
-
-
 
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 export default function WebDevCategoryPage() {
