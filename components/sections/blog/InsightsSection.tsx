@@ -335,7 +335,7 @@ const renderedCount = visible.length + (featured ? 1 : 0);
             </div>
 
             <span className="results-count" aria-live="polite">
-              Showing <strong>{renderedCount}</strong> of{" "}
+              Showing {" "} <strong>{renderedCount}</strong> of{" "}
               <strong>{renderedCount}</strong> articles
             </span>
           </div>

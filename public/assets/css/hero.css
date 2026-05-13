@@ -460,7 +460,11 @@
   }
 }
 /* ── RESPONSIVE ── */
+
 @media (max-width: 768px) {
+  .hero-section{
+    padding-top: 10rem;
+  }
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -476,4 +480,7 @@
   .badge-degree {
     right: -4%;
   }
+}
+@media (max-width: 480px) {
+  
 }

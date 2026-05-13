@@ -13,7 +13,7 @@ import { Play } from "./Play";
 function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
   return (
-    <section className="hero blobGradient">
+    <section className="hero-section hero blobGradient">
       <div className="hero-blob3"></div>
       <div className="hero-grid">
         <div className="hero-left">
@@ -83,6 +83,11 @@ function Hero() {
               </svg>
             </Link>
           </div>
+          <div className="hero-cta-row fade-up delay-4">
+          <Link href="#projects" className="btn-secondary">
+            Work with me
+            </Link>
+            </div>
         </div>
 
         <div className="hero-right">

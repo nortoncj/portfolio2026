@@ -5,7 +5,7 @@
 
 .insights-controls {
   position: sticky;
-  top: 120;
+  top: 120px;
   width: 100%;
   z-index: 50;
   padding: 18px 0;
@@ -693,14 +693,49 @@
 }
 
 @media (max-width: 640px) {
+  .insights-controls {
+    width: 100%;
+    padding: 14px 0;
+  }
+  .filter-row {
+    display: none;
+  }
+  .controls-inner {
+    width: calc(100% - 2rem);
+  }
   .cards-grid {
     grid-template-columns: 1fr;
   }
   .results-count {
     width: 100%;
-    justify-content: center;
+    display: flex;
+    justify-content: space-evenly;
   }
   .search-wrap {
     min-width: 100%;
+  }
+  .search-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 360px) {
+  .insights-main {
+    padding: 80px 0 48px;
+  }
+  .controls-inner {
+    width: calc(100% - 1.5rem);
+  }
+  .card-body,
+  .featured-body {
+    padding: 14px;
+  }
+  .filter-pills {
+    gap: 8px;
+  }
+  .filter-pill {
+    font-size: 0.85rem;
+    padding: 0 12px;
   }
 }

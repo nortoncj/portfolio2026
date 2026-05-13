@@ -169,7 +169,6 @@ const NAV_COLS = [
     title: "Resources",
     links: [
       // { label: "Newsletter", href: "/newsletter" },
-      // { label: "Tools", href: "/tools" },
       { label: "Blog", href: "/insights" },
       { label: "Open Source", href: "https://github.com/nortoncj" },
       {
@@ -177,6 +176,7 @@ const NAV_COLS = [
         href: "",
         click: CV,
       },
+      { label: "Work With Me", href: "https://webtechninjas.com" },
     ],
   },
   {
@@ -348,7 +348,7 @@ export default function Footer() {
           </div>
 
           {/* Availability badge */}
-          <div
+          {/* <div
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -383,7 +383,7 @@ export default function Footer() {
             >
               Open to Work
             </span>
-          </div>
+          </div> */}
 
           {/* Tagline */}
           <p
