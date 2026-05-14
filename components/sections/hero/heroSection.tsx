@@ -83,11 +83,11 @@ function Hero() {
               </svg>
             </Link>
           </div>
-          <div className="hero-cta-row fade-up delay-4">
+          {/* <div className="hero-cta-row fade-up delay-4">
             <Link href="https://webtechninjas.com" className="btn-secondary">
               Work with me
             </Link>
-          </div>
+          </div> */}
         </div>
 
         <div className="hero-right">
