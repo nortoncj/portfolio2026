@@ -13,7 +13,7 @@ import { Play } from "./Play";
 function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
   return (
-    <section className="hero-section hero blobGradient">
+    <section className="hero-section hero blobGradient ">
       <div className="hero-blob3"></div>
       <div className="hero-grid">
         <div className="hero-left">

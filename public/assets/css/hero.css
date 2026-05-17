@@ -462,7 +462,7 @@
 /* ── RESPONSIVE ── */
 
 @media (max-width: 768px) {
-  .hero-section{
+  .hero-section {
     padding-top: 10rem;
   }
   .hero-grid {
@@ -482,5 +482,7 @@
   }
 }
 @media (max-width: 480px) {
-  
+  .hero-section {
+    padding: 32rem 1rem;
+  }
 }
