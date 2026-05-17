@@ -44,7 +44,7 @@ import {
   FaWifi,
   FaWind,
 } from "react-icons/fa";
-import { FaB, FaP, FaR, FaWordpress } from "react-icons/fa6";
+import { FaB, FaFlag, FaP, FaR, FaWordpress } from "react-icons/fa6";
 import { HiFlag } from "react-icons/hi";
 import { LuWaves } from "react-icons/lu";
 import { SiCplusplus, SiPhp } from "react-icons/si";
@@ -660,16 +660,18 @@ export const certifications: Cert[] = [
      style: gradients.red.default ,
      tags:['hubspot','mailchimp','klayvio','litmus','salesforce',],
   },
-  // {
-  //    id:3,
-  //   title: "Advanced React & Next.js",
-  //   issuer: "Frontend Masters",
-  //   year: "2022",
-  //   icon: FaReact,
-  //   gradient: "from-purple-500 to-pink-500",
-  //    style:
-  //    tags:[]
-  // },
+  {
+     id:3,
+    title: "Klaviyo Practitioner",
+    issuer: "Klaviyo Academy",
+    year: "2026",
+    icon: FaFlag,
+    link: "https://credential.klaviyo.com/2e8a4510-8c2d-4935-ad4e-5ccd3e8d0606#acc.WVZgA0j3",
+    description: "The Klaviyo practitioner certificate guides you through the platform's core features, examines practical, real-world examples, and includes actionable steps for implementation.",
+    gradient: "from-purple-500 to-pink-500",
+     style: gradients.orange.default,
+     tags:['hubspot','klayviyo','litmus','AMPscript','liquid']
+  },
   // {
   //    id:4,
   //   title: "Embedded Systems Specialist",
