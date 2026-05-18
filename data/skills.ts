@@ -48,8 +48,7 @@ import { FaB, FaFlag, FaP, FaR, FaWordpress } from "react-icons/fa6";
 import { HiFlag } from "react-icons/hi";
 import { LuWaves } from "react-icons/lu";
 import { SiCplusplus, SiPhp } from "react-icons/si";
-import { TbBrandCSharp, TbBrandMysql } from "react-icons/tb";
-
+import { TbBrandCSharp, TbBrandMysql, TbCircleLetterB } from "react-icons/tb";
 
 // VIBRANT COLOR REFERENCE
 const colors = {
@@ -218,7 +217,7 @@ export const emailSkills: Skill[] = [
     name: "HubSpot",
     icon: FaHubspot,
     description: "All-in-one marketing, sales, and service platform",
-    tags: ["Marketing", "Sales", "Analytics"],
+    tags: ["Marketing", "Email", "Analytics"],
     badgeColor:
       "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300",
     style: gradients.orange.default,
@@ -259,12 +258,14 @@ export const emailSkills: Skill[] = [
       "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
     style: gradients.blue.default,
   },
-  // {
-  //   name: "SendGrid",
-  //   icon: FaCogs,
-  //   description: "Email delivery and transactional email service",
-  //   tags: ["Deliverability", "API", "SMTP"],
-  // },
+  {
+    name: "Braze",
+    icon: TbCircleLetterB,
+    description: "Email delivery and transactional email service",
+    tags: ["Canvas", "Liquid", "API", "Segmentation"],
+    badgeColor: "",
+    style: gradients.purple.default,
+  },
   {
     name: "AWS SES",
     icon: FaCodeBranch,
@@ -318,10 +319,10 @@ export const emailSkills: Skill[] = [
     icon: FaChartBar,
     description:
       "Email campaign tracking and performance metrics with Litmus. ",
-    tags: ["Metrics", "Reporting", "ROI", "GMB", "GA", "GSC"],
+    tags: ["Metrics", "Reporting", "ROI", "GBP", "GA", "GSC"],
     badgeColor:
       "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
-    style: gradients.green.default,
+    style: gradients.blue.default,
   },
   {
     name: "Wordpress",
@@ -331,7 +332,7 @@ export const emailSkills: Skill[] = [
     tags: ["Divi", "Elementor", "PHP", "GoHighLevel"],
     badgeColor:
       "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
-    style: gradients.blue.default,
+    style: gradients.skyBlue.default,
   },
 ];
 export const webSkills: Skill[] = [
@@ -611,7 +612,6 @@ export const education: Degree = {
     "Focused on Computer Engineering and Electrical Engineering with emphasis on embedded systems, automation, and software development. Honor Roll and Dean's List multiple semesters.",
   tags: ["Computer Engineering", "Electrical Engineering", "GPA: 3.4/4.0"],
   style: gradients.blue.default,
-  
 };
 export const certifications: Cert[] = [
   {
@@ -647,30 +647,32 @@ export const certifications: Cert[] = [
   //    tags:[]
   // },
   {
-    id:2,
+    id: 2,
     title: "HubSpot Email Marketing",
     issuer: "HubSpot Academy",
     year: "2026",
     icon: FaHubspot,
-    link:"https://app-na2.hubspot.com/academy/achievements/cjk3gl5v/en/1/chris-norton/email-marketing",
+    link: "https://app-na2.hubspot.com/academy/achievements/cjk3gl5v/en/1/chris-norton/email-marketing",
     // img:"https://hubspot-credentials-na1.s3.amazonaws.com/prod/badges/user/2462064b782444fba644513b912220b5.png",
-    description:"Email automation Cert teachs about deliverability to drive conversion",
+    description:
+      "Email automation Cert teachs about deliverability to drive conversion",
     // gradient: "from-green-500 to-emerald-500",
     gradient: "from-orange-500 to-amber-500",
-     style: gradients.red.default ,
-     tags:['hubspot','mailchimp','klayvio','litmus','salesforce',],
+    style: gradients.red.default,
+    tags: ["hubspot", "mailchimp", "klayvio", "litmus", "salesforce"],
   },
   {
-     id:3,
+    id: 3,
     title: "Klaviyo Practitioner",
     issuer: "Klaviyo Academy",
     year: "2026",
     icon: FaFlag,
     link: "https://credential.klaviyo.com/2e8a4510-8c2d-4935-ad4e-5ccd3e8d0606#acc.WVZgA0j3",
-    description: "The Klaviyo practitioner certificate guides you through the platform's core features, examines practical, real-world examples, and includes actionable steps for implementation.",
+    description:
+      "The Klaviyo practitioner certificate guides you through the platform's core features, examines practical, real-world examples, and includes actionable steps for implementation.",
     gradient: "from-purple-500 to-pink-500",
-     style: gradients.orange.default,
-     tags:['hubspot','klayviyo','litmus','AMPscript','liquid']
+    style: gradients.orange.default,
+    tags: ["hubspot", "klayviyo", "litmus", "AMPscript", "liquid"],
   },
   // {
   //    id:4,
