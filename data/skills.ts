@@ -47,7 +47,7 @@ import {
 import { FaB, FaFlag, FaP, FaR, FaWordpress } from "react-icons/fa6";
 import { HiFlag } from "react-icons/hi";
 import { LuWaves } from "react-icons/lu";
-import { SiCplusplus, SiPhp } from "react-icons/si";
+import { SiCplusplus, SiPhp, SiComptia } from "react-icons/si";
 import { TbBrandCSharp, TbBrandMysql, TbCircleLetterB } from "react-icons/tb";
 
 // VIBRANT COLOR REFERENCE
@@ -674,16 +674,18 @@ export const certifications: Cert[] = [
     style: gradients.orange.default,
     tags: ["hubspot", "klayviyo", "litmus", "AMPscript", "liquid"],
   },
-  // {
-  //    id:4,
-  //   title: "Embedded Systems Specialist",
-  //   issuer: "Professional Development",
-  //   year: "2021",
-  //   icon: FaRobot,
-  //   gradient: "from-orange-500 to-red-500",
-  //    style:
-  //    tags:[]
-  // },
+  {
+    id: 4,
+    title: "CompTIA Security+",
+    issuer: "CompTIA",
+    year: "In Progress",
+    description:
+      "Core security concepts, threat management, cryptography, and network hardening.",
+    icon: SiComptia,
+    gradient: "from-orange-500 to-red-500",
+    style: gradients.red.subtle,
+    tags: ["Cryptography", "Networking", "Wireshark", "Zero Trust"],
+  },
   // {
   //   id: 2,
   //   title: "Certified Kubernetes Administrator",
