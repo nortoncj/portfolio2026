@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useState, useRef, useLayoutEffect, useEffect } from "react";
-import { emailSkills, webSkills, engineeringSkills } from "@/data/skills"; // 🔁 update path
+import { emailSkills, webSkills, engineeringSkills, devopsSkills } from "@/data/skills"; // 🔁 update path
 import { Skill } from "@/types/Skill";
 
 // ─── DevOps pulled from webSkills until you add a dedicated array ────────────
@@ -13,10 +13,9 @@ const DEVOPS_NAMES = [
   "PostgreSQL",
   "REST APIs",
   "TypeScript",
+  "Linux",
 ];
-const devopsSkills: Skill[] = webSkills.filter((s) =>
-  DEVOPS_NAMES.includes(s.name),
-);
+
 
 import "@css/skills.css";
 import { SkillItem } from "./skillItem";

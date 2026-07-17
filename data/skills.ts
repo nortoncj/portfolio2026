@@ -1,5 +1,7 @@
 import { Cert, Degree, Skill } from "@/types/Skill";
+import { VscAzure } from "react-icons/vsc";
 import {
+  FaLinux,
   FaAws,
   FaBolt,
   FaBrain,
@@ -478,6 +480,107 @@ export const webSkills: Skill[] = [
     badgeColor:
       "bg-stone-100 dark:bg-stone-900/30 text-stone-700 dark:text-stone-300",
     style: gradients.smoke.default,
+  },
+];
+export const devopsSkills: Skill[] = [
+  {
+    name: "Linux",
+    icon: FaLinux,
+    description: "Open-source operating system for servers and desktops",
+    tags: ["OS", "Shell", "Servers", "Command Line"],
+    badgeColor:
+      "bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-300",
+    style: gradients.smoke.default,
+  },
+  {
+    name: "Docker",
+    icon: FaDocker,
+    description: "Containerization platform for applications",
+    tags: ["Containers", "DevOps", "Deployment"],
+    badgeColor:
+      "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+    style: gradients.blue.default,
+  },
+  {
+    name: "Git",
+    icon: FaGit,
+    description: "Distributed version control system",
+    tags: ["Version Control", "Collaboration", "GitHub"],
+    badgeColor: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
+    style: gradients.red.default,
+  },
+  {
+    name: "Azure",
+    icon: VscAzure,
+    description: "Microsoft's cloud computing platform",
+    tags: ["Cloud", "Infrastructure", "DevOps"],
+    badgeColor:
+      "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+    style: gradients.blue.default,
+  },
+  {
+    name: "TypeScript",
+    icon: FaJs,
+    description: "Typed superset of JavaScript",
+    tags: ["JavaScript", "Typescript", "React"],
+    badgeColor:
+      "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+    style: gradients.blue.default,
+  },
+  {
+    name: "REST APIs",
+    icon: FaServer,
+    description: "RESTful API design and development",
+    tags: ["API", "HTTP", "Backend"],
+    badgeColor:
+      "bg-stone-100 dark:bg-stone-900/30 text-stone-700 dark:text-stone-300",
+    style: gradients.smoke.default,
+  },
+  {
+    name: "Node.js",
+    icon: FaNode,
+    description: "JavaScript runtime for backend development",
+    tags: ["Backend", "JavaScript", "API"],
+    badgeColor:
+      "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
+    style: gradients.green.default,
+  },
+  {
+    name: "AWS",
+    icon: FaAws,
+    description: "Amazon Web Services cloud platform",
+    tags: ["Cloud", "Infrastructure", "DevOps"],
+    badgeColor:
+      "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
+    style: gradients.slate.default,
+  },
+  {
+    name: "Python",
+    icon: FaPython,
+    description:
+      "High-level programming for web and data science and web frameworks like Django and FastAPI",
+    tags: ["Backend", "Data", "ML"],
+    badgeColor:
+      "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
+    style: gradients.yellow.default,
+  },
+  {
+    name: "MySQL",
+    icon: TbBrandMysql,
+    description: "Popular open-source relational database",
+    tags: ["SQL", "Database", "Relational"],
+    badgeColor:
+      "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+    style: gradients.blue.default,
+  },
+  {
+    name: "PostgreSQL",
+    icon: FaDatabase,
+    description: "Advanced open-source relational database",
+    tags: ["SQL", "Database", "ACID"],
+    badgeColor:
+      "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+    style: gradients.slate.default,
   },
 ];
 export const engineeringSkills: Skill[] = [
