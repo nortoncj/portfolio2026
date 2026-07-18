@@ -76,10 +76,10 @@ export default function AboutSection() {
               <strong className="c-cyan"> systems thinking</strong> and
               <strong className="c-purple"> creative problem-solving</strong>. I
               got my B.S. in Engineering and since then I've been obsessed with
-              building things that actually work at scale — whether that's a
-              <strong className="c-gold"> cloud pipeline</strong>, an
+              building things that actually work at scale. I'm working on something from
+              <strong className="c-gold"> cloud pipelines</strong>, an
               <strong className="c-mint"> embedded hardware solution</strong>,
-              or a fully automated marketing funnel. When I'm not shipping code
+              or a fully automated funnel. When I'm not shipping code
               I'm probably deep in an anime arc, tinkering with electronics, or
               traveling with family.
             </p>
