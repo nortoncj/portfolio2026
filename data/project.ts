@@ -13,6 +13,7 @@ import PointNorth from "@images/portfolio/point_north.png";
 import VFW from "@images/portfolio/vfw.png";
 import PowerPulse from "@images/portfolio/power_pulse.png";
 import AWSDevOps from "@images/portfolio/AwsDevops.avif";
+import Hardware_CICD from "@images/portfolio/hardware_CICD.webp";
 import Zybo from "@images/portfolio/Zybo.avif";
 
 export const project: Project[] = [
@@ -538,7 +539,7 @@ export const Hardware: Project[] = [
       "ESP32",
       "Python",
       "CI/CD",
-      "DevOps"
+      "DevOps",
     ],
     icon: "",
     featured: false,
@@ -547,7 +548,16 @@ export const Hardware: Project[] = [
       startDate: "04-20-26",
       endDate: "05-20-26",
     },
-    tags: ["FPGA", "SPI","Linux","RTL","UART", "Python", "Verilog", "Embedded"],
+    tags: [
+      "FPGA",
+      "SPI",
+      "Linux",
+      "RTL",
+      "UART",
+      "Python",
+      "Verilog",
+      "Embedded",
+    ],
     status: "in-progress",
     videoUrl: "",
     details: {
@@ -608,6 +618,46 @@ export const Devops: Project[] = [
         "Spring Security configuration for endpoint authentication and authorization",
         "Route 53 hosted zone setup for DNS management and traffic routing",
         "Load-balanced EC2 fleet architecture designed for production resilience and scalability",
+      ],
+    },
+  },
+  {
+    id: "2",
+    title: "Firmware Deployment Pipeline with GitHub Actions",
+    image: Hardware_CICD.src,
+    modal: true,
+    category: "DevOps",
+    description:
+      "Automated firmware deployment pipeline using GitHub Actions for CI/CD, integrating build, test, and deployment stages for embedded systems.",
+    longDesc:
+      "This project establishes a fully automated firmware deployment pipeline leveraging GitHub Actions for continuous integration and continuous deployment (CI/CD). The pipeline encompasses stages for building firmware from source code, executing unit and integration tests, and deploying the final binary to target embedded devices. The workflow is designed to ensure that every commit triggers a series of automated checks, providing immediate feedback on code quality and functionality before deployment.",
+    skills: ["github", "ci/cd", "embedded systems", "automation", "devops"],
+    icon: "",
+    // videoUrl: "https://youtu.be/1Z6E46F5H-o?si=PRXiwwBGeRq5Mut3",
+    featured: true,
+    status: "in-progress",
+    tags: ["github", "ci/cd", "embedded", "automation", "devops", "proxmox"],
+    timeline: {
+      duration: "1 week",
+      startDate: "09-01-26",
+      endDate: "2026",
+    },
+    details: {
+      overview:
+        "This project demonstrates the implementation of a fully automated firmware deployment pipeline using GitHub Actions. The pipeline is structured to handle the complete lifecycle of firmware development, from source code compilation to testing and deployment on embedded devices. Each commit to the repository triggers the pipeline, which includes stages for building the firmware, running unit and integration tests, and deploying the validated binary to the target hardware. This approach ensures that code changes are continuously validated and deployed in a reliable and repeatable manner.",
+      challenges:
+        "Setting up proxmox virtual machines to simulate embedded hardware for testing purposes required careful configuration. Ensuring that the build and test stages were isolated and reproducible across different environments was critical to avoid inconsistencies. Integrating deployment steps that could safely update firmware on physical devices without bricking them posed additional challenges, particularly in handling rollback scenarios in case of failed deployments.",
+      solutions:
+        "The pipeline was designed using GitHub Actions workflows, with separate jobs for building, testing, and deploying firmware. Proxmox virtual machines were configured to emulate the target embedded hardware, allowing for comprehensive testing of the firmware in a controlled environment. The build stage compiles the source code into a binary, while the test stage runs unit and integration tests to validate functionality. The deployment stage includes safeguards to ensure that firmware updates are applied safely, with rollback mechanisms in place to revert to previous versions if necessary. Notifications and logs are integrated into the workflow to provide immediate feedback on the status of each stage.",
+      results:
+        "The automated firmware deployment pipeline successfully streamlines the development and deployment process for embedded systems. Each commit triggers a series of automated checks, ensuring that only validated code is deployed to the target devices. The use of Proxmox virtual machines for testing provides a reliable environment for validating firmware functionality before deployment to an ESP32. The pipeline's design promotes best practices in CI/CD for embedded systems, enhancing code quality, reducing deployment risks, and improving overall development efficiency.",
+      features: [
+        "Automated firmware build, test, and deployment pipeline using GitHub Actions",
+        "Proxmox virtual machines configured to emulate target embedded hardware for testing",
+        "Unit and integration tests executed automatically on each commit to validate firmware functionality",
+        "Safe deployment mechanisms with rollback capabilities to prevent device bricking",
+        "Immediate feedback and logging integrated into the CI/CD workflow for transparency and traceability",
+        "Scalable and repeatable pipeline design suitable for multiple embedded projects",
       ],
     },
   },
