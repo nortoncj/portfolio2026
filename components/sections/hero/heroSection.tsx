@@ -18,7 +18,7 @@ function Hero() {
       <div className="hero-grid">
         <div className="hero-left">
           <h2 className="hero-title fade-up">
-            Hi, I'm <span className="name">Chris</span>
+            Hi, I'm <span className="name">Chris Norton Jr</span>
           </h2>
 
           <h1 className="hero-subtitle fade-up delay-1">
