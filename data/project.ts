@@ -578,6 +578,57 @@ export const Hardware: Project[] = [
       ],
     },
   },
+  {
+    id: "4",
+    title: "FPGA Parking Garage Controller in Verilog",
+    image: Zybo.src,
+    modal: true,
+    category: "Hardware",
+    description:
+      "A two-floor parking garage controller built in Verilog for the Xilinx Basys 3 FPGA, using FSM-based logic and a multiplexed seven-segment display to track real-time occupancy.",
+    longDesc:
+      "A two-floor parking garage controller designed and simulated in Verilog on the Xilinx Basys 3 FPGA. The design uses flip-flop-based sequential logic to track occupancy and a finite state machine to handle entry and exit, with a multiplexed seven-segment display showing real-time floor counts. Verified in Vivado simulation with testbenches, then deployed and validated on the physical board.",
+    skills: [
+      "Xilinx",
+      "FPGA",
+      "Verilog",
+      "Vivado",
+      "Digital Logic Design"
+    ],
+    icon: "",
+    featured: false,
+    timeline: {
+      duration: "2 weeks",
+      startDate: "10-20-19",
+      endDate: "10-20-19",
+    },
+    tags: [
+      "FPGA",
+      "Verilog",
+      "RTL",
+      "Digital Logic",
+      "Vivado",
+    ],
+    status: "completed",
+    videoUrl: "https://youtu.be/nFVDIF1gLEc?si=esoAJuNInnKiS-gq",
+    details: {
+      overview:
+        "A two-floor parking garage controller designed and simulated in Verilog on the Xilinx Basys 3 FPGA. The design uses flip-flop-based sequential logic to track occupancy and a finite state machine to handle entry and exit, with a multiplexed seven-segment display showing real-time floor counts. Verified in Vivado simulation with testbenches, then deployed and validated on the physical board.",
+      challenges:
+        "Synchronizing entry and exit sensor inputs without race conditions, debouncing physical switch signals, and driving a multiplexed seven-segment display without visible flicker while keeping occupancy counts accurate in real time.",
+      solutions:
+        "Designed a finite state machine to sequence entry/exit transitions cleanly, used flip-flop-based registers to hold occupancy counts per floor, and implemented a clock-divided multiplexing scheme to refresh the seven-segment display fast enough to appear flicker-free.",
+      results:
+        "Verified correct FSM behavior and occupancy tracking through Vivado testbenches, then confirmed matching real-time behavior on the physical Basys 3 board.",
+      features: [
+        "FSM-driven entry/exit handling",
+        "Flip-flop-based occupancy counters per floor",
+        "Multiplexed seven-segment display output",
+        "Vivado simulation with testbenches",
+        "Deployed and validated on physical FPGA hardware",
+      ],
+    },
+  }
 ];
 export const Devops: Project[] = [
   {
@@ -661,6 +712,63 @@ export const Devops: Project[] = [
       ],
     },
   },
+    {
+    id: "3", // bump this to whatever's actually next in your array
+    title: "Self-Hosted N8N Automation Server on Orange Pi + Postgres",
+      // image: OrangePi.src, // swap for your actual image import
+    image:Hardware_CICD.src,
+    modal: true,
+    category: "DevOps", // or "Software"/"DevOps" — whatever bucket you're using elsewhere
+    description:
+      "An n8n workflow automation server running in a Podman container on an Orange Pi, backed by a PostgreSQL database.",
+    longDesc:
+      "Deployed n8n, a workflow automation platform, in a rootless Podman container on an Orange Pi single-board computer. Configured n8n to use an external PostgreSQL database running on a separate homelab server instead of its default SQLite store, splitting compute from persistent data across two machines. Also containers are set to restart n8n in the event of a power outage, thus establishing failure tolerance and continuous deployment. Exposed the instance publicly through a Cloudflare-managed subdomain using Cloudflare Tunnel, avoiding any inbound port forwarding on the home network.",
+    skills: [
+      "n8n",
+      "Podman",
+      "PostgreSQL",
+      "Cloudflare",
+      "Linux",
+      "Git",
+      "Self-Hosting",
+      "Continuous Deployment"
+    ],
+    icon: "",
+    featured: false,
+    timeline: {
+      duration: "1 week", // fill in how long this actually took you
+      startDate: "03-12-26",
+      endDate: "03-16-26",
+    },
+    tags: [
+      "n8n",
+      "Podman",
+      "PostgreSQL",
+      "Cloudflare",
+      "Homelab",
+      "Automation",
+    ],
+    status: "completed",
+    videoUrl: "",
+    details: {
+      overview:
+        "Deployed n8n, a workflow automation platform, in a rootless Podman container on an Orange Pi single-board computer. Configured n8n to use an external PostgreSQL database running on a separate homelab server instead of its default SQLite store, splitting compute from persistent data across two machines. Exposed the instance publicly through a Cloudflare-managed subdomain using Cloudflare Tunnel, avoiding any inbound port forwarding on the home network.",
+      challenges:
+        "Getting a rootless Podman container on the Orange Pi to reliably reach a PostgreSQL instance on a separate machine across the LAN, reconfiguring n8n away from its default SQLite storage to a networked Postgres backend, and safely exposing a self-hosted service to the public internet without opening inbound ports on the router.",
+      solutions:
+        "Set container networking and environment variables so n8n connected to the remote Postgres host and database instead of local SQLite, then used Cloudflare Tunnel (cloudflared) to publish the service on a custom subdomain, routing public traffic through Cloudflare's edge rather than forwarding ports on the home network.",
+      results:
+        "A stable, publicly reachable n8n instance running on low-power ARM hardware, with workflow data persisted in a proper Postgres database on the main homelab server, and zero exposed ports on the home router.",
+      features: [
+        "Containerized n8n deployment via Podman",
+        "External PostgreSQL backend (replacing default SQLite)",
+        "Public access via Cloudflare Tunnel subdomain",
+        "No inbound port forwarding required",
+        "Compute (Orange Pi) separated from data (homelab server)",
+      ],
+    },
+  },
+
 ];
 
 // export const Devops: Project[] = [
