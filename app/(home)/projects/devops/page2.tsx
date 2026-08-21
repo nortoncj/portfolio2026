@@ -8,6 +8,7 @@ export const metadata: Metadata = buildMetadata({
   title: "DevOps Engineering Projects",
   description:
     "End-to-end CI/CD pipelines, container orchestration, infrastructure as code, and cloud automation built for production. Every project is designed for reliability, repeatability, and scale.",
+  url: "https://chrisnortonjr.com/devops",
 });
 export default function DevopsPage() {
   useEffect(() => {

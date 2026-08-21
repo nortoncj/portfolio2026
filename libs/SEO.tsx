@@ -13,7 +13,7 @@ export function buildMetadata({
   image = "/og-image.png",
   url = "https://chrisnorton.com",
 }: MetadataInput) {
-  const fullTitle = `${title || "Engineer"} | Chris Norton`;
+  const fullTitle = `Chris Norton Jr | ${title || "Engineer"} `;
   const fullDescription =
     description ||
     "Product Development, DevOps, Cloud and Martech. I build products, deploy them and grow them as a brand.";

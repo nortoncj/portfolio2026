@@ -10,7 +10,7 @@ import { getPosts } from "@/sanity/sanity-utils";
 import { Metadata } from "next";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Chris Norton Jr",
+  title: "Engineer",
   description: "Engineer | DevOps | Cloud | Martech",
   image: "/og-image.png",
   url: "https://chrisnortonjr.com",

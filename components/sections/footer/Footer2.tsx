@@ -74,7 +74,7 @@ const SOCIAL_LINKS = [
   // },
   {
     label: "Email",
-    href: "", // ← swap
+    href: "#", // ← swap
     color: "#fcfcfa",
     darkColor: "#ddd",
     hoverColor: "#ffd866",
@@ -96,7 +96,7 @@ const SOCIAL_LINKS = [
   },
   {
     label: "CV",
-    href: "",
+    href: "#",
     color: "#fcfcfa",
     darkColor: "#ddd",
     click: CV,

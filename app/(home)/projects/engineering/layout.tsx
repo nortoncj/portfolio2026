@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Hardware & Embedded Systems Projects",
     description:
       "A curated list of hardware and embedded systems projects including IoT devices, RTOS firmware, PCB designs, and embedded Linux gateways.",
-    url: "https://chrisnortonjr.com",
+    url: "https://chrisnortonjr.com/engineering",
     siteName: "Chris Norton JR Portfolio",
     images: [
       {

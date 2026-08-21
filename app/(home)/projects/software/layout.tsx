@@ -11,7 +11,7 @@ export const metadata: Metadata = {
         title: "Web Development Projects",
         description:
             "Full-stack web development projects spanning Next.js, Laravel, .NET, Vue, React, Node.js, and modern tooling.",
-        url: "https://chrisnortonjr.com",
+        url: "https://chrisnortonjr.com/software",
         siteName: "Chris Norton JR Portfolio",
         images: [
             {
