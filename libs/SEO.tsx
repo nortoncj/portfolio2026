@@ -14,9 +14,10 @@ export function buildMetadata({
   url = "https://chrisnorton.com",
 }: MetadataInput) {
   const fullTitle = `Chris Norton Jr | ${title || "Engineer"} `;
-  const fullDescription =
+  const fullDescription = ` ${
     description ||
-    "Product Development, DevOps, Cloud and Martech. I build products, deploy them and grow them as a brand.";
+    "Product Development, DevOps, Cloud and Martech. I build products, deploy them and grow them as a brand."
+  } | Tampa, Florida, United States `;
 
   return {
     // -------------------------

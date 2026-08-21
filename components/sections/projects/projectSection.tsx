@@ -68,7 +68,7 @@ export default function ProjectSection() {
               <div className="cat-title">
                 Cloud Infrastructure
                 <br />
-                &amp; DevOps
+                &amp; DevOps Projects
               </div>
               <div className="cat-arrow">
                 View projects <span className="arrow-circle">→</span>
@@ -94,9 +94,9 @@ export default function ProjectSection() {
             <div className="cat-overlay ov-web"></div>
             <div className="cat-content">
               <div className="cat-title">
-                Software
+                Software 
                 <br />
-                Development
+                Development Projects
               </div>
               <div className="cat-arrow">
                 View projects <span className="arrow-circle">→</span>
@@ -122,9 +122,9 @@ export default function ProjectSection() {
             <div className="cat-overlay ov-auto"></div>
             <div className="cat-content">
               <div className="cat-title">
-                Marketing &amp;
+                Martech &amp;
                 <br />
-                Automation Systems
+                AI Automation Systems
               </div>
               <div className="cat-arrow">
                 View projects <span className="arrow-circle">→</span>
@@ -152,7 +152,7 @@ export default function ProjectSection() {
               <div className="cat-title">
                 Embedded Systems
                 <br />
-                &amp; Engineering
+                Firmware &amp; IoT Projects
               </div>
               <div className="cat-arrow">
                 View projects <span className="arrow-circle">→</span>
