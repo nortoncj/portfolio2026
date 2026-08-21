@@ -10,9 +10,9 @@ import { getPosts } from "@/sanity/sanity-utils";
 import { Metadata } from "next";
 
 export const metadata: Metadata = buildMetadata({
-  title: "DevOps, Cloud & Embedded Systems Engineer",
+  title: "DevOps, Cloud & Embedded Engineer",
   description:
-    "I build AWS infrastructure, CI/CD pipelines, firmware automation, and IoT systems that move reliably from code to production.",
+    " I build AWS infrastructure, CI/CD pipelines, firmware automation, and IoT systems | Tampa, Florida, United States",
   image: "/og-image.png",
   url: "https://chrisnortonjr.com",
 });

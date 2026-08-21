@@ -13,7 +13,9 @@ export function buildMetadata({
   image = "/og-image.png",
   url = "https://chrisnorton.com",
 }: MetadataInput) {
+  // less than 60 chars
   const fullTitle = `Chris Norton Jr | ${title || "Engineer"} `;
+  // keep around 120 chars
   const fullDescription = ` ${
     description ||
     "Product Development, DevOps, Cloud and Martech. I build products, deploy them and grow them as a brand."
