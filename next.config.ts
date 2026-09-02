@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "picsum.photos",
       },
+      
     ],
     formats: ["image/webp", "image/avif"],
 
