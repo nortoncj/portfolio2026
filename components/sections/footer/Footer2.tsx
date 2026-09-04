@@ -208,14 +208,14 @@ function SocialBtn({
       target={href.startsWith("mailto") ? undefined : "_blank"}
       rel="noopener noreferrer"
       aria-label={label}
-      onClick={
-        click
-      }
+      onClick={click}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
         color: hovered ? hoverColor : "var(--color-text)",
-        boxShadow: hovered ? `0 6px 20px ${hoverColor}33` : "0 1px 1px rgba(0,0,0,0.05)",
+        boxShadow: hovered
+          ? `0 6px 20px ${hoverColor}33`
+          : "0 1px 1px rgba(0,0,0,0.05)",
       }}
     >
       {icon}
@@ -343,7 +343,7 @@ export default function Footer() {
                 fontFamily: "'JetBrains Mono', monospace",
               }}
             >
-              Engineer · Full-Stack Dev · Martech
+              Engineer · DevOps · Automation
             </h2>
           </div>
 
@@ -482,7 +482,7 @@ export default function Footer() {
             fontWeight: 700,
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            
+
             fontFamily: "'JetBrains Mono', monospace",
             marginBottom: "1rem",
           }}
