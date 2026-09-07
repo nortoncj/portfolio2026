@@ -4,7 +4,7 @@ import { FaAws, FaStar } from "react-icons/fa6";
 import { SiComptia, SiHashicorp } from "react-icons/si";
 import FIU from "@/components/icons/FIU-Symbol.jpg";
 // ─── Headshot image URLs ───────────────────────────────────────────────────────
-export const HEADSHOT_PRIMARY = "/assets/img/hero_headshot.webp";
+export const HEADSHOT_PRIMARY = "/assets/img/Headshot3.png";
 export const HEADSHOT_ALTERNATE = "/assets/img/about_headshot.webp";
 
 // ─── FAQ DATA ─────────────────────────────────────────────────────────────────
