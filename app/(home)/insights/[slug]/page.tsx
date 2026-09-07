@@ -9,6 +9,7 @@
 // import BlogPostPage from "@/components/sections/blog/postPage";
 import BlogPostPage from "@/components/sections/blog/blogPostPage";
 import { getPost, getRelatedPosts } from "@/sanity/sanity-utils";
+import { SITE_PERSON } from "@/data/person";
 import type { Metadata } from "next";
 
 import { notFound } from "next/navigation";
@@ -60,5 +61,31 @@ export default async function Page({ params }: Props) {
     post.categories[0]?.slug ?? "",
   ).catch(() => []);
 
-  return <BlogPostPage post={post} relatedPosts={relatedPosts} />;
+  const postUrl = `https://chrisnortonjr.com/insights/${post.slug}`;
+  const postSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.seo?.title ?? post.title,
+    description: post.seo?.description ?? post.excerpt,
+    image: post.image?.asset?.url ? [post.image.asset.url] : undefined,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    url: postUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": postUrl,
+    },
+    author: SITE_PERSON,
+    publisher: SITE_PERSON,
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(postSchema) }}
+      />
+      <BlogPostPage post={post} relatedPosts={relatedPosts} />
+    </>
+  );
 }

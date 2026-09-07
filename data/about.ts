@@ -3,12 +3,9 @@ import { BsArrowUpRightSquareFill } from "react-icons/bs";
 import { FaAws, FaStar } from "react-icons/fa6";
 import { SiComptia, SiHashicorp } from "react-icons/si";
 import FIU from "@/components/icons/FIU-Symbol.jpg";
-// ─── Placeholder image URLs ───────────────────────────────────────────────────
-// Replace these with your actual headshot paths
-export const HEADSHOT_PRIMARY =
-  "https://placehold.co/480x560/2d2a2e/fcfcfa?text=Headshot+1";
-export const HEADSHOT_ALTERNATE =
-  "https://placehold.co/480x560/e8365d/fcfcfa?text=Alternate+Photo";
+// ─── Headshot image URLs ───────────────────────────────────────────────────────
+export const HEADSHOT_PRIMARY = "/assets/img/hero_headshot.webp";
+export const HEADSHOT_ALTERNATE = "/assets/img/about_headshot.webp";
 
 // ─── FAQ DATA ─────────────────────────────────────────────────────────────────
 export const FAQ_ITEMS = [
