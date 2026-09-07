@@ -343,7 +343,7 @@ export default function Footer() {
                 fontFamily: "'JetBrains Mono', monospace",
               }}
             >
-              Engineer · DevOps · Automation
+              DevOps Engineer · Automation
             </h2>
           </div>
 

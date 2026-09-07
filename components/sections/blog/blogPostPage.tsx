@@ -366,7 +366,7 @@ export default function BlogPostPage({
               <div className="bp-author-info">
                 <span className="bp-author-name">Chris</span>
                 <span className="bp-author-role">
-                  Full-Stack Engineer & Digital Marketer
+                  Devops & Embedded Systems Engineer · Automation Engineer
                 </span>
               </div>
             </div>
@@ -450,9 +450,9 @@ export default function BlogPostPage({
 
               <div className="bp-author-card-body">
                 <p className="bp-author-card-kicker">Original Written By</p>
-                <div className="bp-author-card-name">Chris Norton</div>
+                <div className="bp-author-card-name">Chris Norton Jr</div>
                 <div className="bp-author-card-role">
-                  Full-Stack Engineer · Digital Marketer · Freelancer
+                  Devops & Embedded Systems Engineer · Automation Engineer
                 </div>
                 <p className="bp-af-text">
                   I build things that ship and write about what I learn in the
