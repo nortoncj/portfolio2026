@@ -1,24 +1,18 @@
-
-import {
-  FAQ_ITEMS,
-  CREDENTIALS,
-} from "@/data/about";
+import { FAQ_ITEMS, CREDENTIALS } from "@/data/about";
 import { IconType } from "react-icons";
 import { Metadata } from "next";
 import { buildMetadata } from "@/libs/SEO";
+import Image from "next/image";
 import { FaqItem } from "./faq";
 import { AnimePhoto } from "./AboutPhoto";
 
 export const metadata: Metadata = buildMetadata({
   title: "About Chris Norton Jr",
   description:
-    "I specialize in devops and cloud architecture in the United States",
+    "I specialize in devops, embedded systems, and cloud architecture in the United States",
   image: "/og-image.png",
   url: "https://chrisnortonjr.com",
 });
-
-
-
 
 interface CredBadgeProps {
   item: {
@@ -26,17 +20,21 @@ interface CredBadgeProps {
     issuer: string;
     year: string;
     color: string;
-    icon: IconType;
+    icon?: IconType;
+    logo?: string;
   };
 }
-
 
 // ─── CREDENTIAL BADGE ────────────────────────────────────────────────────────
 function CredBadge({ item }: CredBadgeProps) {
   const inProgress = item.year === "2026";
   return (
     <div className="cred-badge" style={{ ["--accent" as any]: item.color }}>
-      <item.icon className="cred-icon" />
+      {item.logo ? (
+        <Image src={item.logo} alt={item.name} className="cred-icon" />
+      ) : item.icon ? (
+        <item.icon className="cred-icon" />
+      ) : null}
       {/* <span className="cred-icon">{item.icon}</span> */}
       <div className="cred-info">
         <span className="cred-name">{item.name}</span>

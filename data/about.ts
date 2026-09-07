@@ -2,6 +2,7 @@ import { IconType } from "react-icons";
 import { BsArrowUpRightSquareFill } from "react-icons/bs";
 import { FaAws, FaStar } from "react-icons/fa6";
 import { SiComptia, SiHashicorp } from "react-icons/si";
+import FIU from "@/components/icons/FIU-Symbol.jpg";
 // ─── Placeholder image URLs ───────────────────────────────────────────────────
 // Replace these with your actual headshot paths
 export const HEADSHOT_PRIMARY =
@@ -33,7 +34,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: "Where is Chris Norton Jr. now?",
-    a: "I'm currentlybased in South Florida, in the United States. I work remotely with teams across the country and internationally. My timezone is Eastern Standard Time (EST).",
+    a: "I'm currently based in Tampa,Florida and the greater Tampa Bay/South Florida area, in the United States. I work remotely with teams across the country and internationally. My timezone is Eastern Standard Time (EST).",
   },
 ];
 
@@ -66,7 +67,7 @@ export const CREDENTIALS = [
         issuer: "Florida International University",
         year: "2023",
         color: "#002d62",
-        icon: FaAws,
+        logo: FIU,
       },
     ],
   },
