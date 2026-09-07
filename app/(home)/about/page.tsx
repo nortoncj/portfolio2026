@@ -2,7 +2,7 @@ import { FAQ_ITEMS, CREDENTIALS } from "@/data/about";
 import { IconType } from "react-icons";
 import { Metadata } from "next";
 import { buildMetadata } from "@/libs/SEO";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { FaqItem } from "./faq";
 import { AnimePhoto } from "./AboutPhoto";
 
@@ -21,7 +21,7 @@ interface CredBadgeProps {
     year: string;
     color: string;
     icon?: IconType;
-    logo?: string;
+    logo?: string | StaticImageData;
   };
 }
 
