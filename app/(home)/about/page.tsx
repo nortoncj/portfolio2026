@@ -69,13 +69,13 @@ export default function AboutPage() {
               I build the systems most engineers only get to use.
             </p>
             <p className="hero-bio">
-              Electrical engineer turned DevOps practitioner, based in Tampa
-              Bay, FL. I specialize in the full stack development. Whether
-              bare-metal firmware running on an ESP32 to containerized
-              microservices on AWS, connected by pipelines that actually test
-              what they ship. My background in EE gives me a different lens than
-              most cloud engineers: I know what's on the other side of the
-              abstraction layer, and I build with that in mind.
+              Electrical engineer turned DevOps practioner, based in Tampa Bay,
+              FL. I specialize in the full stack development. Whether bare-metal
+              firmware running on an ESP32 to containerized microservices on
+              AWS, connected by pipelines that actually test what they ship. My
+              background in EE gives me a different lens than most cloud
+              engineers: I know what's on the other side of the abstraction
+              layer, and I build with that in mind.
               <br />
               <br />
               Outside the terminal I'm a film buff, anime fan and language

@@ -71,15 +71,15 @@ export default defineType({
     }),
     defineField({
       name: "git",
-      title:"Github Link",
+      title: "Github Link",
       type: "url",
-      description:"Optional github link",
+      description: "Optional github link",
     }),
     defineField({
       name: "link",
-      title:"External Link",
+      title: "External Link",
       type: "url",
-      description:"Optional external link",
+      description: "Optional external link",
     }),
 
     defineField({
@@ -149,6 +149,26 @@ export default defineType({
               name: "caption",
               title: "Caption",
               type: "string",
+            }),
+            defineField({
+              title: "Alignment",
+              name: "alignment",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Left", value: "left" },
+                  { title: "Center", value: "center" },
+                  { title: "Right", value: "right" },
+                ],
+                layout: "radio",
+                direction: "horizontal",
+              },
+            }),
+            defineField({
+              type: "number",
+              name: "width",
+              title: "Width (%)",
+              validation: (Rule) => Rule.min(10).max(100),
             }),
           ],
         }),

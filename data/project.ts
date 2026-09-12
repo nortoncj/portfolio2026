@@ -15,6 +15,7 @@ import PowerPulse from "@images/portfolio/power_pulse.png";
 import AWSDevOps from "@images/portfolio/AwsDevops.avif";
 import Hardware_CICD from "@images/portfolio/hardware_CICD.webp";
 import Zybo from "@images/portfolio/Zybo.avif";
+import Garage from "@images/portfolio/2_floor_garage.jpg";
 
 export const project: Project[] = [
   {
@@ -519,7 +520,7 @@ export const Hardware: Project[] = [
   {
     id: "3",
     title: "Hardware-in-the-Loop Signal Processing Pipeline",
-    image: Zybo.src,
+    image: Hardware_CICD.src,
     modal: true,
     category: "IOT",
     description:
@@ -581,20 +582,14 @@ export const Hardware: Project[] = [
   {
     id: "4",
     title: "FPGA Parking Garage Controller in Verilog",
-    image: Zybo.src,
+    image: Garage.src,
     modal: true,
     category: "Hardware",
     description:
       "A two-floor parking garage controller built in Verilog for the Xilinx Basys 3 FPGA, using FSM-based logic and a multiplexed seven-segment display to track real-time occupancy.",
     longDesc:
       "A two-floor parking garage controller designed and simulated in Verilog on the Xilinx Basys 3 FPGA. The design uses flip-flop-based sequential logic to track occupancy and a finite state machine to handle entry and exit, with a multiplexed seven-segment display showing real-time floor counts. Verified in Vivado simulation with testbenches, then deployed and validated on the physical board.",
-    skills: [
-      "Xilinx",
-      "FPGA",
-      "Verilog",
-      "Vivado",
-      "Digital Logic Design"
-    ],
+    skills: ["Xilinx", "FPGA", "Verilog", "Vivado", "Digital Logic Design"],
     icon: "",
     featured: false,
     timeline: {
@@ -602,13 +597,7 @@ export const Hardware: Project[] = [
       startDate: "10-20-19",
       endDate: "10-20-19",
     },
-    tags: [
-      "FPGA",
-      "Verilog",
-      "RTL",
-      "Digital Logic",
-      "Vivado",
-    ],
+    tags: ["FPGA", "Verilog", "RTL", "Digital Logic", "Vivado"],
     status: "completed",
     videoUrl: "https://youtu.be/nFVDIF1gLEc?si=esoAJuNInnKiS-gq",
     details: {
@@ -628,7 +617,7 @@ export const Hardware: Project[] = [
         "Deployed and validated on physical FPGA hardware",
       ],
     },
-  }
+  },
 ];
 export const Devops: Project[] = [
   {
@@ -712,11 +701,11 @@ export const Devops: Project[] = [
       ],
     },
   },
-    {
+  {
     id: "3", // bump this to whatever's actually next in your array
     title: "Self-Hosted N8N Automation Server on Orange Pi + Postgres",
-      // image: OrangePi.src, // swap for your actual image import
-    image:Hardware_CICD.src,
+    // image: OrangePi.src, // swap for your actual image import
+    image: Hardware_CICD.src,
     modal: true,
     category: "DevOps", // or "Software"/"DevOps" — whatever bucket you're using elsewhere
     description:
@@ -731,7 +720,7 @@ export const Devops: Project[] = [
       "Linux",
       "Git",
       "Self-Hosting",
-      "Continuous Deployment"
+      "Continuous Deployment",
     ],
     icon: "",
     featured: false,
@@ -768,7 +757,6 @@ export const Devops: Project[] = [
       ],
     },
   },
-
 ];
 
 // export const Devops: Project[] = [
