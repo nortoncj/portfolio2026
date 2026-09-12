@@ -6,6 +6,7 @@ import Script from "next/script";
 
 
 
+
 export default function FrontLayout({
   children,
 }: Readonly<{
@@ -20,6 +21,7 @@ export default function FrontLayout({
         src="https://www.googletagmanager.com/gtag/js?id=G-S5ZBPZ262W"
         strategy="afterInteractive"
       />
+      
 
       <Script id="gtag-init" strategy="afterInteractive">
         {`

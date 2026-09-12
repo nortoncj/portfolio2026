@@ -33,7 +33,16 @@ export function buildMetadata({
     other: {
       "google-site-verification": "7JxhJ8Q3PXbQgekYOnrwz4G3K6tFCe-2yIUdsZjeAhw",
     },
-
+    // -------------------------
+    // 🍎 APPLE TOUCH ICON
+    // -------------------------
+    icons: {
+      apple: [
+        { url: "/img/logo1.png", sizes: "180x180" },
+        { url: "/img/logo1.png", sizes: "152x152" },
+        { url: "/img/logo1.png", sizes: "120x120" },
+      ],
+    },
     // -------------------------
     // 🟦 OPEN GRAPH (FB, LinkedIn, Slack, Discord)
     // -------------------------
