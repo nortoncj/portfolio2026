@@ -19,7 +19,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: "What certifications do you hold?",
-    a: "AWS Certified Cloud Practitioner and CompTIA Security+. Currently studying for AWS Solutions Architect Associate, with Terraform Associate and CKA on the roadmap.",
+    a: "AWS CCP and CompTIA Security+. Currently studying for AWS Solutions Architect Associate, with Terraform Associate and CKA on the roadmap.",
   },
   {
     q: "Are you available for freelance or contract work?",
@@ -41,7 +41,7 @@ export const CREDENTIALS = [
     category: "Certifications",
     items: [
       {
-        name: "AWS Cloud Practitioner",
+        name: "AWS CCP",
         issuer: "Amazon Web Services",
         year: "2022",
         color: "#ff9900",
