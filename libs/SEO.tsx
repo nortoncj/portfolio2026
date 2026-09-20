@@ -47,7 +47,7 @@ export function buildMetadata({
     // 🟦 OPEN GRAPH (FB, LinkedIn, Slack, Discord)
     // -------------------------
     openGraph: {
-      title: fullTitle,
+      title: title,
       description: fullDescription,
       url,
       siteName: "Chris Norton",
@@ -68,7 +68,7 @@ export function buildMetadata({
     // -------------------------
     twitter: {
       card: "summary_large_image",
-      title: fullTitle,
+      title: title,
       description: fullDescription,
       images: [image],
       creator: "@chrisnortonjr", // optional
