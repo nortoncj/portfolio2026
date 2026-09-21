@@ -231,7 +231,7 @@ export default function Footer() {
     <footer
       className="footer-nav "
       style={{
-        borderTop: "1px solid rgba(255,255,255,.06)",
+        borderTop: "1px solid var(--fn-hairline)",
         position: "relative",
         overflow: "hidden",
         fontFamily: "'Inter', -apple-system, sans-serif",
@@ -543,7 +543,7 @@ export default function Footer() {
                 href={href}
                 style={{
                   fontSize: "0.75rem",
-                  color: "rgba(252,252,250,.3)",
+                  color: "var(--fn-faint)",
                   textDecoration: "none",
                   fontFamily: "'JetBrains Mono', monospace",
                   transition: "color 0.2s",
@@ -554,7 +554,7 @@ export default function Footer() {
                 }
                 onMouseLeave={(e) =>
                   ((e.currentTarget as HTMLAnchorElement).style.color =
-                    "rgba(252,252,250,.3)")
+                    "var(--fn-faint)")
                 }
               >
                 {label}
@@ -572,9 +572,9 @@ export default function Footer() {
               gap: 6,
               padding: "6px 14px",
               borderRadius: 8,
-              border: "1px solid rgba(255,255,255,.1)",
-              background: "rgba(255,255,255,.05)",
-              color: "rgba(252,252,250,.4)",
+              border: "1px solid var(--fn-chip-border)",
+              background: "var(--fn-chip-bg)",
+              color: "var(--fn-faint)",
               fontSize: "0.74rem",
               cursor: "pointer",
               fontFamily: "'JetBrains Mono', monospace",
@@ -588,9 +588,9 @@ export default function Footer() {
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLButtonElement;
-              el.style.color = "rgba(252,252,250,.4)";
-              el.style.borderColor = "rgba(255,255,255,.1)";
-              el.style.background = "rgba(255,255,255,.05)";
+              el.style.color = "var(--fn-faint)";
+              el.style.borderColor = "var(--fn-chip-border)";
+              el.style.background = "var(--fn-chip-bg)";
             }}
           >
             <svg
@@ -611,6 +611,23 @@ export default function Footer() {
 
       {/* ── Injected keyframes ───────────────────────────────────── */}
       <style>{`
+        /* Footer-local theme tokens.
+           The bottom-bar links, the back-to-top button and the input
+           placeholder are inline-styled, so they cannot respond to the
+           .dark class on <html> by themselves — they read these instead. */
+        .footer-nav {
+          --fn-faint:       rgba(45,42,46,.5);
+          --fn-chip-bg:     rgba(45,42,46,.04);
+          --fn-chip-border: rgba(45,42,46,.14);
+          --fn-hairline:    rgba(45,42,46,.08);
+        }
+        .dark .footer-nav {
+          --fn-faint:       rgba(252,252,250,.4);
+          --fn-chip-bg:     rgba(255,255,255,.05);
+          --fn-chip-border: rgba(255,255,255,.1);
+          --fn-hairline:    rgba(255,255,255,.06);
+        }
+
         @keyframes footerPulse {
           0%, 100% { opacity: 1; box-shadow: 0 0 6px #a9dc76; }
           50%       { opacity: 0.6; box-shadow: 0 0 16px #a9dc76; }
@@ -637,7 +654,7 @@ export default function Footer() {
 
         /* Input placeholder */
         footer input::placeholder {
-          color: rgba(252,252,250,.3);
+          color: var(--fn-faint);
         }
       `}</style>
     </footer>

@@ -112,14 +112,14 @@ a {
   color: #fcfcfa;
 }
 .footer-title {
-  color: rgba(45, 42, 46, 0.35);
+  color: rgba(45, 42, 46, 0.55);
 }
 .dark .footer-title {
   color: rgba(252, 252, 250, 0.35);
 }
 .footer-subtitle,
 .footer-subtitle {
-  color: rgba(45, 42, 46, 0.45);
+  color: rgba(45, 42, 46, 0.62);
 }
 .dark .footer-subtitle {
   color: rgba(252, 252, 250, 0.45);
@@ -206,7 +206,7 @@ a {
   margin: 0;
 }
 .footer-lower-title {
-  color: rgba(45, 42, 46, 0.25);
+  color: rgba(45, 42, 46, 0.5);
 }
 .dark .footer-lower-title {
   color: rgba(252, 252, 250, 0.25);

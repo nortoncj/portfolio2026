@@ -164,6 +164,13 @@ export default function AboutPage() {
 
 // ─── STYLES ───────────────────────────────────────────────────────────────────
 const CSS = `
+/* Every rule below is scoped under .about-root on purpose.
+   Global sheets (hero.css, about/about.css, blog.css) define bare
+   .hero-section / .hero-left / .hero-right / .section-heading / .photo-img /
+   .cred-icon rules. Those sheets stay in the document after a client-side
+   navigation away from the pages that import them, so unscoped rules here
+   would lose to — or silently inherit from — them on soft navigation. */
+
 /* ── Design tokens ── */
 .about-root {
   --bg:             #f9f8f6;
@@ -215,22 +222,38 @@ const CSS = `
 
 
 /* ── Hero ── */
-.hero-section {
+.about-root .hero-section {
   display: grid;
   grid-template-columns: 1fr 420px;
   gap: 64px;
   align-items: center;
+  height: auto;
   max-width: 1100px;
   margin: 0 auto;
   padding: 80px 32px 64px;
 }
 
-@media (max-width: 860px) {
-  .hero-section { grid-template-columns: 1fr; padding: 48px 24px 40px; }
-  .hero-right { order: -1; display: flex; justify-content: center; }
+/* hero.css styles .hero-left/.hero-right for the home page and declares
+   properties this page never sets (flex layout, opacity:0 + reveal
+   animation). Reset them explicitly — specificity alone does not undo a
+   property that is only declared over there. */
+.about-root .hero-left,
+.about-root .hero-right {
+  display: block;
+  position: static;
+  opacity: 1;
+  animation: none;
+  transform: none;
+  flex-direction: row;
+  gap: 0;
 }
 
-.hero-eyebrow {
+@media (max-width: 860px) {
+  .about-root .hero-section { grid-template-columns: 1fr; padding: 48px 24px 40px; }
+  .about-root .hero-right { order: -1; display: flex; justify-content: center; }
+}
+
+.about-root .hero-eyebrow {
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -239,7 +262,7 @@ const CSS = `
   margin: 0 0 16px;
 }
 
-.hero-name {
+.about-root .hero-name {
   font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 800;
   line-height: 1.0;
@@ -248,14 +271,14 @@ const CSS = `
   letter-spacing: -0.03em;
 }
 
-.hero-name-accent {
+.about-root .hero-name-accent {
   background: var(--hero-grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.hero-tagline {
+.about-root .hero-tagline {
   font-size: 1.25rem;
   font-weight: 500;
   color: var(--text-secondary);
@@ -264,7 +287,7 @@ const CSS = `
   font-family: "Playfair Display", serif;
 }
 
-.hero-bio {
+.about-root .hero-bio {
   font-size: 1rem;
   line-height: 1.75;
   color: var(--text-secondary);
@@ -272,13 +295,13 @@ const CSS = `
   max-width: 56ch;
 }
 
-.hero-links {
+.about-root .hero-links {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.hero-link {
+.about-root .hero-link {
   padding: 10px 22px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
@@ -289,7 +312,7 @@ const CSS = `
   background: var(--surface);
   transition: var(--snappy);
 }
-.hero-link:hover {
+.about-root .hero-link:hover {
   border-color: var(--pink);
   color: var(--red);
   transform: translateY(-2px);
@@ -297,7 +320,7 @@ const CSS = `
 }
 
 /* ── Photo with anime transition ── */
-.photo-wrapper {
+.about-root .photo-wrapper {
   position: relative;
   width: 340px;
   height: 400px;
@@ -310,19 +333,21 @@ const CSS = `
   user-select: none;
 }
 
-.photo-img {
+.about-root .photo-img {
   position: absolute;
   inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: none;
   transition: opacity 0.05s;
 }
-.photo-front  { z-index: 2; opacity: 1; }
-.photo-behind { z-index: 1; opacity: 1; }
+.about-root .photo-front  { z-index: 2; opacity: 1; }
+.about-root .photo-behind { z-index: 1; opacity: 1; }
 
 /* Anime slash overlay */
-.slash-overlay {
+.about-root .slash-overlay {
   position: absolute;
   inset: 0;
   z-index: 10;
@@ -330,7 +355,7 @@ const CSS = `
   overflow: hidden;
 }
 
-.slash-blade {
+.about-root .slash-blade {
   position: absolute;
   height: 100%;
   width: 40%;
@@ -340,16 +365,16 @@ const CSS = `
   opacity: 0;
 }
 
-.slash-1 { left: -5%;  transition: transform 0.18s ease-in, opacity 0.1s; }
-.slash-2 { left: 30%;  transition: transform 0.18s ease-in 0.06s, opacity 0.1s 0.06s; }
-.slash-3 { left: 65%;  transition: transform 0.18s ease-in 0.12s, opacity 0.1s 0.12s; }
+.about-root .slash-1 { left: -5%;  transition: transform 0.18s ease-in, opacity 0.1s; }
+.about-root .slash-2 { left: 30%;  transition: transform 0.18s ease-in 0.06s, opacity 0.1s 0.06s; }
+.about-root .slash-3 { left: 65%;  transition: transform 0.18s ease-in 0.12s, opacity 0.1s 0.12s; }
 
-.slash-active .slash-blade { transform: scaleX(1.4) skewX(-12deg); opacity: 1; }
-.slash-active .slash-1 { transition: transform 0.2s ease-out, opacity 0.05s; }
-.slash-active .slash-2 { transition: transform 0.2s ease-out 0.07s, opacity 0.05s 0.07s; }
-.slash-active .slash-3 { transition: transform 0.2s ease-out 0.14s, opacity 0.05s 0.14s; }
+.about-root .slash-active .slash-blade { transform: scaleX(1.4) skewX(-12deg); opacity: 1; }
+.about-root .slash-active .slash-1 { transition: transform 0.2s ease-out, opacity 0.05s; }
+.about-root .slash-active .slash-2 { transition: transform 0.2s ease-out 0.07s, opacity 0.05s 0.07s; }
+.about-root .slash-active .slash-3 { transition: transform 0.2s ease-out 0.14s, opacity 0.05s 0.14s; }
 
-.photo-hint {
+.about-root .photo-hint {
   position: absolute;
   bottom: 12px;
   right: 12px;
@@ -367,7 +392,7 @@ const CSS = `
 }
 
 /* ── Expertise strip ── */
-.strip-section {
+.about-root .strip-section {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -378,7 +403,7 @@ const CSS = `
   border-bottom: 1px solid var(--border);
 }
 
-.strip-tag {
+.about-root .strip-tag {
   padding: 8px 18px;
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
@@ -390,17 +415,18 @@ const CSS = `
 }
 
 /* ── Section layout ── */
-.content-section {
+.about-root .content-section {
   max-width: 800px;
   margin: 0 auto;
   padding: 56px 32px;
   border-bottom: 1px solid var(--border);
 }
-.content-section:last-child { border-bottom: none; }
+.about-root .content-section:last-child { border-bottom: none; }
 
-.section-heading {
+.about-root .section-heading {
   font-size: 1.75rem;
   font-weight: 700;
+  line-height: 1.3;
   color: var(--text-primary);
   margin: 0 0 36px;
   letter-spacing: -0.02em;
@@ -410,13 +436,13 @@ const CSS = `
 }
 
 /* ── FAQ ── */
-.faq-list {
+.about-root .faq-list {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.faq-item {
+.about-root .faq-item {
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--surface);
@@ -424,12 +450,12 @@ const CSS = `
   transition: var(--smooth);
 }
 
-.faq-item.faq-open {
+.about-root .faq-item.faq-open {
   border-color: rgba(255,97,136,0.35);
   box-shadow: 0 4px 24px rgba(255,97,136,0.08);
 }
 
-.faq-trigger {
+.about-root .faq-trigger {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -444,13 +470,13 @@ const CSS = `
   gap: 16px;
 }
 
-.faq-q {
+.about-root .faq-q {
   font-size: 1rem;
   font-weight: 600;
   flex: 1;
 }
 
-.faq-chevron {
+.about-root .faq-chevron {
   font-size: 1.4rem;
   font-weight: 300;
   color: var(--pink);
@@ -460,14 +486,14 @@ const CSS = `
   text-align: center;
 }
 
-.faq-open .faq-chevron { transform: rotate(0deg); }
+.about-root .faq-open .faq-chevron { transform: rotate(0deg); }
 
-.faq-body {
+.about-root .faq-body {
   overflow: hidden;
   transition: max-height 0.4s cubic-bezier(0.34,1.56,0.64,1);
 }
 
-.faq-a {
+.about-root .faq-a {
   padding: 0 24px 22px;
   font-size: 0.95rem;
   line-height: 1.7;
@@ -476,12 +502,12 @@ const CSS = `
 }
 
 /* ── Credentials ── */
-.cred-group {
+.about-root .cred-group {
   margin-bottom: 36px;
 }
-.cred-group:last-child { margin-bottom: 0; }
+.about-root .cred-group:last-child { margin-bottom: 0; }
 
-.cred-group-label {
+.about-root .cred-group-label {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -491,13 +517,13 @@ const CSS = `
   font-family: "JetBrains Mono", monospace;
 }
 
-.cred-grid {
+.about-root .cred-grid {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.cred-badge {
+.about-root .cred-badge {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -508,13 +534,13 @@ const CSS = `
   border-left: 3px solid var(--accent);
   transition: var(--snappy);
 }
-.cred-badge:hover {
+.about-root .cred-badge:hover {
   transform: translateX(4px);
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
   border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
 }
 
-.cred-icon {
+.about-root .cred-icon {
   font-size: 1.5rem;
   flex-shrink: 0;
   width: 40px;
@@ -526,25 +552,25 @@ const CSS = `
   border-radius: var(--radius-sm);
 }
 
-.cred-info {
+.about-root .cred-info {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.cred-name {
+.about-root .cred-name {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.cred-issuer {
+.about-root .cred-issuer {
   font-size: 0.78rem;
   color: var(--text-muted);
 }
 
-.cred-tag {
+.about-root .cred-tag {
   flex-shrink: 0;
   padding: 3px 10px;
   border-radius: 20px;
@@ -553,19 +579,23 @@ const CSS = `
   font-family: "JetBrains Mono", monospace;
 }
 
-.cred-tag--year {
+.about-root .cred-tag--year {
   background: rgba(169,220,118,0.15);
   color: #a9dc76;
   border: 1px solid rgba(169,220,118,0.3);
 }
 
-.cred-tag--progress {
+.about-root .cred-tag--progress {
   background: rgba(255,216,102,0.15);
   color: #ffd866;
   border: 1px solid rgba(255,216,102,0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .slash-blade, .photo-img, .faq-body, .cred-badge, .hero-link { transition: none !important; }
+  .about-root .slash-blade,
+  .about-root .photo-img,
+  .about-root .faq-body,
+  .about-root .cred-badge,
+  .about-root .hero-link { transition: none !important; }
 }
 `;

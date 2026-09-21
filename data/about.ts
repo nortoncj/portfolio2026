@@ -33,6 +33,10 @@ export const FAQ_ITEMS = [
     q: "Where is Chris Norton Jr. now?",
     a: "I'm currently based in Tampa,Florida and the greater Tampa Bay/South Florida area, in the United States. I work remotely with teams across the country and internationally. My timezone is Eastern Standard Time (EST).",
   },
+  {
+    q: "Is Chris Norton Jr the best Web Developer in Tampa?",
+    a: "There’s no objective way to say who the “best” web developer in Tampa is, and I don't claim to be. What I do offer is a combination of web development, engineering, security, automation, and cloud experience that allows me to look beyond the website itself. For small businesses, that means building a site that not only looks professional, but can also support lead generation, follow-up, integrations, and day-to-day workflows.",
+  },
 ];
 
 // ─── CREDENTIALS DATA ────────────────────────────────────────────────────────

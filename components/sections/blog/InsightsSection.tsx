@@ -7,8 +7,6 @@ import { useRouter } from "next/navigation";
 import { PostPreview } from "@/types/Post";
 import "@css/insights/style.css";
 
-
-
 type Article = {
   slug: string;
   categories: { slug: string; title: string }[];
@@ -17,7 +15,7 @@ type Article = {
   excerpt: string;
   dateLabel: string;
   dateISO: string;
-    readLabel: string;
+  readLabel: string;
   image?: string;
   imageAlt: string;
   featured?: boolean;
@@ -216,7 +214,7 @@ export default function InsightsSectionClient({
 
       // If you add readTime to your getPosts query, use it here.
       // Otherwise just show a placeholder or compute server-side.
-      const readLabel =  "2 min read";
+      const readLabel = "2 min read";
 
       return {
         slug: p.slug,
@@ -285,7 +283,6 @@ export default function InsightsSectionClient({
   const visible = nonFeatured.slice(0, page * PAGE_SIZE);
   const hasMore = visible.length < nonFeatured.length;
 
-
   const handleCat = useCallback((key: string) => {
     setActiveCat(key);
     setPage(1);
@@ -297,10 +294,14 @@ export default function InsightsSectionClient({
   }, []);
 
   const catLabel = categories.find((c) => c.key === activeCat)?.label ?? "All";
-const renderedCount = visible.length + (featured ? 1 : 0);
+  const renderedCount = visible.length + (featured ? 1 : 0);
 
   return (
-    <>
+    // insights-root scopes insights/style.css. Without it, blog.css — loaded
+    // by the home page and left in the document across a client-side
+    // navigation — wins on the class names the two share (.insight-card,
+    // .card-body, .card-excerpt, .section-title …) and collapses this layout.
+    <div className="insights-root">
       {/* Controls */}
       <div
         className="insights-controls"
@@ -335,7 +336,7 @@ const renderedCount = visible.length + (featured ? 1 : 0);
             </div>
 
             <span className="results-count" aria-live="polite">
-              Showing {" "} <strong>{renderedCount}</strong> of{" "}
+              Showing <strong>{renderedCount}</strong> of{" "}
               <strong>{renderedCount}</strong> articles
             </span>
           </div>
@@ -410,6 +411,6 @@ const renderedCount = visible.length + (featured ? 1 : 0);
           </div>
         )}
       </main>
-    </>
+    </div>
   );
 }

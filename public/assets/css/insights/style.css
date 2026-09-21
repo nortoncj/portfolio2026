@@ -3,7 +3,7 @@
    Targeting the classnames from your InsightsSection component
    ========================================================================== */
 
-.insights-controls {
+.insights-root .insights-controls {
   position: sticky;
   top: 120px;
   width: 100%;
@@ -14,7 +14,7 @@
   border-bottom: var(--subtle-border);
 }
 
-.controls-inner {
+.insights-root .controls-inner {
   width: min(1200px, calc(100% - 2rem));
   margin: 0 auto;
   display: grid;
@@ -24,7 +24,7 @@
 /* ------------------------------
    Search row
 ------------------------------ */
-.search-row {
+.insights-root .search-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,7 +32,7 @@
   flex-wrap: wrap;
 }
 
-.search-wrap {
+.insights-root .search-wrap {
   flex: 1;
   min-width: min(520px, 100%);
   position: relative;
@@ -44,7 +44,7 @@
   transition: var(--smooth);
 }
 
-.search-wrap:focus-within {
+.insights-root .search-wrap:focus-within {
   border-color: rgba(255, 97, 136, 0.35);
   box-shadow:
     var(--medium-shadow),
@@ -52,7 +52,7 @@
   transform: translateY(-1px);
 }
 
-.search-icon {
+.insights-root .search-icon {
   position: absolute;
   left: 16px;
   top: 50%;
@@ -61,7 +61,7 @@
   pointer-events: none;
 }
 
-.search-input {
+.insights-root .search-input {
   width: 100%;
   height: 52px;
   padding: 0 16px 0 46px;
@@ -73,11 +73,11 @@
   letter-spacing: -0.01em;
 }
 
-.search-input::placeholder {
+.insights-root .search-input::placeholder {
   color: rgba(45, 42, 46, 0.45);
 }
 
-.results-count {
+.insights-root .results-count {
   font-size: 0.92rem;
   color: rgba(45, 42, 46, 0.62);
   background: rgba(252, 252, 250, 0.65);
@@ -87,7 +87,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
-.results-count strong {
+.insights-root .results-count strong {
   color: var(--charcoal);
   font-weight: 700;
 }
@@ -95,20 +95,20 @@
 /* ------------------------------
    Filter row
 ------------------------------ */
-.filter-row {
+.insights-root .filter-row {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.filter-label {
+.insights-root .filter-label {
   font-size: 0.9rem;
   font-weight: 700;
   color: rgba(45, 42, 46, 0.68);
 }
 
-.filter-pills {
+.insights-root .filter-pills {
   display: flex;
   gap: 10px;
   flex-wrap: nowrap;
@@ -118,18 +118,18 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.filter-pills::-webkit-scrollbar {
+.insights-root .filter-pills::-webkit-scrollbar {
   height: 8px;
 }
-.filter-pills::-webkit-scrollbar-thumb {
+.insights-root .filter-pills::-webkit-scrollbar-thumb {
   background: rgba(147, 146, 147, 0.25);
   border-radius: 999px;
 }
-.filter-pills::-webkit-scrollbar-track {
+.insights-root .filter-pills::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.filter-pill {
+.insights-root .filter-pill {
   scroll-snap-align: start;
   border: 1px solid rgba(147, 146, 147, 0.18);
   background: rgba(252, 252, 250, 0.75);
@@ -143,13 +143,13 @@
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.03);
 }
 
-.filter-pill:hover {
+.insights-root .filter-pill:hover {
   transform: translateY(-1px);
   border-color: rgba(255, 97, 136, 0.26);
   box-shadow: var(--soft-hover);
 }
 
-.filter-pill.active {
+.insights-root .filter-pill.active {
   background: var(--heroVibrant);
   color: var(--white);
   border-color: rgba(255, 97, 136, 0.25);
@@ -157,11 +157,11 @@
 }
 
 /* Keyboard focus */
-.filter-pill:focus-visible,
-.btn-load-more:focus-visible,
-.card-tag:focus-visible,
-.card-link-wrap:focus-visible,
-.btn-read-featured:focus-visible {
+.insights-root .filter-pill:focus-visible,
+.insights-root .btn-load-more:focus-visible,
+.insights-root .card-tag:focus-visible,
+.insights-root .card-link-wrap:focus-visible,
+.insights-root .btn-read-featured:focus-visible {
   outline: none;
   box-shadow: 0 0 0 4px rgba(171, 157, 242, 0.22);
   border-color: rgba(171, 157, 242, 0.35);
@@ -170,13 +170,13 @@
 /* ------------------------------
    Main layout
 ------------------------------ */
-.insights-main {
+.insights-root .insights-main {
   width: min(1200px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 100px 0 64px;
 }
 
-.section-header {
+.insights-root .section-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -185,14 +185,14 @@
   flex-wrap: wrap;
 }
 
-.section-title {
+.insights-root .section-title {
   font-size: clamp(1.35rem, 2.4vw, 2.1rem);
   font-weight: 900;
   letter-spacing: -0.04em;
   color: var(--charcoal);
 }
 
-.section-meta {
+.insights-root .section-meta {
   font-size: 0.92rem;
   color: rgba(45, 42, 46, 0.55);
 }
@@ -200,21 +200,21 @@
 /* ------------------------------
    Cards grid
 ------------------------------ */
-.cards-grid {
+.insights-root .cards-grid {
   display: grid;
   gap: 18px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 /* Featured spans full width */
-.featured-card {
+.insights-root .featured-card {
   grid-column: 1 / -1;
 }
 
 /* ------------------------------
    Card base
 ------------------------------ */
-.insight-card {
+.insights-root .insight-card {
   border-radius: var(--border-radius-large);
   overflow: hidden;
   background: rgba(252, 252, 250, 0.74);
@@ -223,14 +223,14 @@
   transition: var(--smooth);
 }
 
-.insight-card:hover {
+.insights-root .insight-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--premium-hover);
   border-color: rgba(255, 97, 136, 0.18);
 }
 
 /* The clickable wrapper */
-.card-link-wrap {
+.insights-root .card-link-wrap {
   display: block;
   color: inherit;
   text-decoration: none;
@@ -239,7 +239,7 @@
 /* ------------------------------
    Images
 ------------------------------ */
-.card-image-wrap {
+.insights-root .card-image-wrap {
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 9;
@@ -250,7 +250,7 @@
   );
 }
 
-.card-image {
+.insights-root .card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -258,11 +258,11 @@
   transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.2, 1);
 }
 
-.insight-card:hover .card-image {
+.insights-root .insight-card:hover .card-image {
   transform: scale(1.08);
 }
 
-.card-image-overlay {
+.insights-root .card-image-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -274,10 +274,17 @@
 }
 
 /* Category badge */
-.card-category {
+/* Sanity supplies the slug, so cat-<slug> can be anything. The background /
+   colour / border-color here are the fallback for a slug with no .cat-* rule
+   below; without them an unmapped slug renders as bare text on a hard load,
+   then picks up blog.css's colour on a soft nav in from a page that loads it. */
+.insights-root .card-category {
   position: absolute;
   top: 14px;
   left: 14px;
+  background: rgba(147, 146, 147, 0.18);
+  color: var(--charcoal);
+  border-color: rgba(147, 146, 147, 0.3);
   padding: 6px 12px;
   border-radius: var(--border-radius-full);
   font-size: 0.78rem;
@@ -290,52 +297,64 @@
 }
 
 /* Category color themes (use cat-${slug}) */
-.cat-marketing {
+.insights-root .cat-marketing {
   background: rgba(252, 95, 163, 0.18);
   color: var(--magenta);
   border-color: rgba(252, 95, 163, 0.3);
 }
-.cat-devops {
+.insights-root .cat-devops {
   background: rgba(120, 220, 232, 0.18);
   color: var(--blue);
   border-color: rgba(120, 220, 232, 0.3);
 }
-.cat-seo {
+
+.insights-root .cat-ai {
+  background: rgba(200, 190, 255, 0.18);
+  color: #7d6fd1;
+  border-color: rgba(200, 190, 255, 0.35);
+}
+
+.insights-root .cat-dashboard {
+  background: rgba(255, 216, 102, 0.2);
+  color: #a9822a;
+  border-color: rgba(255, 216, 102, 0.38);
+}
+.insights-root .cat-seo {
   background: rgba(255, 97, 136, 0.16);
   color: var(--burgundy);
   border-color: rgba(255, 97, 136, 0.3);
 }
-.cat-cloud {
+.insights-root .cat-cloud {
   background: rgba(171, 157, 242, 0.18);
   color: var(--purple);
   border-color: rgba(171, 157, 242, 0.3);
 }
-.cat-linux {
+.insights-root .cat-linux {
   background: rgba(169, 220, 118, 0.18);
   color: var(--mint);
   border-color: rgba(169, 220, 118, 0.3);
 }
-.cat-email {
+.insights-root .cat-email {
   background: rgba(255, 216, 102, 0.2);
   color: #b67a00;
   border-color: rgba(255, 216, 102, 0.35);
 }
-.cat-hardware {
+.insights-root .cat-hardware {
   background: rgba(255, 152, 102, 0.2);
   color: #ff9866;
   border: 1px solid rgba(255, 152, 102, 0.38);
 }
-.cat-website {
+.insights-root .cat-website {
   background: rgba(197, 163, 255, 0.22);
   color: var(--color-blue-400);
   border: 1px solid rgba(97, 163, 255, 0.38);
 }
-.cat-software {
+.insights-root .cat-software {
   background: rgba(120, 220, 232, 0.12);
   color: rgba(45, 42, 46, 0.78);
   border-color: rgba(120, 220, 232, 0.22);
 }
-.cat-automation {
+.insights-root .cat-automation {
   background: rgba(171, 157, 242, 0.16);
   color: var(--purple);
   border-color: rgba(171, 157, 242, 0.28);
@@ -344,11 +363,11 @@
 /* ------------------------------
    Card body
 ------------------------------ */
-.card-body {
+.insights-root .card-body {
   padding: 16px 16px 14px;
 }
 
-.card-meta {
+.insights-root .card-meta {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -356,14 +375,14 @@
   font-size: 0.86rem;
 }
 
-.card-meta-dot {
+.insights-root .card-meta-dot {
   width: 4px;
   height: 4px;
   border-radius: 999px;
   background: rgba(45, 42, 46, 0.25);
 }
 
-.card-title {
+.insights-root .card-title {
   margin: 10px 0 8px;
   font-size: 1.05rem;
   line-height: 1.25;
@@ -372,7 +391,7 @@
   color: var(--charcoal);
 }
 
-.card-excerpt {
+.insights-root .card-excerpt {
   margin: 0;
   color: rgba(45, 42, 46, 0.62);
   line-height: 1.6;
@@ -380,7 +399,7 @@
 }
 
 /* Footer */
-.card-footer {
+.insights-root .card-footer {
   margin-top: 14px;
   padding-top: 12px;
   border-top: 1px solid rgba(147, 146, 147, 0.16);
@@ -390,7 +409,7 @@
   gap: 12px;
 }
 
-.card-author {
+.insights-root .card-author {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -399,7 +418,7 @@
   font-size: 0.92rem;
 }
 
-.card-author-avatar {
+.insights-root .card-author-avatar {
   width: 28px;
   height: 28px;
   border-radius: 999px;
@@ -411,7 +430,7 @@
   box-shadow: 0 10px 22px rgba(255, 97, 136, 0.18);
 }
 
-.card-read-link {
+.insights-root .card-read-link {
   color: rgba(45, 42, 46, 0.72);
   font-weight: 800;
   display: inline-flex;
@@ -420,7 +439,7 @@
   transition: var(--snappy);
 }
 
-.insight-card:hover .card-read-link {
+.insights-root .insight-card:hover .card-read-link {
   color: var(--burgundy);
   transform: translateX(2px);
 }
@@ -428,18 +447,18 @@
 /* ------------------------------
    Tags row (outside <Link>)
 ------------------------------ */
-.card-tags,
-.featured-tags {
+.insights-root .card-tags,
+.insights-root .featured-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.card-tags {
+.insights-root .card-tags {
   padding: 0 16px 16px;
 }
 
-.card-tag {
+.insights-root .card-tag {
   cursor: pointer;
   border: 1px solid rgba(171, 157, 242, 0.24);
   background: rgba(171, 157, 242, 0.1);
@@ -451,7 +470,7 @@
   transition: var(--snappy);
 }
 
-.card-tag:hover {
+.insights-root .card-tag:hover {
   transform: translateY(-1px);
   border-color: rgba(255, 97, 136, 0.3);
   background: rgba(255, 97, 136, 0.1);
@@ -459,20 +478,20 @@
 }
 
 /* If TagPill is a <span> in your version, this still works */
-.card-tag[role="link"] {
+.insights-root .card-tag[role="link"] {
   user-select: none;
 }
 
 /* ------------------------------
    Featured card styling
 ------------------------------ */
-.featured-card {
+.insights-root .featured-card {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   min-height: 340px;
 }
 
-.featured-image-wrap {
+.insights-root .featured-image-wrap {
   position: relative;
   overflow: hidden;
   background: linear-gradient(
@@ -482,7 +501,7 @@
   );
 }
 
-.featured-image {
+.insights-root .featured-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -490,11 +509,11 @@
   transition: transform 0.8s cubic-bezier(0.2, 0.9, 0.2, 1);
 }
 
-.featured-card:hover .featured-image {
+.insights-root .featured-card:hover .featured-image {
   transform: scale(1.06);
 }
 
-.featured-image-overlay {
+.insights-root .featured-image-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -506,7 +525,7 @@
   pointer-events: none;
 }
 
-.featured-badge {
+.insights-root .featured-badge {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -520,7 +539,7 @@
   box-shadow: 0 16px 44px rgba(255, 97, 136, 0.22);
 }
 
-.featured-shimmer {
+.insights-root .featured-shimmer {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -536,14 +555,14 @@
   mix-blend-mode: overlay;
 }
 
-.featured-body {
+.insights-root .featured-body {
   padding: 22px;
   display: grid;
   align-content: space-between;
   gap: 14px;
 }
 
-.featured-title {
+.insights-root .featured-title {
   margin: 10px 0 10px;
   font-size: clamp(1.3rem, 2vw, 1.75rem);
   line-height: 1.15;
@@ -552,14 +571,14 @@
   color: var(--charcoal);
 }
 
-.featured-excerpt {
+.insights-root .featured-excerpt {
   margin: 0;
   color: rgba(45, 42, 46, 0.64);
   line-height: 1.65;
   font-size: 0.98rem;
 }
 
-.featured-meta {
+.insights-root .featured-meta {
   display: flex;
   gap: 12px;
   color: rgba(45, 42, 46, 0.56);
@@ -567,7 +586,7 @@
   font-weight: 650;
 }
 
-.btn-read-featured {
+.insights-root .btn-read-featured {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -584,7 +603,7 @@
   text-decoration: none;
 }
 
-.btn-read-featured:hover {
+.insights-root .btn-read-featured:hover {
   transform: translateY(-2px);
   box-shadow: 0 18px 60px rgba(255, 97, 136, 0.26);
 }
@@ -592,7 +611,7 @@
 /* ------------------------------
    Empty state + Load more
 ------------------------------ */
-.no-results {
+.insights-root .no-results {
   grid-column: 1 / -1;
   padding: 34px;
   border-radius: var(--border-radius-xlarge);
@@ -602,30 +621,30 @@
   text-align: center;
 }
 
-.no-results-icon {
+.insights-root .no-results-icon {
   font-size: 2rem;
   margin-bottom: 10px;
 }
 
-.no-results h3 {
+.insights-root .no-results h3 {
   margin: 0 0 8px;
   font-size: 1.2rem;
   font-weight: 900;
   color: var(--charcoal);
 }
 
-.no-results p {
+.insights-root .no-results p {
   margin: 0;
   color: rgba(45, 42, 46, 0.62);
 }
 
-.load-more-wrap {
+.insights-root .load-more-wrap {
   display: flex;
   justify-content: center;
   margin-top: 22px;
 }
 
-.btn-load-more {
+.insights-root .btn-load-more {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -640,7 +659,7 @@
   box-shadow: var(--soft-shadow);
 }
 
-.btn-load-more:hover {
+.insights-root .btn-load-more:hover {
   transform: translateY(-2px);
   border-color: rgba(255, 97, 136, 0.26);
   box-shadow: var(--medium-hover);
@@ -661,18 +680,18 @@
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .insight-card,
-  .filter-pill,
-  .btn-load-more,
-  .featured-image,
-  .card-image,
-  .featured-shimmer {
+  .insights-root .insight-card,
+  .insights-root .filter-pill,
+  .insights-root .btn-load-more,
+  .insights-root .featured-image,
+  .insights-root .card-image,
+  .insights-root .featured-shimmer {
     transition: none !important;
     animation: none !important;
   }
-  .insight-card:hover,
-  .filter-pill:hover,
-  .btn-load-more:hover {
+  .insights-root .insight-card:hover,
+  .insights-root .filter-pill:hover,
+  .insights-root .btn-load-more:hover {
     transform: none !important;
   }
 }
@@ -681,61 +700,258 @@
    Responsive
 ------------------------------ */
 @media (max-width: 1024px) {
-  .cards-grid {
+  .insights-root .cards-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .featured-card {
+  .insights-root .featured-card {
     grid-template-columns: 1fr;
   }
-  .featured-body {
+  .insights-root .featured-body {
     padding: 18px;
   }
 }
 
 @media (max-width: 640px) {
-  .insights-controls {
+  .insights-root .insights-controls {
     width: 100%;
     padding: 14px 0;
   }
-  .filter-row {
+  .insights-root .filter-row {
     display: none;
   }
-  .controls-inner {
+  .insights-root .controls-inner {
     width: calc(100% - 2rem);
   }
-  .cards-grid {
+  .insights-root .cards-grid {
     grid-template-columns: 1fr;
   }
-  .results-count {
+  .insights-root .results-count {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
   }
-  .search-wrap {
+  .insights-root .search-wrap {
     min-width: 100%;
   }
-  .search-row {
+  .insights-root .search-row {
     flex-direction: column;
     align-items: stretch;
   }
 }
 
 @media (max-width: 360px) {
-  .insights-main {
+  .insights-root .insights-main {
     padding: 80px 0 48px;
   }
-  .controls-inner {
+  .insights-root .controls-inner {
     width: calc(100% - 1.5rem);
   }
-  .card-body,
-  .featured-body {
+  .insights-root .card-body,
+  .insights-root .featured-body {
     padding: 14px;
   }
-  .filter-pills {
+  .insights-root .filter-pills {
     gap: 8px;
   }
-  .filter-pill {
+  .insights-root .filter-pill {
     font-size: 0.85rem;
     padding: 0 12px;
   }
+}
+
+/* ==========================================================================
+   DARK MODE
+   Everything above bakes in the light palette: near-#2d2a2e text on
+   near-#fcfcfa glass. The theme toggle puts .dark on <html>, so each of
+   those surfaces and text colours is mirrored here.
+
+   Deliberately NOT overridden: colours that sit on an always-coloured
+   background and so read the same in both themes — .filter-pill.active,
+   .featured-badge, .btn-read-featured and .card-author-avatar (all on
+   brand gradients), and the .cat-* chips that use a brand hue directly.
+   ========================================================================== */
+
+/* Search row */
+.dark .insights-root .search-wrap {
+  background: rgba(45, 42, 46, 0.75);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.dark .insights-root .search-icon {
+  color: rgba(252, 252, 250, 0.55);
+}
+.dark .insights-root .search-input {
+  color: var(--text-primary);
+}
+.dark .insights-root .search-input::placeholder {
+  color: rgba(252, 252, 250, 0.45);
+}
+.dark .insights-root .results-count {
+  color: rgba(252, 252, 250, 0.62);
+  background: rgba(45, 42, 46, 0.65);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.dark .insights-root .results-count strong {
+  color: var(--text-primary);
+}
+
+/* Filter row */
+.dark .insights-root .filter-label {
+  color: rgba(252, 252, 250, 0.68);
+}
+.dark .insights-root .filter-pills::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+}
+.dark .insights-root .filter-pill {
+  background: rgba(45, 42, 46, 0.75);
+  color: rgba(252, 252, 250, 0.72);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Section header */
+.dark .insights-root .section-title {
+  color: var(--text-primary);
+}
+.dark .insights-root .section-meta {
+  color: rgba(252, 252, 250, 0.55);
+}
+
+/* Cards */
+.dark .insights-root .insight-card {
+  background: rgba(45, 42, 46, 0.74);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.dark .insights-root .card-category {
+  color: rgba(252, 252, 250, 0.78);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.dark .insights-root .cat-ai {
+  color: #c8beff;
+}
+.dark .insights-root .cat-dashboard {
+  color: #ffd866;
+}
+.dark .insights-root .cat-software {
+  color: rgba(252, 252, 250, 0.78);
+}
+.dark .insights-root .card-meta {
+  color: rgba(252, 252, 250, 0.58);
+}
+.dark .insights-root .card-meta-dot {
+  background: rgba(252, 252, 250, 0.25);
+}
+.dark .insights-root .card-title {
+  color: var(--text-primary);
+}
+.dark .insights-root .card-excerpt {
+  color: rgba(252, 252, 250, 0.62);
+}
+.dark .insights-root .card-footer {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+.dark .insights-root .card-author {
+  color: rgba(252, 252, 250, 0.7);
+}
+.dark .insights-root .card-read-link {
+  color: rgba(252, 252, 250, 0.72);
+}
+.dark .insights-root .card-tag {
+  color: rgba(252, 252, 250, 0.78);
+}
+
+/* Featured card */
+.dark .insights-root .featured-title {
+  color: var(--text-primary);
+}
+.dark .insights-root .featured-excerpt {
+  color: rgba(252, 252, 250, 0.64);
+}
+.dark .insights-root .featured-meta {
+  color: rgba(252, 252, 250, 0.56);
+}
+
+/* Empty state + load more */
+.dark .insights-root .no-results {
+  background: rgba(45, 42, 46, 0.72);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.dark .insights-root .no-results h3 {
+  color: var(--text-primary);
+}
+.dark .insights-root .no-results p {
+  color: rgba(252, 252, 250, 0.62);
+}
+.dark .insights-root .btn-load-more {
+  background: rgba(45, 42, 46, 0.78);
+  color: rgba(252, 252, 250, 0.78);
+}
+
+/* ==========================================================================
+   CROSS-PAGE RESET
+
+   blog.css, about.css, projects.css and projects/devops.css style some of the
+   same class names this sheet uses — .insight-card, .featured-card,
+   .card-body, .card-excerpt, .section-header, .section-title, .no-results.
+   Next.js leaves a page's stylesheet in the document after a client-side
+   navigation away from it, so on any soft nav into /insights those sheets are
+   still live and still matching.
+
+   Scoping every rule above under .insights-root outranks them — but only for
+   properties BOTH sheets declare. Specificity cannot undo a property that
+   only the other sheet sets, so those are reset explicitly here. Each line
+   below exists because some other sheet sets that property and this one
+   otherwise would not.
+   ========================================================================== */
+
+/* blog.css pins these cards to a fixed height and makes them link-like. */
+.insights-root .insight-card,
+.insights-root .featured-card {
+  height: auto;
+  position: static;
+  cursor: auto;
+  text-decoration: none;
+}
+
+/* blog.css hangs a rainbow stripe and a hover scrim off these. */
+.insights-root .insight-card::before,
+.insights-root .insight-card::after,
+.insights-root .featured-card::before,
+.insights-root .featured-card::after {
+  content: none;
+}
+
+/* blog.css floats the card body over the image as an absolute flex column. */
+.insights-root .card-body {
+  position: static;
+  display: block;
+  flex-direction: row;
+  gap: normal;
+  z-index: auto;
+}
+
+/* blog.css collapses the excerpt to zero height and reveals it on hover. */
+.insights-root .card-excerpt,
+.insights-root .insight-card:hover .card-excerpt {
+  display: block;
+  max-height: none;
+  opacity: 1;
+  overflow: visible;
+  margin-top: 0;
+  -webkit-line-clamp: none;
+}
+
+/* blog.css centres and stacks its section header. */
+.insights-root .section-header {
+  flex-direction: row;
+  text-align: left;
+}
+
+/* about.css and projects.css set a tighter display line-height here. */
+.insights-root .section-title {
+  line-height: 1.15;
+  margin-bottom: 0;
+}
+
+/* projects/devops.css turns the empty state into a centred flex column. */
+.insights-root .no-results {
+  display: block;
 }

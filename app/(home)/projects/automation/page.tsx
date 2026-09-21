@@ -35,12 +35,13 @@ const T = {
   mint: "#a9dc76", // ← PRIMARY Marketing accent
   blue: "#78dce8",
   // Surfaces
-  white: "#fcfcfa",
-  cream: "#f9f8f6",
-  charcoal: "#2d2a2e",
+  white: "var(--pg-surface)",
+  onDark: "#fcfcfa", // text on the always-dark hero / CTA panels
+  cream: "var(--pg-bg)",
+  charcoal: "var(--pg-text)",
   slate: "#221f22",
-  silver: "#6b7280",
-  muted: "#939293",
+  silver: "var(--pg-text-dim)",
+  muted: "var(--pg-text-mute)",
   // Marketing accent tokens
   cat: "#a9dc76",
   catRgb: "169,220,118",
@@ -301,7 +302,7 @@ const SkillBar: React.FC<{ level: number; color?: string }> = ({
       style={{
         height: 5,
         borderRadius: 4,
-        background: "rgba(45,42,46,.1)",
+        background: "var(--pg-track)",
         overflow: "hidden",
         marginTop: 6,
       }}
@@ -369,11 +370,11 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({
       style={{
         padding: "1.25rem",
         borderRadius: 16,
-        background: "rgba(249,248,246,.9)",
+        background: "var(--pg-card)",
         border: "1px solid rgba(169,220,118,.15)",
         backdropFilter: "blur(12px)",
         boxShadow:
-          "0 2px 12px rgba(45,42,46,.06), 0 0 0 1px rgba(169,220,118,.06)",
+          "0 2px 12px var(--pg-chip), 0 0 0 1px rgba(169,220,118,.06)",
         transition: "border-color 0.3s, box-shadow 0.3s",
         display: "flex",
         flexDirection: "column",
@@ -489,9 +490,9 @@ const ProjectCard: React.FC<{
       style={{
         borderRadius: 24,
         overflow: "hidden",
-        background: "rgba(249,248,246,.95)",
+        background: "var(--pg-card)",
         border: "1px solid rgba(169,220,118,.12)",
-        boxShadow: "0 4px 20px rgba(45,42,46,.08)",
+        boxShadow: "0 4px 20px var(--pg-shadow)",
         transition: "box-shadow 0.35s, border-color 0.35s",
         cursor: "pointer",
         position: "relative",
@@ -652,7 +653,7 @@ const ProjectCard: React.FC<{
                 borderRadius: 6,
                 fontSize: "0.64rem",
                 fontFamily: "'JetBrains Mono',monospace",
-                background: "rgba(45,42,46,.06)",
+                background: "var(--pg-chip)",
                 color: T.silver,
               }}
             >
@@ -719,10 +720,10 @@ const FilterPill: React.FC<{
       cursor: "pointer",
       border: active
         ? `1.5px solid ${color}`
-        : "1.5px solid rgba(45,42,46,.15)",
+        : "1.5px solid var(--pg-line)",
       background: active
         ? `linear-gradient(135deg,${color}22,${T.blue}22)`
-        : "rgba(249,248,246,.8)",
+        : "var(--pg-card-soft)",
       color: active ? color : T.silver,
       backdropFilter: "blur(8px)",
       transition: "all 0.22s ease",
@@ -736,7 +737,7 @@ const FilterPill: React.FC<{
     {count !== undefined && (
       <span
         style={{
-          background: active ? `${color}33` : "rgba(45,42,46,.08)",
+          background: active ? `${color}33` : "var(--pg-chip)",
           color: active ? color : T.muted,
           padding: "1px 7px",
           borderRadius: 999,
@@ -965,6 +966,7 @@ export default function MarketingCategoryPage() {
       />
 
       <main
+        className="automation-root"
         style={{
           fontFamily: "'Inter', -apple-system, sans-serif",
           background: T.cream,
@@ -1313,7 +1315,7 @@ export default function MarketingCategoryPage() {
                   padding: "13px 28px",
                   borderRadius: 12,
                   background: "rgba(255,255,255,.08)",
-                  color: T.white,
+                  color: T.onDark,
                   fontWeight: 600,
                   fontSize: "0.95rem",
                   textDecoration: "none",
@@ -1525,8 +1527,8 @@ export default function MarketingCategoryPage() {
                     style={{
                       padding: "10px 16px 10px 40px",
                       borderRadius: 12,
-                      border: "1.5px solid rgba(45,42,46,.15)",
-                      background: "rgba(249,248,246,.9)",
+                      border: "1.5px solid var(--pg-line)",
+                      background: "var(--pg-card)",
                       color: T.charcoal,
                       fontSize: "0.88rem",
                       outline: "none",
@@ -1541,7 +1543,7 @@ export default function MarketingCategoryPage() {
                     }}
                     onBlur={(e) => {
                       (e.target as HTMLInputElement).style.borderColor =
-                        "rgba(45,42,46,.15)";
+                        "var(--pg-line)";
                       (e.target as HTMLInputElement).style.boxShadow = "none";
                     }}
                   />
@@ -1578,10 +1580,10 @@ export default function MarketingCategoryPage() {
                       cursor: "pointer",
                       border: activeTags.has(tag)
                         ? `1.5px solid ${T.mint}`
-                        : "1.5px solid rgba(45,42,46,.14)",
+                        : "1.5px solid var(--pg-line)",
                       background: activeTags.has(tag)
                         ? `rgba(${T.catRgb},.12)`
-                        : "rgba(249,248,246,.8)",
+                        : "var(--pg-card-soft)",
                       color: activeTags.has(tag) ? T.mint : T.silver,
                       transition: "all 0.2s",
                     }}
@@ -1608,7 +1610,7 @@ export default function MarketingCategoryPage() {
                     fontSize: "0.72rem",
                     fontFamily: "'JetBrains Mono',monospace",
                     cursor: "pointer",
-                    border: "1.5px dashed rgba(45,42,46,.2)",
+                    border: "1.5px dashed var(--pg-line)",
                     background: "transparent",
                     color: T.silver,
                   }}
@@ -1726,7 +1728,7 @@ export default function MarketingCategoryPage() {
           style={{
             padding: "4rem 2rem",
             background: T.white,
-            borderTop: "1px solid rgba(45,42,46,.08)",
+            borderTop: "1px solid var(--pg-hairline)",
           }}
         >
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -1813,7 +1815,7 @@ export default function MarketingCategoryPage() {
                           padding: "1px 6px",
                           borderRadius: 999,
                           fontSize: "0.62rem",
-                          background: "rgba(45,42,46,.08)",
+                          background: "var(--pg-chip)",
                           color: T.muted,
                         }}
                       >
@@ -1889,7 +1891,7 @@ export default function MarketingCategoryPage() {
                 style={{
                   fontSize: "clamp(2rem, 5vw, 3.2rem)",
                   fontWeight: 900,
-                  color: T.white,
+                  color: T.onDark,
                   letterSpacing: "-0.03em",
                   lineHeight: 1.1,
                   marginBottom: "1.25rem",
@@ -1971,7 +1973,7 @@ export default function MarketingCategoryPage() {
                     padding: "14px 28px",
                     borderRadius: 14,
                     background: "rgba(255,255,255,.07)",
-                    color: T.white,
+                    color: T.onDark,
                     fontWeight: 600,
                     fontSize: "1rem",
                     textDecoration: "none",
@@ -2005,6 +2007,43 @@ export default function MarketingCategoryPage() {
 
       {/* ── Keyframes ─────────────────────────────────────────────── */}
       <style>{`
+
+        /* ── Theme tokens ──────────────────────────────────────────
+           This page paints almost everything through inline style={{}},
+           which cannot react to the .dark class the header's theme
+           toggle puts on <html>. So the surfaces and text colours live
+           here as custom properties and the T object below reads them.
+           Colours that sit on an always-dark panel (the hero, the CTA)
+           stay literal — they are the same in both themes. */
+        .automation-root {
+          --pg-bg:        #f9f8f6;
+          --pg-surface:   #fcfcfa;
+          --pg-card:      rgba(249,248,246,.95);
+          --pg-card-soft: rgba(249,248,246,.8);
+          --pg-text:      #2d2a2e;
+          --pg-text-dim:  #6b7280;
+          --pg-text-mute: #939293;
+          --pg-line:      rgba(45,42,46,.15);
+          --pg-hairline:  rgba(45,42,46,.08);
+          --pg-chip:      rgba(45,42,46,.06);
+          --pg-track:     rgba(45,42,46,.12);
+          --pg-shadow:    rgba(45,42,46,.08);
+        }
+        .dark .automation-root {
+          --pg-bg:        #1a1a1a;
+          --pg-surface:   #221f22;
+          --pg-card:      rgba(45,42,46,.92);
+          --pg-card-soft: rgba(45,42,46,.8);
+          --pg-text:      #fcfcfa;
+          --pg-text-dim:  #c1c0c0;
+          --pg-text-mute: #939293;
+          --pg-line:      rgba(255,255,255,.16);
+          --pg-hairline:  rgba(255,255,255,.09);
+          --pg-chip:      rgba(255,255,255,.07);
+          --pg-track:     rgba(255,255,255,.14);
+          --pg-shadow:    rgba(0,0,0,.5);
+        }
+
         @keyframes mktgBlob {
           0%, 100% { transform: translate(0, 0) scale(1); }
           33%       { transform: translate(3%, 5%) scale(1.04); }
