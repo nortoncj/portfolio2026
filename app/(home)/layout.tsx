@@ -13,44 +13,7 @@ export default function FrontLayout({
   children: React.ReactNode;
 }>) {
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
-  const personSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": "https://chrisnortonjr.com",
-    name: "Chris Norton Jr.",
-    jobTitle: "Devops Engineer",
-    url: "https://chrisnortonjr.com",
-    alumniOf: "Florida International University",
-    worksFor: { "@type": "Organization", name: "WebTech Ninjas" },
-    knowsAbout: [
-      "AWS",
-      "Terraform",
-      "DevSecOps",
-      "IoT",
-      "Python",
-      "WordPress",
-      "Embedded Systems",
-      "Azure",
-      "Docker",
-      "Linux",
-      "Web Development",
-      "SEO",
-      "Email Marketing",
-      "Ads",
-    ],
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Tampa",
-      addressRegion: "FL",
-    },
-    sameAs: [
-      "github.com/nortoncj",
-      "linkedin.com/in/chrisnortonjr",
-      "youtube.com/@chrisnortonjr",
-      "facebook.com/chris.norton.37051",
-      "instagram.com/chrisnortonjr",
-    ],
-  };
+ 
   return (
     <>
       <MainHeader />
@@ -68,10 +31,7 @@ export default function FrontLayout({
             gtag('config', 'G-S5ZBPZ262W');
           `}
       </Script>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-      />
+    
       {children}
       {clarityId && (
         <Script id="ms-clarity" strategy="afterInteractive">

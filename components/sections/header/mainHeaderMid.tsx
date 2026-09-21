@@ -38,7 +38,7 @@ function MainHeader() {
         <div className="top-nav_left">
           <a className="logo-link flex items-center" href="/">
             <Image
-              alt="Chris Norton JR Engineer"
+              alt="Chris Norton Jr Devops Engineer"
               className="w-12 h-12 p-0"
               src={Logo}
             />{" "}
@@ -49,13 +49,13 @@ function MainHeader() {
           <Link className="nav-link" href="/#skills">
             Skills
           </Link>
-          <Link className="nav-link" href="/#about">
+          <Link className="nav-link" href="/about">
             About
           </Link>
           <Link className="nav-link" href="/#projects">
             Projects
           </Link>
-          <Link className="nav-link" href="/#insights">
+          <Link className="nav-link" href="/insights">
             Insights
           </Link>
           {/* <Link className="nav-link" href="#contact">
@@ -70,7 +70,7 @@ function MainHeader() {
         <div className="mobile-nav_left">
           <Link className="logo-link" href="/">
             <Image
-              alt="Chris Norton JR Engineer"
+              alt="Chris Norton Jr Devops Engineer"
               className="w-12 h-12 p-0"
               src={Logo}
             />

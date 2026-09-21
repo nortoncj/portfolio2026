@@ -105,7 +105,7 @@ function About() {
                     >
                       <circle cx="12" cy="12" r="10" />
                     </svg>
-                    Systems Engineer
+                    Devops Engineer
                   </span>
                 </div>
               </div>
@@ -149,7 +149,7 @@ function About() {
               <p className="bio-text">
                 Whether that's a CI/CD pipeline that deploys on every push, an
                 IoT system reading sensor data at the edge, or a marketing
-                funnel that converts while you sleep — I build things that work
+                funnel that converts while you sleep, I build things that work
                 without babysitting. Then I write about every step of the
                 process.
               </p>

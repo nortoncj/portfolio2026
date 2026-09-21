@@ -376,15 +376,24 @@ export default function BlogPostPage({
               Last updated {formatDate(post._createdAt || post.publishedAt)}
             </span>
           </div>
-          
-<div className="bp-meta-row">
-       {post.git? ( <Link className="btn-ghost " href={post.git}>    Github </Link>) : null} 
-         {post.link? ( <Link className="btn-floating" href={post.link} > Download </Link>): null}
-  </div>
+
+          <div className="bp-meta-row">
+            {post.git ? (
+              <Link className="btn-ghost " href={post.git}>
+                {" "}
+                Github{" "}
+              </Link>
+            ) : null}
+            {post.link ? (
+              <Link className="btn-floating" href={post.link}>
+                {" "}
+                Download{" "}
+              </Link>
+            ) : null}
+          </div>
           <div className="bp-share-row">
             <span className="bp-sidebar-label">Share</span>
             <ShareButtons />
-                   
           </div>
         </div>
       </header>
@@ -405,7 +414,6 @@ export default function BlogPostPage({
 
       <div className="bp-layout">
         <main className="bp-main" id="articleContent">
-
           {!!post.tags?.length && (
             <div className="bp-tags-row" aria-label="Article tags">
               {post.tags.map((tag) => (
@@ -438,7 +446,6 @@ export default function BlogPostPage({
                 </p>
                 <div className="bp-af-share-row">
                   <ShareButtons />
-           
                 </div>
               </div>
             </div>
@@ -452,7 +459,7 @@ export default function BlogPostPage({
                 <p className="bp-author-card-kicker">Original Written By</p>
                 <div className="bp-author-card-name">Chris Norton Jr</div>
                 <div className="bp-author-card-role">
-                  Devops & Embedded Systems Engineer · Automation Engineer
+                  Devops & Cloud Engineer · Embedded Systems
                 </div>
                 <p className="bp-af-text">
                   I build things that ship and write about what I learn in the

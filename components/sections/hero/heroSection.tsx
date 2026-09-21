@@ -30,7 +30,7 @@ function Hero() {
           </h2>
 
           <p className="hero-desc fade-up delay-2">
-            Multi-disciplinary engineer specializing in
+            Devops engineer specializing in
             <strong className="c-purple"> scalable software solutions</strong>,
             <strong className="c-magenta"> intelligent automation</strong>, and
             <strong className="c-pink"> embedded systems</strong>. Transforming

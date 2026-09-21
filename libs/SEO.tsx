@@ -14,7 +14,7 @@ export function buildMetadata({
   url = "https://chrisnorton.com",
 }: MetadataInput) {
   // less than 60 chars
-  const fullTitle = `Chris Norton Jr | ${title || "Engineer"} `;
+  const fullTitle = `Chris Norton Jr | ${title || "Devops Engineer"} `;
   // keep around 120 chars
   const fullDescription = ` ${
     description ||
@@ -50,7 +50,7 @@ export function buildMetadata({
       title: title,
       description: fullDescription,
       url,
-      siteName: "Chris Norton",
+      siteName: "Chris Norton Jr",
       images: [
         {
           url: image,

@@ -72,7 +72,7 @@ export default function AboutSection() {
             </div>
             <p className="bio-para">
               I'm <strong className="c-pink">Christopher Norton</strong>, a
-              multi-disciplinary engineer who lives at the intersection of
+              devops engineer who lives at the intersection of
               <strong className="c-cyan"> systems thinking</strong> and
               <strong className="c-purple"> creative problem-solving</strong>. I
               got my B.S. in Engineering and since then I've been obsessed with

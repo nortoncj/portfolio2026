@@ -8,7 +8,7 @@ function Footer() {
         <div className="footer-main">
           <div className="footer-section">
             {/* <h1>Chris Norton Jr.</h1> */}
-            <h2>Systems Engineer</h2>
+            <h2>Devops Engineer</h2>
             <p>
               Build systems that scale. <br />
               Results with precision.
