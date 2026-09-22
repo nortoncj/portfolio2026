@@ -18,7 +18,7 @@ export function buildMetadata({
   // keep around 120 chars
   const fullDescription = ` ${
     description ||
-    "Product Development, DevOps, Cloud and Martech. I build products, deploy them and grow them as a brand."
+    "Chris Norton does Product Development, DevOps, Cloud and Martech. I build products, deploy them and grow them as a brand."
   } | Tampa, Florida, United States `;
 
   return {

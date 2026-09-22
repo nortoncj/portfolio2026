@@ -12,7 +12,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = buildMetadata({
   title: "DevOps, Cloud & Embedded Engineer",
   description:
-    " I build Devops infrastructures, firmware automation, and IoT systems",
+    "Chris Norton builds devops infrastructures, firmware automation, and IoT systems",
   image: "/og-image.png",
   url: "https://chrisnortonjr.com",
 });

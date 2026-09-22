@@ -93,7 +93,7 @@ function Hero() {
         <div className="hero-right">
           <div className="photo-ring">
             <div className="photo-inner">
-              <Image src={Photo} alt="Chris Norton" />
+              <Image src={Photo} alt="Chris Norton Jr" />
             </div>
           </div>
 
