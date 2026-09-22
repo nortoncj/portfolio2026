@@ -746,7 +746,7 @@ export const education: Degree = {
 export const certifications: Cert[] = [
   {
     id: 1,
-    title: "AWS Certified Cloud Practioner",
+    title: "AWS Certified Cloud  practitioner",
     issuer: "Amazon Web Services",
     description:
       "Validated expertise in designing distributed systems on AWS infrastructure.",
