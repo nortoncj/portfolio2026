@@ -59,7 +59,7 @@ export default function AboutPage() {
         {/* ── HERO IDENTITY ───────────────────────────────────────────────── */}
         <section className="hero-section">
           <div className="hero-left">
-            <p className="hero-eyebrow">Multi-disciplinary Engineer</p>
+            <p className="hero-eyebrow">DevOps & Embedded Systems Engineer</p>
             <h1 className="hero-name">
               Chris
               <br />
@@ -189,6 +189,7 @@ const CSS = `
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
+  --radius-xlg: 50px;
   --snappy: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
   --smooth: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
 
@@ -405,7 +406,7 @@ const CSS = `
 
 .about-root .strip-tag {
   padding: 8px 18px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--c);
@@ -443,7 +444,7 @@ const CSS = `
 }
 
 .about-root .faq-item {
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xlg);
   border: 1px solid var(--border);
   background: var(--surface);
   overflow: hidden;
