@@ -27,7 +27,7 @@ interface CredBadgeProps {
 
 // ─── CREDENTIAL BADGE ────────────────────────────────────────────────────────
 function CredBadge({ item }: CredBadgeProps) {
-  const inProgress = item.year === "2026";
+  const inProgress = item.year === "2027";
   return (
     <div className="cred-badge" style={{ ["--accent" as any]: item.color }}>
       {item.logo ? (

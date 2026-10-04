@@ -1,6 +1,6 @@
 import { IconType } from "react-icons";
 import { BsArrowUpRightSquareFill } from "react-icons/bs";
-import { FaAws, FaStar } from "react-icons/fa6";
+import { FaAws, FaGoogle, FaStar } from "react-icons/fa6";
 import { SiComptia, SiHashicorp } from "react-icons/si";
 import FIU from "@/components/icons/FIU-Symbol.jpg";
 // ─── Headshot image URLs ───────────────────────────────────────────────────────
@@ -54,10 +54,24 @@ export const CREDENTIALS = [
       {
         name: "CompTIA Security+",
         issuer: "CompTIA",
-        year: "2024",
+        year: "2026",
         color: "#c8202f",
         icon: SiComptia,
       },
+      {
+        name: "Google Analytics",
+        issuer: "Google",
+        year: "2026",
+        color: "#4285f4",
+        icon: FaGoogle,
+      },
+      // {
+      //   name: "HashiCorp Terraform Associate",
+      //   issuer: "HashiCorp",
+      //   year: "2026",
+      //   color: "#7b42bc",
+      //   icon: SiHashicorp,
+      // },
     ],
   },
   {
@@ -78,14 +92,14 @@ export const CREDENTIALS = [
       {
         name: "AWS Solutions Architect Associate",
         issuer: "Amazon Web Services",
-        year: "2026",
+        year: "2027",
         color: "#ff9900",
         icon: FaAws,
       },
       {
         name: "HashiCorp Terraform Associate",
         issuer: "HashiCorp",
-        year: "2026",
+        year: "2027",
         color: "#7b42bc",
         icon: SiHashicorp,
       },

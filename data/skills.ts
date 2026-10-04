@@ -608,7 +608,6 @@ export const devopsSkills: Skill[] = [
   //     "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
   //   style: gradients.red.default,
   // }
-
 ];
 export const engineeringSkills: Skill[] = [
   {
@@ -808,7 +807,7 @@ export const certifications: Cert[] = [
     id: 4,
     title: "CompTIA Security+",
     issuer: "CompTIA",
-    year: "In Progress",
+    year: "2026",
     description:
       "Core security concepts, threat management, cryptography, and network hardening.",
     icon: SiComptia,
