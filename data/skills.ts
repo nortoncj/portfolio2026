@@ -582,13 +582,40 @@ export const devopsSkills: Skill[] = [
       "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
     style: gradients.slate.default,
   },
+  {
+    name: "Terraform",
+    icon: FaCodeBranch,
+    description: "Infrastructure as Code (IaC) tool for cloud provisioning",
+    tags: ["IaC", "Cloud", "Provisioning"],
+    badgeColor:
+      "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300",
+    style: gradients.purple.default,
+  },
+  {
+    name: "Jenkins",
+    icon: FaSync,
+    description: "Open-source automation server for CI/CD pipelines",
+    tags: ["CI/CD", "Automation", "DevOps"],
+    badgeColor: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
+    style: gradients.smoke.default,
+  },
   // {
-  //   name: "Terraform",
-  //   icon: FaCodeBranch,
-  //   description: "Infrastructure as Code (IaC) tool for cloud provisioning",
-  //   tags: ["IaC", "Cloud", "Provisioning"],
-  //   badgeColor: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
+  //   name: "Ansible",
+  //   icon: FaServer,
+  //   description: "Automation tool for configuration management and deployment",
+  //   tags: ["Automation", "DevOps", "Configuration"],
+  //   badgeColor:
+  //     "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
   //   style: gradients.green.default,
+  // },
+  // {
+  //   name: "Prometheus/ Grafana",
+  //   icon: FaChartBar,
+  //   description: "Systems monitoring and alerting toolkit",
+  //   tags: ["Monitoring", "Alerting", "Metrics"],
+  //   badgeColor:
+  //     "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+  //   style: gradients.blue.default,
   // },
   // {
   //   name: "Kubernetes",
@@ -599,15 +626,6 @@ export const devopsSkills: Skill[] = [
   //     "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
   //   style: gradients.blue.default,
   // },
-  // {
-  //   name: "Jenkins",
-  //   icon: FaSync,
-  //   description: "Open-source automation server for CI/CD pipelines",
-  //   tags: ["CI/CD", "Automation", "DevOps"],
-  //   badgeColor:
-  //     "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
-  //   style: gradients.red.default,
-  // }
 ];
 export const engineeringSkills: Skill[] = [
   {
