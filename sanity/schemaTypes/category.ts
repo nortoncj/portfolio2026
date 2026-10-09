@@ -13,6 +13,21 @@ export default defineType({
       validation: (Rule) => Rule.required().min(2).max(50),
     }),
     defineField({
+      name: "description",
+      title: "Intro",
+      type: "text",
+      rows: 3,
+      description:
+        "2–3 sentences for business readers. Also used as the SEO description.",
+    }),
+    defineField({
+      name: "heroImage",
+      title: "Hero Image",
+      type: "image",
+      options: { hotspot: true },
+      fields: [defineField({ name: "alt", title: "Alt Text", type: "string" })],
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
@@ -21,12 +36,6 @@ export default defineType({
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "description",
-      title: "Description",
-      type: "text",
-      rows: 3,
     }),
     defineField({
       name: "color",

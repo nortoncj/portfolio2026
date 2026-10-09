@@ -1,0 +1,128 @@
+/*
+ * Per-category color schemes.
+ *
+ * Put data-category="<slug>" on any element and everything inside it can use:
+ *   --cat-accent     brand color, decorative only (bars, glows, dots)
+ *   --cat-text       accent color that's readable as text on the page background
+ *   --cat-gradient   the category gradient
+ *   --cat-on-accent  text color that reads on top of --cat-gradient
+ *   --cat-soft       tinted surface (chips, subtle fills)
+ *   --cat-border     tinted border
+ *   --cat-glow       shadow / spotlight color
+ *   --cat-hero-wash  color wash laid over the hero image
+ *
+ * Light values come first, `.dark` overrides after (class-based, matches ThemeChanger).
+ * Light-mode text colors are darkened versions of the brand colors. Cyan or mint
+ * text on cream is unreadable, so they only show up in their real form as decoration.
+ *
+ * Specificity is intentional: the fallback uses :where() (zero specificity) so a
+ * specific category always wins, and every `.dark [data-category="x"]` rule
+ * redefines ALL variables so nothing leaks from light mode.
+ */
+
+/* ---------- Fallback (unknown category) ---------- */
+:where([data-category]) {
+  --cat-accent: #ab9df2;
+  --cat-text: #5b4bc4;
+  --cat-gradient: linear-gradient(135deg, #e8365d, #ff6188, #ab9df2);
+  --cat-on-accent: #fcfcfa;
+  --cat-soft: rgba(171, 157, 242, 0.12);
+  --cat-border: rgba(91, 75, 196, 0.25);
+  --cat-glow: rgba(171, 157, 242, 0.35);
+  --cat-hero-wash: radial-gradient(ellipse at 85% 0%, rgba(171, 157, 242, 0.35), transparent 60%);
+}
+.dark :where([data-category]) {
+  --cat-text: #ab9df2;
+  --cat-soft: rgba(171, 157, 242, 0.12);
+  --cat-border: rgba(171, 157, 242, 0.3);
+  --cat-glow: rgba(171, 157, 242, 0.25);
+  --cat-hero-wash: radial-gradient(ellipse at 85% 0%, rgba(171, 157, 242, 0.25), transparent 60%);
+}
+
+/* ---------- DevOps: cool flow (cyan → purple) ---------- */
+[data-category="devops"] {
+  --cat-accent: #78dce8;
+  --cat-text: #0b7285;
+  --cat-gradient: linear-gradient(135deg, #78dce8, #ab9df2);
+  --cat-on-accent: #221f22;
+  --cat-soft: rgba(120, 220, 232, 0.14);
+  --cat-border: rgba(11, 114, 133, 0.25);
+  --cat-glow: rgba(120, 220, 232, 0.4);
+  --cat-hero-wash: radial-gradient(ellipse at 85% 0%, rgba(120, 220, 232, 0.4), transparent 60%);
+}
+.dark [data-category="devops"] {
+  --cat-accent: #78dce8;
+  --cat-text: #78dce8;
+  --cat-gradient: linear-gradient(135deg, #78dce8, #ab9df2);
+  --cat-on-accent: #221f22;
+  --cat-soft: rgba(120, 220, 232, 0.1);
+  --cat-border: rgba(120, 220, 232, 0.3);
+  --cat-glow: rgba(120, 220, 232, 0.25);
+  --cat-hero-wash: radial-gradient(ellipse at 85% 0%, rgba(120, 220, 232, 0.28), transparent 60%);
+}
+
+/* ---------- Growth: mint → cyan ---------- */
+[data-category="growth"] {
+  --cat-accent: #a9dc76;
+  --cat-text: #3f6212;
+  --cat-gradient: linear-gradient(135deg, #a9dc76, #78dce8);
+  --cat-on-accent: #221f22;
+  --cat-soft: rgba(169, 220, 118, 0.16);
+  --cat-border: rgba(63, 98, 18, 0.25);
+  --cat-glow: rgba(169, 220, 118, 0.4);
+  --cat-hero-wash: radial-gradient(ellipse at 85% 0%, rgba(169, 220, 118, 0.4), transparent 60%);
+}
+.dark [data-category="growth"] {
+  --cat-accent: #a9dc76;
+  --cat-text: #a9dc76;
+  --cat-gradient: linear-gradient(135deg, #a9dc76, #78dce8);
+  --cat-on-accent: #221f22;
+  --cat-soft: rgba(169, 220, 118, 0.1);
+  --cat-border: rgba(169, 220, 118, 0.3);
+  --cat-glow: rgba(169, 220, 118, 0.22);
+  --cat-hero-wash: radial-gradient(ellipse at 85% 0%, rgba(169, 220, 118, 0.25), transparent 60%);
+}
+
+/* ---------- Software & Web: hero vibrant (red → pink → purple) ---------- */
+[data-category="software"] {
+  --cat-accent: #ff6188;
+  --cat-text: #c41e47;
+  --cat-gradient: linear-gradient(135deg, #e8365d, #ff6188, #ab9df2);
+  --cat-on-accent: #fcfcfa;
+  --cat-soft: rgba(255, 97, 136, 0.1);
+  --cat-border: rgba(196, 30, 71, 0.22);
+  --cat-glow: rgba(255, 97, 136, 0.35);
+  --cat-hero-wash: radial-gradient(ellipse at 85% 0%, rgba(255, 97, 136, 0.35), transparent 60%);
+}
+.dark [data-category="software"] {
+  --cat-accent: #ff6188;
+  --cat-text: #ff6188;
+  --cat-gradient: linear-gradient(135deg, #e8365d, #ff6188, #ab9df2);
+  --cat-on-accent: #fcfcfa;
+  --cat-soft: rgba(255, 97, 136, 0.12);
+  --cat-border: rgba(255, 97, 136, 0.35);
+  --cat-glow: rgba(255, 97, 136, 0.25);
+  --cat-hero-wash: radial-gradient(ellipse at 85% 0%, rgba(255, 97, 136, 0.25), transparent 60%);
+}
+
+/* ---------- Engineering: warm glow (yellow → red) ---------- */
+[data-category="engineering"] {
+  --cat-accent: #ff8c69;
+  --cat-text: #b4410f;
+  --cat-gradient: linear-gradient(135deg, #ffd866, #ff8c69, #e8365d);
+  --cat-on-accent: #221f22;
+  --cat-soft: rgba(255, 140, 105, 0.13);
+  --cat-border: rgba(180, 65, 15, 0.22);
+  --cat-glow: rgba(255, 140, 105, 0.38);
+  --cat-hero-wash: radial-gradient(ellipse at 85% 0%, rgba(255, 216, 102, 0.4), transparent 60%);
+}
+.dark [data-category="engineering"] {
+  --cat-accent: #ff8c69;
+  --cat-text: #ffa585;
+  --cat-gradient: linear-gradient(135deg, #ffd866, #ff8c69, #e8365d);
+  --cat-on-accent: #221f22;
+  --cat-soft: rgba(255, 140, 105, 0.12);
+  --cat-border: rgba(255, 140, 105, 0.32);
+  --cat-glow: rgba(255, 140, 105, 0.24);
+  --cat-hero-wash: radial-gradient(ellipse at 85% 0%, rgba(255, 216, 102, 0.22), transparent 60%);
+}

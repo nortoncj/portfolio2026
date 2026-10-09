@@ -52,7 +52,7 @@ function MainHeader() {
           <Link className="nav-link" href="/about">
             About
           </Link>
-          <Link className="nav-link" href="/#projects">
+          <Link className="nav-link" href="/projects">
             Projects
           </Link>
           <Link className="nav-link" href="/insights">
@@ -96,18 +96,18 @@ function MainHeader() {
         <Link className="mobile-menu-link" href="/#skills">
           Skills
         </Link>
-        <Link className="mobile-menu-link" href="/#about">
+        <Link className="mobile-menu-link" href="/about">
           About
         </Link>
-        <Link className="mobile-menu-link" href="/#projects">
+        <Link className="mobile-menu-link" href="/projects">
           Projects
         </Link>
-        <Link className="mobile-menu-link" href="/#insights">
+        <Link className="mobile-menu-link" href="/insights">
           Insights
         </Link>
-        <Link className="mobile-menu-link" href="/#contact">
+        {/* <Link className="mobile-menu-link" href="/#contact">
           Contact
-        </Link>
+        </Link> */}
       </div>
     </header>
   );

@@ -159,9 +159,9 @@ const NAV_COLS = [
     links: [
       { label: "Home", href: "/" },
       { label: "Skills", href: "#skills" },
-      { label: "About", href: "#about" },
-      { label: "Projects", href: "#projects" },
-      { label: "Insights", href: "#insights" },
+      { label: "About", href: "/about" },
+      { label: "Projects", href: "/projects" },
+      { label: "Insights", href: "/insights" },
       // { label: "Contact", href: "#contact" },
     ],
   },
@@ -182,10 +182,10 @@ const NAV_COLS = [
   {
     title: "Work",
     links: [
-      { label: "Web Dev", href: "/projects/software" },
+      { label: "Software", href: "/projects/software" },
       { label: "Engineering", href: "/projects/engineering" },
       { label: "DevOps & Cloud", href: "/projects/devops" },
-      { label: "Automation", href: "/projects/automation" },
+      { label: "Growth", href: "/projects/growth" },
       // { label: "Hire Me →", href: "/contact" },
     ],
   },

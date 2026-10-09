@@ -5,9 +5,10 @@ const baseUrl = "https://www.chrisnortonjr.com";
 
 const routes = [
   "/",
+  "/projects",
   "/projects/devops",
   "/projects/software",
-  "/projects/automation",
+  "/projects/growth",
   "/projects/engineering",
   "/insights",
   "/insights/seo-optimizer",

@@ -1,10 +1,6 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* No global `*` reset here: Tailwind's preflight already does it inside
+   @layer base. An unlayered reset beats every Tailwind utility, so after
+   client-side navigation it would wipe padding/margin on other pages. */
 .hero-section {
   height: 200px;
 }

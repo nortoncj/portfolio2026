@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@portabletext/react": "^6.0.2",
+    "@portabletext/react": "^6.2.0",
     "@sanity/client": "^7.16.0",
     "@sanity/image-url": "^1.2.0",
     "@sanity/table": "^2.0.1",

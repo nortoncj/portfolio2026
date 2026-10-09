@@ -1,19 +1,20 @@
-import { getPosts } from "@/sanity/sanity-utils";
+import { client } from "@/sanity/lib/client";
+import { SITEMAP_QUERY } from "@/sanity/lib/queries";
 import { MetadataRoute } from "next";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://chrisnortonjr.com";
+const baseUrl = "https://chrisnortonjr.com";
 
-  // Only static routes here
-  const staticRoutes = [
-    "/",
-    "/about",
-    "/projects/devops",
-  "/projects/software",
-  "/projects/automation",
-  "/projects/engineering",
-    "/insights",
-  ];
+export const revalidate = 3600;
+
+type SitemapData = {
+  categories: { slug: string; _updatedAt: string }[];
+  projects: { category: string; slug: string; _updatedAt: string }[];
+  posts: { slug: string; _updatedAt: string }[];
+};
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Only static routes here. Categories, projects and posts come from Sanity.
+  const staticRoutes = ["/", "/about", "/projects", "/insights"];
 
   const staticPages: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
@@ -21,16 +22,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   try {
-    const posts = await getPosts();
+    const { categories, projects, posts } =
+      await client.fetch<SitemapData>(SITEMAP_QUERY);
 
-    const insightRoutes: MetadataRoute.Sitemap = posts.map((post: any) => ({
-      url: `${baseUrl}/insights/${post.slug}`,
-      lastModified: new Date(
-        post._updatedAt || post.updatedAt || post.publishedAt || Date.now(),
-      ),
+    const categoryRoutes: MetadataRoute.Sitemap = categories.map((c) => ({
+      url: `${baseUrl}/projects/${c.slug}`,
+      lastModified: new Date(c._updatedAt),
     }));
 
-    return [...staticPages, ...insightRoutes];
+    const projectRoutes: MetadataRoute.Sitemap = projects.map((p) => ({
+      url: `${baseUrl}/projects/${p.category}/${p.slug}`,
+      lastModified: new Date(p._updatedAt),
+    }));
+
+    const insightRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
+      url: `${baseUrl}/insights/${post.slug}`,
+      lastModified: new Date(post._updatedAt),
+    }));
+
+    return [...staticPages, ...categoryRoutes, ...projectRoutes, ...insightRoutes];
   } catch (error) {
     console.error("Failed to generate sitemap:", error);
     return staticPages;
