@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type PointerEvent } from "react";
+import { useRouter } from "next/navigation";
 import {
   animate,
   motion,
@@ -85,11 +86,12 @@ function Tile({ category, active, index, onSelect }: TileProps) {
     rotateX.set(0);
     rotateY.set(0);
   }
-
+  const router = useRouter();
   return (
     <motion.button
       type="button"
-      onClick={() => onSelect(category.slug)}
+      // onClick={() => onSelect(category.slug)}
+      onClick={() => router.push(`/projects/${category.slug}`)}
       onPointerMove={handleMove}
       onPointerLeave={handleLeave}
       aria-pressed={active}
@@ -104,7 +106,7 @@ function Tile({ category, active, index, onSelect }: TileProps) {
       }}
       whileTap={{ scale: 0.98 }}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-[var(--border-primary)] bg-[var(--surface-primary)] p-6 text-left shadow-[var(--soft-shadow)] outline-none transition-shadow duration-300 hover:shadow-[var(--medium-shadow)] focus-visible:ring-2 focus-visible:ring-[var(--pink)]"
+      className="group cursor-pointer relative flex h-full flex-col overflow-hidden rounded-[24px] border border-[var(--border-primary)] bg-[var(--surface-primary)] p-6 text-left shadow-[var(--soft-shadow)] outline-none transition-shadow duration-300 hover:shadow-[var(--medium-shadow)] focus-visible:ring-2 focus-visible:ring-[var(--pink)]"
     >
       {/* cursor spotlight */}
       <motion.span

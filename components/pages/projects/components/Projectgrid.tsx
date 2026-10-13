@@ -42,7 +42,7 @@ export default function ProjectGrid({
             exit={{ opacity: 0, scale: 0.94, transition: { duration: 0.2 } }}
             whileHover={{ y: -6 }}
             transition={{ type: "spring", stiffness: 300, damping: 26 }}
-            className="h-full"
+            className="h-full cursor-pointer"
           >
             <ProjectCard project={p} />
           </motion.div>

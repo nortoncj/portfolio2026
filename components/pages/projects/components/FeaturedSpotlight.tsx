@@ -66,7 +66,7 @@ export default function FeaturedSpotlight({ projects }: Props) {
           transition={{ duration: 0.8 }}
         />
 
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] sm:rounded-[32px] border border-[var(--border-primary)] bg-[var(--surface-secondary)] shadow-[var(--premium-shadow)] sm:aspect-[16/10]">
+        <div className="relative cursor-pointer aspect-[4/5] overflow-hidden rounded-[24px] sm:rounded-[32px] border border-[var(--border-primary)] bg-[var(--surface-secondary)] shadow-[var(--premium-shadow)] sm:aspect-[16/10]">
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.article
               key={current._id}
@@ -162,7 +162,7 @@ export default function FeaturedSpotlight({ projects }: Props) {
                 type="button"
                 onClick={() => setActive(i)}
                 aria-current={isActive}
-                className={`group relative w-full overflow-hidden rounded-[24px] border p-4 text-left sm:p-5 transition-colors duration-300 ${
+                className={`group cursor-pointer relative w-full overflow-hidden rounded-[24px] border p-4 text-left sm:p-5 transition-colors duration-300 ${
                   isActive
                     ? "border-transparent bg-[var(--surface-primary)] shadow-[var(--medium-shadow)]"
                     : "border-[var(--border-primary)] bg-transparent hover:bg-[var(--surface-primary)]"

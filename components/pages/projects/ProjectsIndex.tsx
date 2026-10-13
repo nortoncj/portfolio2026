@@ -286,7 +286,8 @@ export default function ProjectsIndex({ data, initialCategory }: Props) {
                         role="tab"
                         aria-selected={isActive}
                         onClick={() => select(t.slug)}
-                        className={`relative shrink-0 rounded-[14px] px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
+                        className={`relative
+                           cursor-pointer shrink-0 rounded-[14px] px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
                           isActive
                             ? "text-[#fcfcfa]"
                             : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
