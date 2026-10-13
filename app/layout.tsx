@@ -5,6 +5,7 @@ import { SITE_PERSON } from "@/data/person";
 
 
 
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
