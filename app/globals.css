@@ -168,6 +168,21 @@ li {
   font-family: "JetBrains Mono", monospace;
 }
 
+/* Sanity Studio: the tags input resizes itself to its scrollWidth after each
+   keystroke, which lags and leaves the text scrolled out of view. Lay the tags
+   out with flex and let the input fill the remaining row at a fixed width so
+   Sanity's inline width is ignored. */
+[data-ui="TagInput"] > .content {
+  display: flex;
+  flex-wrap: wrap;
+}
+[data-ui="TagInput"] > .content > div:last-child {
+  flex: 1 1 10rem;
+}
+[data-ui="TagInput"] > .content > div:last-child > input {
+  width: 100% !important;
+}
+
 .quote {
   font-family: "Playfair Display", serif;
   font-style: italic;
