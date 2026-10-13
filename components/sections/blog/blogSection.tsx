@@ -103,7 +103,7 @@ function BlogSection({ posts }: { posts: Post[] }) {
               </span>
               <div className="feat-meta-dot"></div>
               {featured.categories.map((cat) => (
-                <span key={cat._id} className={`feat-cat ${cat.slug}`}>
+                <span key={cat._id} className={`feat-cat cat-${cat.slug}`}>
                   {cat.title}
                 </span>
               ))}
@@ -174,11 +174,13 @@ function BlogSection({ posts }: { posts: Post[] }) {
                 loading="lazy"
               />
               <div className="card-overlay"></div>
-              {post.categories.map((cat) => (
-                <span key={cat._id} className={`card-cat cat-${cat.slug}`}>
-                  {cat.title}
-                </span>
-              ))}
+              <div className="card-cats">
+                {post.categories.map((cat) => (
+                  <span key={cat._id} className={`card-cat cat-${cat.slug}`}>
+                    {cat.title}
+                  </span>
+                ))}
+              </div>
 
               <div className="card-body">
                 <div className="card-meta">

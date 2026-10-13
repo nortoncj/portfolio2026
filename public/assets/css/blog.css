@@ -264,39 +264,11 @@
   text-transform: uppercase;
   font-family: "JetBrains Mono", monospace;
   backdrop-filter: blur(10px);
+  /* fallback for a slug with no .cat-* rule below */
+  background: rgba(252, 252, 250, 0.14);
+  color: #fcfcfa;
+  border: 1px solid rgba(252, 252, 250, 0.3);
 }
-.feat-cat.devops {
-  background: rgba(120, 220, 232, 0.2);
-  color: #78dce8;
-  border: 1px solid rgba(120, 220, 232, 0.38);
-}
-.feat-cat.automation {
-  background: rgba(171, 157, 242, 0.2);
-  color: #ab9df2;
-  border: 1px solid rgba(171, 157, 242, 0.38);
-}
-.feat-cat.ai {
-  background: rgba(200, 190, 255, 0.18);
-  color: #c8beff;
-  border: 1px solid rgba(200, 190, 255, 0.35);
-}
-.feat-cat.marketing {
-  background: rgba(252, 95, 163, 0.22);
-  color: #fc5fa3;
-  border: 1px solid rgba(252, 95, 163, 0.38);
-}
-.feat-cat.seo {
-  background: rgba(255, 97, 136, 0.22);
-  color: #ff8fab;
-  border: 1px solid rgba(255, 97, 136, 0.38);
-}
-.feat-cat.websites,
-.feat-cat.web {
-  background: rgba(197, 163, 255, 0.22);
-  color: var(--color-blue-400);
-  border: 1px solid rgba(97, 163, 255, 0.38);
-}
-
 .feat-title {
   font-size: clamp(1.45rem, 2.8vw, 2.05rem);
   font-weight: 800;
@@ -475,12 +447,19 @@
   z-index: 1;
 }
 
-/* Category badge — top right */
-.card-cat {
+/* Category badges — top right, wrap instead of stacking */
+.card-cats {
   position: absolute;
   top: 14px;
+  left: 14px;
   right: 14px;
   z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.card-cat {
   display: inline-flex;
   align-items: center;
   padding: 5px 12px;
@@ -491,6 +470,10 @@
   text-transform: uppercase;
   font-family: "JetBrains Mono", monospace;
   backdrop-filter: blur(12px);
+  /* fallback for a slug with no .cat-* rule below */
+  background: rgba(252, 252, 250, 0.14);
+  color: #fcfcfa;
+  border: 1px solid rgba(252, 252, 250, 0.3);
 }
 
 /* Category color variants */
@@ -543,6 +526,26 @@
   background: rgba(197, 163, 255, 0.22);
   color: var(--color-blue-400);
   border: 1px solid rgba(97, 163, 255, 0.38);
+}
+.cat-engineering {
+  background: rgba(255, 152, 102, 0.2);
+  color: #ff6666;
+  border: 1px solid rgba(255, 102, 102, 0.38);
+}
+.cat-growth {
+  background: rgba(220, 162, 118, 0.2);
+  color: #a9dc76;
+  border: 1px solid rgba(169, 220, 118, 0.38);
+}
+.cat-software {
+  background: rgba(120, 232, 196, 0.2);
+  color: #78e8c4;
+  border: 1px solid rgba(120, 232, 196, 0.38);
+}
+.cat-dashboard {
+  background: rgba(255, 216, 102, 0.2);
+  color: #ffd866;
+  border: 1px solid rgba(255, 216, 102, 0.38);
 }
 
 /* Card bottom content */
