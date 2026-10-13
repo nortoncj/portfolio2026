@@ -54,19 +54,19 @@ export default function FeaturedSpotlight({ projects }: Props) {
         if (!e.currentTarget.contains(e.relatedTarget as Node | null))
           setPaused(false);
       }}
-      className="grid gap-6 lg:grid-cols-[1.5fr_1fr]"
+      className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]"
     >
       {/* ---------------- Big panel ---------------- */}
-      <div className="relative isolate">
+      <div className="relative isolate min-w-0">
         {/* morphing color blob behind the panel, tinted by category */}
         <motion.div
           aria-hidden
-          className="liquid-morph absolute -inset-6 -z-10 opacity-40 blur-3xl"
+          className="liquid-morph absolute -inset-2 -z-10 sm:-inset-6 opacity-40 blur-3xl"
           animate={{ background: theme.gradient }}
           transition={{ duration: 0.8 }}
         />
 
-        <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] border border-[var(--border-primary)] bg-[var(--surface-secondary)] shadow-[var(--premium-shadow)] sm:aspect-[16/10]">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] sm:rounded-[32px] border border-[var(--border-primary)] bg-[var(--surface-secondary)] shadow-[var(--premium-shadow)] sm:aspect-[16/10]">
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.article
               key={current._id}
@@ -100,7 +100,7 @@ export default function FeaturedSpotlight({ projects }: Props) {
               {/* legibility gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
 
-              <div className="absolute inset-x-0 bottom-0 p-6 text-[#fcfcfa] sm:p-8">
+              <div className="absolute inset-x-0 bottom-0 p-5 text-[#fcfcfa] sm:p-8">
                 <motion.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -124,7 +124,7 @@ export default function FeaturedSpotlight({ projects }: Props) {
                     )}
                   </div>
 
-                  <h3 className="mt-4 max-w-2xl text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
+                  <h3 className="mt-3 max-w-2xl text-xl sm:mt-4 sm:text-2xl md:text-3xl font-semibold leading-tight tracking-tight">
                     {current.title}
                   </h3>
 
@@ -136,7 +136,7 @@ export default function FeaturedSpotlight({ projects }: Props) {
 
                   <Link
                     href={projectHref(current)}
-                    className="group mt-6 inline-flex items-center gap-2 rounded-[16px] bg-[#fcfcfa] px-5 py-3 text-sm font-semibold text-[#2d2a2e] transition-transform duration-200 hover:-translate-y-0.5"
+                    className="group mt-5 inline-flex sm:mt-6 items-center gap-2 rounded-[16px] bg-[#fcfcfa] px-5 py-3 text-sm font-semibold text-[#2d2a2e] transition-transform duration-200 hover:-translate-y-0.5"
                   >
                     See how it works
                     <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -150,7 +150,7 @@ export default function FeaturedSpotlight({ projects }: Props) {
 
       {/* ---------------- Selector list ---------------- */}
       <ol
-        className="flex flex-col gap-3"
+        className="flex min-w-0 flex-col gap-3"
         aria-label="Choose a featured project"
       >
         {projects.map((p, i) => {
@@ -162,7 +162,7 @@ export default function FeaturedSpotlight({ projects }: Props) {
                 type="button"
                 onClick={() => setActive(i)}
                 aria-current={isActive}
-                className={`group relative w-full overflow-hidden rounded-[24px] border p-5 text-left transition-colors duration-300 ${
+                className={`group relative w-full overflow-hidden rounded-[24px] border p-4 text-left sm:p-5 transition-colors duration-300 ${
                   isActive
                     ? "border-transparent bg-[var(--surface-primary)] shadow-[var(--medium-shadow)]"
                     : "border-[var(--border-primary)] bg-transparent hover:bg-[var(--surface-primary)]"
