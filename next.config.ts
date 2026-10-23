@@ -4,6 +4,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  // Inline CSS into the HTML so stylesheets don't block first render
+  experimental: {
+    inlineCss: true,
+  },
   // Image optimization
   images: {
     remotePatterns: [

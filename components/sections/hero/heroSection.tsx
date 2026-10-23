@@ -93,7 +93,12 @@ function Hero() {
         <div className="hero-right">
           <div className="photo-ring">
             <div className="photo-inner">
-              <Image src={Photo} alt="Chris Norton Jr" />
+              <Image
+                src={Photo}
+                alt="Chris Norton Jr"
+                preload
+                sizes="(max-width: 1000px) 280px, (max-width: 1500px) 28vw, 420px"
+              />
             </div>
           </div>
 

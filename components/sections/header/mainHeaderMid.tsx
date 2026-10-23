@@ -81,8 +81,11 @@ function MainHeader() {
           ref={btnRef}
           onClick={toggleMenu}
           className="mobile-nav_right bg-transparent border-0"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="mobileMenu"
         >
-          <FaBars className="nav-link" />
+          <FaBars className="nav-link" aria-hidden="true" />
         </button>
         <div className="mobile-nav_right">
           <ThemeChanger />

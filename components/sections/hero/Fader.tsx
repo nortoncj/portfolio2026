@@ -63,7 +63,8 @@ export function Fader({
       className={`${className} ${classes[index]}`}
       style={{
         display: "inline-block",
-        opacity: visible ? 1 : 0,
+        // never fully 0, so the word isn't re-reported as a late LCP element
+        opacity: visible ? 1 : 0.01,
         transform: visible ? "translateY(0)" : "translateY(-6px)",
         transition: `opacity ${fadeDuration}ms ease, transform ${fadeDuration}ms ease`,
       }}

@@ -34,8 +34,13 @@ function ThemeChanger() {
         e.currentTarget.style.filter = "brightness(1)";
       }}
       className="theme-toggle-btn"
+      aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
     >
-      {theme === "light" ? <FaMoon /> : <MdSunny color="white" />}
+      {theme === "light" ? (
+        <FaMoon aria-hidden="true" />
+      ) : (
+        <MdSunny color="white" aria-hidden="true" />
+      )}
     </button>
   );
 }

@@ -412,7 +412,8 @@
 
 /* ── fade-in on load ── */
 .fade-up {
-  opacity: 0;
+  /* 0.01, not 0: Chrome skips opacity:0 elements as LCP candidates */
+  opacity: 0.01;
   transform: translateY(24px);
   animation: fadeUp 0.55s ease-out forwards;
 }
@@ -442,12 +443,12 @@
 }
 
 .hero-right {
-  opacity: 0;
+  opacity: 0.01;
   animation: fadeScale 0.7s ease-out 0.2s forwards;
 }
 @keyframes fadeScale {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: scale(0.88);
   }
   to {

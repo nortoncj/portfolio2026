@@ -169,7 +169,7 @@ export default function AboutSection() {
               <div className="edu-front">
                 <div className="edu-front-top">
                   <div className="edu-icon">
-                    <FaGraduationCap />{" "}
+                    <FaGraduationCap aria-hidden="true" />{" "}
                   </div>
 
                   <span className="edu-badge eb-degree">Degree</span>
@@ -213,7 +213,7 @@ export default function AboutSection() {
                     <div className="edu-front-top">
                       <div className="edu-icon">
                         
-                       <cert.icon color={cert.style} />
+                       <cert.icon aria-hidden="true" />
                       </div>
                       <span className="edu-badge eb-cert">Cert</span>
                     </div>
