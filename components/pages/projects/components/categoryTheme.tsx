@@ -56,7 +56,7 @@ export type CategoryPageData = CategoryData & {
 // ---------------------------------------------------------------------------
 
 /** Where blog posts live. Change if your blog route isn't /blog/[slug]. */
-export const BLOG_BASE = "/blog";
+export const BLOG_BASE = "/insights";
 
 /** A Portable Text node. Loose on purpose: blocks, images, and code all fit. */
 export type RichNode = { _type: string; _key?: string; [key: string]: unknown };
