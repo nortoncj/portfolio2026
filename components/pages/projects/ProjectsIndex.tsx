@@ -103,6 +103,15 @@ export default function ProjectsIndex({ data, initialCategory }: Props) {
     select(active === slug ? ALL : slug, active !== slug);
   }
 
+  // Mobile tabs are icon-only; tapping one briefly shows its title
+  const [peek, setPeek] = useState<string | null>(null);
+  const peekTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  function showPeek(slug: string) {
+    if (peekTimer.current) clearTimeout(peekTimer.current);
+    setPeek(slug);
+    peekTimer.current = setTimeout(() => setPeek(null), 1400);
+  }
+
   const tabs = [
     { slug: ALL, title: "All", count: data.projects.length },
     ...categories.map((c) => ({
@@ -272,9 +281,9 @@ export default function ProjectsIndex({ data, initialCategory }: Props) {
                 <div
                   role="tablist"
                   aria-label="Filter projects by category"
-                  className="flex gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  className="flex gap-1"
                 >
-                  {tabs.map((t) => {
+                  {tabs.map((t, i) => {
                     const isActive = active === t.slug;
                     const theme = getCategoryTheme(
                       t.slug === ALL ? null : t.slug,
@@ -285,9 +294,14 @@ export default function ProjectsIndex({ data, initialCategory }: Props) {
                         type="button"
                         role="tab"
                         aria-selected={isActive}
-                        onClick={() => select(t.slug)}
-                        className={`relative
-                           cursor-pointer shrink-0 rounded-[14px] px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
+                        // "All" is hidden on mobile, so tapping the active tab clears the filter
+                        onClick={() => {
+                          select(isActive ? ALL : t.slug);
+                          showPeek(t.slug);
+                        }}
+                        aria-label={`${t.title} (${t.count})`}
+                        className={`relative ${t.slug === ALL ? "max-sm:hidden" : ""}
+                           cursor-pointer shrink-0 max-sm:flex max-sm:flex-1 max-sm:justify-center rounded-[14px] px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
                           isActive
                             ? "text-[#fcfcfa]"
                             : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -306,14 +320,33 @@ export default function ProjectsIndex({ data, initialCategory }: Props) {
                             }}
                           />
                         )}
-                        <span className="relative">
-                          {t.title}
+                        <span className="relative flex items-center">
+                          <theme.Icon className="h-5 w-5 sm:hidden" />
+                          <span className="max-sm:hidden">{t.title}</span>
                           <span
-                            className={`ml-2 text-xs ${isActive ? "opacity-90" : "opacity-60"}`}
+                            className={`ml-2 text-xs max-sm:ml-1 ${isActive ? "opacity-90" : "opacity-60"}`}
                           >
                             {t.count}
                           </span>
                         </span>
+
+                        {/* Tap label (mobile only); edge tabs anchor to their side so it stays on screen */}
+                        {peek === t.slug && (
+                          <motion.span
+                            aria-hidden
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className={`pointer-events-none absolute top-full mt-2 whitespace-nowrap rounded-[10px] border border-[var(--border-primary)] bg-[var(--surface-primary)] px-3 py-1 text-xs font-semibold text-[var(--text-primary)] shadow-lg sm:hidden ${
+                              i === 1
+                                ? "left-0"
+                                : i === tabs.length - 1
+                                  ? "right-0"
+                                  : "left-1/2 -translate-x-1/2"
+                            }`}
+                          >
+                            {t.title}
+                          </motion.span>
+                        )}
                       </button>
                     );
                   })}

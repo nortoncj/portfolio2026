@@ -68,7 +68,7 @@ function SectionIcon({ label }: { label: string }) {
     strokeWidth: 2,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
-    className: "h-4 w-4",
+    className: "h-5 w-5 sm:h-4 sm:w-4",
     "aria-hidden": true,
   };
   if (l.includes("challenge") || l.includes("problem"))
@@ -87,6 +87,30 @@ function SectionIcon({ label }: { label: string }) {
     return (
       <svg {...common}>
         <path d="M3 3v18h18M7 15l4-4 3 3 5-6" />
+      </svg>
+    );
+  if (l.includes("overview") || l.includes("about") || l.includes("intro"))
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 11v5M12 8h.01" />
+      </svg>
+    );
+  if (
+    l.includes("tech") ||
+    l.includes("stack") ||
+    l.includes("architecture") ||
+    l.includes("tool")
+  )
+    return (
+      <svg {...common}>
+        <path d="M12 3l9 5-9 5-9-5 9-5ZM3 13l9 5 9-5" />
+      </svg>
+    );
+  if (l.includes("lesson") || l.includes("learn") || l.includes("takeaway"))
+    return (
+      <svg {...common}>
+        <path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5ZM4 19a2 2 0 0 1 2-2h13" />
       </svg>
     );
   if (l.includes("feature"))
@@ -279,6 +303,9 @@ type Props = {
  */
 export default function SectionTabs({ sections, fallback }: Props) {
   const [active, setActive] = useState(0);
+  // Mobile tabs are icon-only; tapping one briefly shows its title
+  const [peek, setPeek] = useState<number | null>(null);
+  const peekTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduce = useReducedMotion();
   const rootRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -296,6 +323,12 @@ export default function SectionTabs({ sections, fallback }: Props) {
         behavior: reduce ? "auto" : "smooth",
         block: "start",
       });
+  }
+
+  function showPeek(i: number) {
+    if (peekTimer.current) clearTimeout(peekTimer.current);
+    setPeek(i);
+    peekTimer.current = setTimeout(() => setPeek(null), 1400);
   }
 
   function onKeyDown(e: KeyboardEvent<HTMLButtonElement>, i: number) {
@@ -320,7 +353,7 @@ export default function SectionTabs({ sections, fallback }: Props) {
         <div
           role="tablist"
           aria-label="Project write-up"
-          className="flex gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-1 max-sm:justify-between sm:overflow-x-auto sm:[scrollbar-width:none] sm:[&::-webkit-scrollbar]:hidden"
         >
           {sections.map((s, i) => {
             const isActive = i === active;
@@ -336,9 +369,13 @@ export default function SectionTabs({ sections, fallback }: Props) {
                 aria-controls={`panel-${s.id}`}
                 aria-selected={isActive}
                 tabIndex={isActive ? 0 : -1}
-                onClick={() => select(i)}
+                onClick={() => {
+                  select(i);
+                  showPeek(i);
+                }}
                 onKeyDown={(e) => onKeyDown(e, i)}
-                className={`relative flex shrink-0 items-center gap-2 rounded-[14px] px-4 py-2.5 text-sm font-semibold outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--cat-accent)] ${
+                aria-label={s.label}
+                className={`relative flex shrink-0 items-center gap-2 max-sm:flex-1 max-sm:justify-center max-sm:px-2 rounded-[14px] px-4 py-2.5 text-sm font-semibold outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--cat-accent)] ${
                   isActive
                     ? "text-[var(--cat-on-accent)]"
                     : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -356,7 +393,25 @@ export default function SectionTabs({ sections, fallback }: Props) {
                 <span className="relative">
                   <SectionIcon label={s.label} />
                 </span>
-                <span className="relative">{s.label}</span>
+                <span className="relative max-sm:hidden">{s.label}</span>
+
+                {/* Tap label (mobile only); edge tabs anchor to their side so it stays on screen */}
+                {peek === i && (
+                  <motion.span
+                    aria-hidden
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`pointer-events-none absolute top-full mt-2 whitespace-nowrap rounded-[10px] border border-[var(--border-primary)] bg-[var(--surface-primary)] px-3 py-1 text-xs font-semibold text-[var(--text-primary)] shadow-lg sm:hidden ${
+                      i === 0
+                        ? "left-0"
+                        : i === sections.length - 1
+                          ? "right-0"
+                          : "left-1/2 -translate-x-1/2"
+                    }`}
+                  >
+                    {s.label}
+                  </motion.span>
+                )}
               </button>
             );
           })}
