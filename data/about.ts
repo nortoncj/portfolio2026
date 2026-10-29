@@ -80,7 +80,7 @@ export const CREDENTIALS = [
       {
         name: "B.S. Electrical Engineering",
         issuer: "Florida International University",
-        year: "2023",
+        year: "2025",
         color: "#002d62",
         logo: FIU,
       },
