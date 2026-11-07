@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useRef, useEffect } from "react";
 import "@css/styles.css";
 import { FaBars, FaMoon } from "react-icons/fa6";
-import Logo from "@images/logo2.png";
+import Logo from "@images/logo1.png";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeChanger from "./themeChanger";
