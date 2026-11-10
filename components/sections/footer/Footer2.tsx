@@ -489,11 +489,11 @@ export default function Footer() {
         >
           Tech Stack
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        {/* <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {TECH_STACK.map((tech) => (
             <TechBadge key={tech.name} {...tech} />
           ))}
-        </div>
+        </div> */}
       </div>
 
       {/* ════════════════════════════════════════════════════════════
