@@ -36,14 +36,14 @@ function MainHeader() {
     <header>
       <nav className="top-nav lightGlass dark:darkGlass">
         <div className="top-nav_left">
-          <a className="logo-link flex items-center" href="/">
+          <Link className="logo-link flex items-center" href="/">
             <Image
-              alt="Chris Norton Jr Devops Engineer"
+              alt="Chris Norton Jr, Solutions Engineer"
               className="w-12 h-12 p-0"
               src={Logo}
-            />{" "}
-            {/* Chris Norton JR */}
-          </a>
+            />
+            <span className="logo-text px-2 name">Chris Norton Jr</span>
+          </Link>
         </div>
         <div className="top_nav_middle">
           <Link className="nav-link" href="/#skills">
@@ -68,12 +68,12 @@ function MainHeader() {
       </nav>
       <nav className="mobile-nav lightGlass dark:darkGlass">
         <div className="mobile-nav_left">
-          <Link className="logo-link" href="/">
+          <Link className="logo-link flex items-center" href="/">
             <Image
-              alt="Chris Norton Jr Devops Engineer"
+              alt="Chris Norton Jr, Solutions Engineer"
               className="w-12 h-12 p-0"
               src={Logo}
-            />
+            /> 
           </Link>
         </div>
         <button

@@ -36,14 +36,13 @@ function MainHeader() {
     <header>
       <nav className="top-nav lightGlass dark:darkGlass">
         <div className="top-nav_left">
-          <a className="logo-link flex items-center" href="/">
+          <Link className="logo-link flex items-center" href="/">
             <Image
               alt="Chris Norton Jr Devops Engineer"
               className="w-12 h-12 p-0"
               src={Logo}
             />{" "}
-            {/* Chris Norton JR */}
-          </a>
+          </Link>
         </div>
         <div className="top_nav_right">
           <Link className="nav-link" href="#skills">

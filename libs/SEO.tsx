@@ -11,15 +11,15 @@ export function buildMetadata({
   title,
   description,
   image = "/og-image.png",
-  url = "https://chrisnorton.com",
+  url = "https://chrisnortonjr.com",
 }: MetadataInput) {
   // less than 60 chars
-  const fullTitle = `Chris Norton Jr | ${title || "Devops Engineer"} `;
+  const fullTitle = `Chris Norton Jr | ${title || "Solutions Engineer"}`;
   // keep around 120 chars
-  const fullDescription = ` ${
+  const fullDescription = `${
     description ||
-    "Chris Norton does Product Development, DevOps, Cloud and Martech. I build products, deploy them and grow them as a brand."
-  } | Tampa, Florida, United States `;
+    "Chris Norton is a solutions engineer bridging customers and code across cloud, APIs, CRM integrations, and automation."
+  } | Tampa, Florida, United States`;
 
   return {
     // -------------------------

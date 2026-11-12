@@ -41,12 +41,19 @@ header {
 .top_nav_middle {
   display: flex;
   gap: 2rem;
+  padding-right: 20rem; /* With Name */
 }
 .logo-link {
   color: #000;
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: bold;
+}
+.name {
+  background: linear-gradient(135deg, #ff6188, #ab9df2);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 .nav-link {
   color: #000;

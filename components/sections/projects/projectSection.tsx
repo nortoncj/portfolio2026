@@ -36,7 +36,7 @@ export default function ProjectSection() {
           </h2>
 
           <p className="section-sub">
-            Pick a discipline and explore the projects behind it.
+            Pick a discipline and explore the solutions behind it.
           </p>
           <div className="section-label">
             {" "}
@@ -49,7 +49,7 @@ export default function ProjectSection() {
             {/* <div className="cat-bg"></div> */}
             <Image
               src={Devops}
-              alt="DevOps"
+              alt="Cloud architecture and DevOps"
               style={{
                 position: "absolute",
                 inset: 0,
@@ -66,9 +66,9 @@ export default function ProjectSection() {
          */}
             <div className="cat-content">
               <div className="cat-title">
-                Cloud Infrastructure
+                Cloud Architecture
                 <br />
-                &amp; DevOps Projects
+                &amp; DevOps Solutions
               </div>
               <div className="cat-arrow">
                 View projects <span className="arrow-circle">→</span>

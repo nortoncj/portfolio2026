@@ -30,18 +30,19 @@ function Hero() {
           </h2>
 
           <p className="hero-desc fade-up delay-2">
-            Devops engineer specializing in
-            <strong className="c-purple"> scalable software solutions</strong>,
-            <strong className="c-magenta"> intelligent automation</strong>, and
-            <strong className="c-pink"> embedded systems</strong>. Transforming
-            complex problems into elegant, production-ready solutions.
+            Solutions engineer bridging customers and code, specializing in
+            <strong className="c-purple"> cloud architecture</strong>,
+            <strong className="c-magenta"> API &amp; CRM integrations</strong>,
+            and
+            <strong className="c-pink"> intelligent automation</strong>. I turn
+            business requirements into working, production-ready solutions.
           </p>
 
           <div className="hero-tags fade-up delay-3">
-            <span className="tag tag-purple">Email Automation</span>
-            <span className="tag tag-cyan">Cloud &amp; DevOps</span>
-            <span className="tag tag-mint">Data Analyst</span>
-            <span className="tag tag-pink"> Embedded Systems</span>
+            <span className="tag tag-purple">Solution Architecture</span>
+            <span className="tag tag-cyan">APIs &amp; Integrations</span>
+            <span className="tag tag-mint">Cloud &amp; DevOps</span>
+            <span className="tag tag-pink">Workflow Automation</span>
           </div>
 
           <div className="hero-cta-row fade-up delay-4">

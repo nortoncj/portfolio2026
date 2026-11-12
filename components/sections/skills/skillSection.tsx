@@ -21,8 +21,8 @@ import "@css/skills.css";
 import { SkillItem } from "./skillItem";
 
 const TABS = [
-  { key: "marketing", label: "Automation", skills: emailSkills },
-  { key: "devops", label: "DevOps", skills: devopsSkills },
+  { key: "marketing", label: "Integrations", skills: emailSkills },
+  { key: "devops", label: "Cloud", skills: devopsSkills },
   { key: "web", label: "Web", skills: webSkills },
   { key: "engineering", label: "Engineering", skills: engineeringSkills },
 ] as const;

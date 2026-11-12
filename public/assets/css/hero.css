@@ -163,6 +163,27 @@
   background-clip: text;
 }
 
+/* Light mode: same hue pairs, deepened so every stop clears 4.5:1 on the
+   cream background. Dark mode (html.dark) keeps the bright originals above. */
+html:not(.dark) .c-pink {
+  background-image: linear-gradient(135deg, #d6245f, #a85800);
+}
+html:not(.dark) .c-magenta {
+  background-image: linear-gradient(135deg, #c01f7a, #6e4fd6);
+}
+html:not(.dark) .c-purple {
+  background-image: linear-gradient(135deg, #6e4fd6, #0b7285);
+}
+html:not(.dark) .c-cyan {
+  background-image: linear-gradient(135deg, #0b7285, #3f7d1c);
+}
+html:not(.dark) .c-gold {
+  background-image: linear-gradient(135deg, #a85800, #d6245f);
+}
+html:not(.dark) .c-mint {
+  background-image: linear-gradient(135deg, #3f7d1c, #c01f7a);
+}
+
 /* ── TAGS ── */
 .hero-tags {
   display: flex;
@@ -211,6 +232,33 @@
   background: rgba(255, 216, 102, 0.12);
   border: 1px solid rgba(255, 216, 102, 0.3);
   color: #ffd866;
+}
+
+/* Light mode tags: deepened text (5:1+ on cream) with a matching tint. */
+html:not(.dark) .tag-pink {
+  background: rgba(214, 36, 95, 0.1);
+  border-color: rgba(214, 36, 95, 0.35);
+  color: #b81d52;
+}
+html:not(.dark) .tag-purple {
+  background: rgba(110, 79, 214, 0.1);
+  border-color: rgba(110, 79, 214, 0.35);
+  color: #5b3fc4;
+}
+html:not(.dark) .tag-cyan {
+  background: rgba(11, 114, 133, 0.1);
+  border-color: rgba(11, 114, 133, 0.35);
+  color: #0a6475;
+}
+html:not(.dark) .tag-mint {
+  background: rgba(63, 125, 28, 0.1);
+  border-color: rgba(63, 125, 28, 0.35);
+  color: #356b17;
+}
+html:not(.dark) .tag-gold {
+  background: rgba(168, 88, 0, 0.1);
+  border-color: rgba(168, 88, 0, 0.35);
+  color: #8f4b00;
 }
 
 /* ── CTA ROW ── */
@@ -270,6 +318,16 @@
 }
 .play-btn svg {
   margin-left: 3px;
+}
+
+/* Light mode play button: solid fill so the white icon reads on the pale
+   hero (4:1+), starting from the same red as .btn-primary. */
+html:not(.dark) .play-btn {
+  background: linear-gradient(135deg, #e8365d, #c01f7a);
+  box-shadow: 0 8px 28px rgba(214, 36, 95, 0.35);
+}
+html:not(.dark) .play-ring {
+  background: rgba(214, 36, 95, 0.28);
 }
 
 .watch-label {

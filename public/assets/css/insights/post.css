@@ -169,7 +169,7 @@
   display: inline-grid;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 16px;
+  border-radius: var(--border-radius-full);
   background: rgba(252, 252, 250, 0.78);
   backdrop-filter: blur(18px) saturate(180%);
   -webkit-backdrop-filter: blur(18px) saturate(180%);
@@ -1346,14 +1346,37 @@
 
 /* ── Hero ──────────────────────────────────────────── */
 .bp-hero {
+  /* full-bleed, full-screen hero that fades into the page background */
+  --bp-hero-fade-h: 220px;
   position: relative;
-  min-height: 580px;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  margin: 0 auto;
-  max-width: 1280px;
-  border-radius: 0 0 var(--border-radius-xlarge) var(--border-radius-xlarge);
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  border-radius: 0;
+}
+/* Mask every background layer to transparent at the bottom so the page's own
+   background (cream / slate + its glows) shows through with no seam. The end
+   stop sits 12px above 100% to absorb .bp-hero-bg's scale(1.02) overhang. */
+.bp-hero-bg,
+.bp-hero-video,
+.bp-hero-bg-fallback,
+.bp-hero-overlay,
+.bp-hero-mesh {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 calc(100% - var(--bp-hero-fade-h)),
+    transparent calc(100% - 12px)
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 calc(100% - var(--bp-hero-fade-h)),
+    transparent calc(100% - 12px)
+  );
 }
 
 .bp-hero-bg,
@@ -1412,7 +1435,9 @@
   max-width: 1180px;
   width: 100%;
   margin: 0 auto;
-  padding: 4rem 2rem 3rem;
+  /* top clears the fixed nav (~98px incl. offset); bottom keeps the white
+     text above the fade-out so it stays readable in light mode */
+  padding: 8rem 2rem calc(var(--bp-hero-fade-h) - 2rem);
 }
 
 .bp-hero-top {
@@ -2320,8 +2345,7 @@
 
 @media (max-width: 760px) {
   .bp-hero {
-    min-height: 480px;
-    border-radius: 0;
+    --bp-hero-fade-h: 160px;
   }
 
   .bp-hero-content,
@@ -2360,12 +2384,9 @@
 }
 
 @media (max-width: 480px) {
-  .bp-hero {
-    min-height: 420px;
-  }
-
   .bp-hero-content {
-    padding: 2.5rem 1rem 2rem;
+    /* clears the fixed mobile nav; bottom stays above the fade-out */
+    padding: 6.5rem 1rem calc(var(--bp-hero-fade-h) - 2rem);
   }
 
   .bp-prose {

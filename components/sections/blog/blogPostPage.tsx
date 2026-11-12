@@ -366,7 +366,7 @@ export default function BlogPostPage({
               <div className="bp-author-info">
                 <span className="bp-author-name">Chris Norton Jr</span>
                 <span className="bp-author-role">
-                  Devops & Embedded Systems Engineer · Automation Engineer
+                  Solutions Engineer
                 </span>
               </div>
             </div>

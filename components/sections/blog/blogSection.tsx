@@ -40,9 +40,9 @@ function BlogSection({ posts }: { posts: Post[] }) {
             Latest <span className="grad">Thinking</span>
           </h2>
           <p className="section-sub reveal reveal-d2">
-            Strategic perspectives on systems engineering, automation
-            architecture, cloud infrastructure, and the craft of building
-            scalable solutions.
+            Strategic perspectives on solution architecture, integrations,
+            cloud infrastructure, and the craft of turning technical
+            complexity into business results.
           </p>
         </div>
 

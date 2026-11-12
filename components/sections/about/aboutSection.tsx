@@ -72,14 +72,15 @@ export default function AboutSection() {
             </div>
             <p className="bio-para">
               I'm <strong className="c-pink">Christopher Norton</strong>, a
-              devops engineer who lives at the intersection of
-              <strong className="c-cyan"> systems thinking</strong> and
-              <strong className="c-purple"> creative problem-solving</strong>. I
-              got my B.S. in Engineering and since then I've been obsessed with
-              building things that actually work at scale. I'm working on something from
-              <strong className="c-gold"> cloud pipelines</strong>, an
+              solutions engineer who lives at the intersection of
+              <strong className="c-cyan"> technical depth</strong> and
+              <strong className="c-purple"> customer outcomes</strong>. I got my
+              B.S. in Engineering and since then I've been obsessed with
+              building things that actually work at scale. Whether it's a
+              <strong className="c-gold"> cloud architecture</strong>, an
               <strong className="c-mint"> embedded hardware solution</strong>,
-              or a fully automated funnel. When I'm not shipping code
+              or a fully automated funnel, I start with the problem someone
+              actually has and work backward to the stack. When I'm not shipping code
               I'm probably deep in an anime arc, tinkering with electronics, or
               traveling with family.
             </p>

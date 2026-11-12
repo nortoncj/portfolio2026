@@ -343,7 +343,7 @@ export default function Footer() {
                 fontFamily: "'JetBrains Mono', monospace",
               }}
             >
-              DevOps & Cloud Engineer · Embedded Systems Engineer
+              Solutions Engineer · Cloud & Integrations
             </h2>
           </div>
 
@@ -395,7 +395,7 @@ export default function Footer() {
             }}
           >
             Build systems that scale. Results with precision. Turning complex
-            engineering problems into elegant, shippable solutions.
+            business problems into elegant, shippable solutions.
           </p>
 
           {/* Social icons */}
@@ -487,7 +487,7 @@ export default function Footer() {
             marginBottom: "1rem",
           }}
         >
-          Tech Stack
+          {/* Tech Stack */}
         </p>
         {/* <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {TECH_STACK.map((tech) => (

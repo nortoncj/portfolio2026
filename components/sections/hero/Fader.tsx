@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 
 const WORDS = [
-  "Systems",
   "Solutions",
+  "Integrations",
+  "Prototypes",
   "Pipelines",
   "Products",
-  "Experiences",
   "Automation",
 ];
 

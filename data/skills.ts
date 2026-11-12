@@ -182,38 +182,14 @@ const gradients = {
 };
 
 export const emailSkills: Skill[] = [
-  // {
-  //   name: "ActiveCampaign",
-  //   icon: FaEnvelope,
-  //   description:
-  //     "Marketing automation platform for email campaigns and lead nurturing",
-  //   tags: ["Automation", "Workflows", "CRM"],
-  // },
   {
-    name: "HTML",
-    icon: FaHtml5,
-    description: "Standard markup language for creating web pages",
-    tags: ["Web", "Markup", "Frontend"],
+    name: "Salesforce",
+    icon: FaDatabase,
+    description: "Cloud-based CRM and customer success platform",
+    tags: ["CRM", "Sales", "Enterprise"],
     badgeColor:
-      "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300",
-    style: gradients.orange.default,
-  },
-  {
-    name: "CSS",
-    icon: FaCss3,
-    description: "Style sheet language for designing web pages",
-    tags: ["Design", "Styling", "Responsive"],
-    badgeColor:
-      "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300",
-    style: gradients.purple.default,
-  },
-  {
-    name: "Liquid",
-    icon: LuWaves,
-    description: "Template language for dynamic content rendering",
-    tags: ["Templates", "E-commerce", "Dynamic"],
-    badgeColor: "bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300",
-    style: gradients.skyBlue.default,
+      "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+    style: gradients.blue.default,
   },
   {
     name: "HubSpot",
@@ -225,14 +201,12 @@ export const emailSkills: Skill[] = [
     style: gradients.orange.default,
   },
   {
-    name: "Mailchimp",
-    icon: FaMailchimp,
-    description: "Email marketing and automation service",
-    tags: ["Campaigns", "Templates", "Analytics"],
-    color: "black",
-    badgeColor:
-      "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
-    style: gradients.yellow.default,
+    name: "Braze",
+    icon: TbCircleLetterB,
+    description: "Customer engagement platform for cross-channel messaging",
+    tags: ["Canvas", "Liquid", "API", "Segmentation"],
+    badgeColor: "",
+    style: gradients.purple.default,
   },
   {
     name: "Zapier",
@@ -252,20 +226,21 @@ export const emailSkills: Skill[] = [
     style: gradients.fuschia.default,
   },
   {
-    name: "Salesforce",
-    icon: FaDatabase,
-    description: "Cloud-based CRM and customer success platform",
-    tags: ["CRM", "Sales", "Enterprise"],
+    name: "N8N",
+    icon: FaPlug,
+    description: "Open-source workflow automation tool",
+    tags: ["Open-source", "Self-hosted", "Workflows"],
     badgeColor:
-      "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
-    style: gradients.blue.default,
+      "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300",
+    style: gradients.purple.default,
   },
   {
-    name: "Braze",
-    icon: TbCircleLetterB,
-    description: "Email delivery and transactional email service",
-    tags: ["Canvas", "Liquid", "API", "Segmentation"],
-    badgeColor: "",
+    name: "Klaviyo",
+    icon: HiFlag,
+    description: "Marketing automation platform for e-commerce",
+    tags: ["E-commerce", "Segmentation", "Automation"],
+    badgeColor:
+      "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300",
     style: gradients.purple.default,
   },
   {
@@ -277,45 +252,16 @@ export const emailSkills: Skill[] = [
       "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
     style: gradients.slate.default,
   },
-  // {
-  //   name: "Postmark",
-  //   icon: FaSync,
-  //   description: "Fast and reliable transactional email delivery",
-  //   tags: ["Transactional", "API", "Delivery"],
-  // },
   {
-    name: "N8N",
-    icon: FaPlug,
-    description: "Open-source workflow automation tool",
-    tags: ["Open-source", "Self-hosted", "Workflows"],
+    name: "Mailchimp",
+    icon: FaMailchimp,
+    description: "Email marketing and automation service",
+    tags: ["Campaigns", "Templates", "Analytics"],
+    color: "black",
     badgeColor:
-      "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300",
-    style: gradients.purple.default,
+      "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
+    style: gradients.yellow.default,
   },
-  {
-    name: "Figma",
-    icon: FaFigma,
-    description: "Collaborative interface design tool",
-    tags: ["Design", "Prototyping", "Collaboration"],
-    badgeColor:
-      "bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300",
-    style: gradients.fuschia.default,
-  },
-  {
-    name: "Klaviyo",
-    icon: HiFlag,
-    description: "Marketing automation platform for e-commerce",
-    tags: ["E-commerce", "Segmentation", "Automation"],
-    badgeColor:
-      "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300",
-    style: gradients.purple.default,
-  },
-  // {
-  //   name: "Webhooks",
-  //   icon: FaLink,
-  //   description: "Real-time data integration between applications",
-  //   tags: ["API", "Real-time", "Integration"],
-  // },
   {
     name: "Analytics",
     icon: FaChartBar,
@@ -336,6 +282,60 @@ export const emailSkills: Skill[] = [
       "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
     style: gradients.skyBlue.default,
   },
+  {
+    name: "Liquid",
+    icon: LuWaves,
+    description: "Template language for dynamic content rendering",
+    tags: ["Templates", "E-commerce", "Dynamic"],
+    badgeColor: "bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300",
+    style: gradients.skyBlue.default,
+  },
+  {
+    name: "HTML",
+    icon: FaHtml5,
+    description: "Standard markup language for creating web pages",
+    tags: ["Web", "Markup", "Frontend"],
+    badgeColor:
+      "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300",
+    style: gradients.orange.default,
+  },
+  {
+    name: "CSS",
+    icon: FaCss3,
+    description: "Style sheet language for designing web pages",
+    tags: ["Design", "Styling", "Responsive"],
+    badgeColor:
+      "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300",
+    style: gradients.purple.default,
+  },
+  {
+    name: "Figma",
+    icon: FaFigma,
+    description: "Collaborative interface design tool",
+    tags: ["Design", "Prototyping", "Collaboration"],
+    badgeColor:
+      "bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300",
+    style: gradients.fuschia.default,
+  },
+  // {
+  //   name: "ActiveCampaign",
+  //   icon: FaEnvelope,
+  //   description:
+  //     "Marketing automation platform for email campaigns and lead nurturing",
+  //   tags: ["Automation", "Workflows", "CRM"],
+  // },
+  // {
+  //   name: "Postmark",
+  //   icon: FaSync,
+  //   description: "Fast and reliable transactional email delivery",
+  //   tags: ["Transactional", "API", "Delivery"],
+  // },
+  // {
+  //   name: "Webhooks",
+  //   icon: FaLink,
+  //   description: "Real-time data integration between applications",
+  //   tags: ["API", "Real-time", "Integration"],
+  // },
 ];
 export const webSkills: Skill[] = [
   {
