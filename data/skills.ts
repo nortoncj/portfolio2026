@@ -800,7 +800,7 @@ export const certifications: Cert[] = [
     year: "2026",
     icon: FaHubspot,
     link: "https://app-na2.hubspot.com/academy/achievements/cjk3gl5v/en/1/chris-norton/email-marketing",
-    // img:"https://hubspot-credentials-na1.s3.amazonaws.com/prod/badges/user/2462064b782444fba644513b912220b5.png",
+    img:"https://hubspot-credentials-na1.s3.amazonaws.com/prod/badges/user/2462064b782444fba644513b912220b5.png",
     description:
       "Email automation Cert teachs about deliverability to drive conversion",
     // gradient: "from-green-500 to-emerald-500",

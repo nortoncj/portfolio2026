@@ -6,7 +6,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = buildMetadata({
   title: "Engineer",
   description:
-    "Devops & Cloud Engineer. Projects, breakdowns, and insights across DevOps, Embedded Systems, and Web Development - built to inform, impress, and collaborate.",
+    "Solutions Engineer. Projects, breakdowns, and insights across DevOps, Embedded Systems, and Web Development - built to inform, impress, and collaborate.",
   url: "https://chrisnortonjr.com/insights",
 });
 
