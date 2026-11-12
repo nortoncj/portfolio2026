@@ -59,23 +59,26 @@ export default function AboutPage() {
         {/* ── HERO IDENTITY ───────────────────────────────────────────────── */}
         <section className="hero-section">
           <div className="hero-left">
-            <p className="hero-eyebrow">DevOps & Embedded Systems Engineer</p>
+            <p className="hero-eyebrow">Solutions Engineer</p>
             <h1 className="hero-name">
               Chris
               <br />
               <span className="hero-name-accent">Norton Jr.</span>
             </h1>
             <p className="hero-tagline">
-              I build the systems most engineers only get to use.
+              I Turn Complex Business Requirements Into Working Solutions.
             </p>
             <p className="hero-bio">
-              Electrical engineer turned DevOps practioner, based in Tampa Bay,
-              FL. I specialize in the full stack development. Whether bare-metal
-              firmware running on an ESP32 to containerized microservices on
-              AWS, connected by pipelines that actually test what they ship. My
-              background in EE gives me a different lens than most cloud
-              engineers: I know what's on the other side of the abstraction
-              layer, and I build with that in mind.
+              I'm Chris Norton, a Solutions Engineer based in Tampa Bay,
+              Florida. I work at the intersection of software, cloud
+              infrastructure, integrations and business automation. With a
+              background in electrical engineering, software development and
+              marketing technology, I approach technical problems from both
+              sides: understanding what the business needs and engineering the
+              systems that make it possible. From API integrations and CRM
+              implementations to cloud architecture and automated workflows, I
+              enjoy taking complicated processes and turning them into reliable,
+              maintainable solutions.
               <br />
               <br />
               Outside the terminal I'm a film buff, anime fan and language
@@ -118,9 +121,9 @@ export default function AboutPage() {
         <section className="strip-section">
           {[
             { label: "DevOps & Cloud", color: "#78dce8" },
-            { label: "Firmware & Embedded", color: "#ffd866" },
+            { label: "Systems Integration & APIs", color: "#ffd866" },
             { label: "CI/CD Pipelines", color: "#a9dc76" },
-            { label: "RF & Antenna Systems", color: "#ab9df2" },
+            { label: "ERP & Business Systems", color: "#ab9df2" },
             { label: "Security-First Engineering", color: "#ff6188" },
           ].map((tag) => (
             <span

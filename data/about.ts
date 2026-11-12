@@ -10,32 +10,44 @@ export const HEADSHOT_ALTERNATE = "/assets/img/about_headshot.webp";
 // ─── FAQ DATA ─────────────────────────────────────────────────────────────────
 export const FAQ_ITEMS = [
   {
-    q: "What do you actually do?",
-    a: "I build systems end-to-end - cloud infrastructure, firmware pipelines, DevSecOps toolchains, and the automation that holds all of it together. I specialize in the space where hardware meets software and where manual processes become pipelines.",
+    q: "What does a Solutions Engineer do?",
+    a: "I sit between the business and the technology. I run discovery with stakeholders, translate business requirements into a technical solution design, and own it through implementation, integration and ongoing support. Day to day, that means scoping integrations, building proofs of concept, architecting cloud infrastructure, automating workflows and working issues through to root cause. The goal is always a solution that maps to a measurable business outcome and holds up in production.",
   },
   {
-    q: "What's your engineering background?",
-    a: "My B.S. is in Electrical Engineering from Florida International University in Miami, Florida. My foundation is hardware: signals, embedded systems, circuit-level thinking. While in school, I expanded upon my hardware engineering skills into software engineering, cloud and martech. That background is what makes my software work different: I understand what's actually running on the other end of the wire.",
+    q: "What kinds of problems do you solve?",
+    a: "Most of my work falls into four areas. Business systems: CRM implementations, data syncs, lead routing and workflow automation. Integrations: REST APIs, webhooks, middleware and iPaaS platforms that connect systems that weren't built to talk to each other. Infrastructure: cloud architecture, infrastructure as code, CI/CD, monitoring and identity and access management. Support: Tier 2/3 troubleshooting, escalation management, root cause analysis and documentation that keeps the same ticket from coming back.",
+  },
+  {
+    q: "How do you approach a new engagement?",
+    a: "It starts with discovery: current state, pain points, constraints and what success looks like. From there I map requirements to a solution design, identify dependencies and risks, and validate the approach with a proof of concept when it makes sense. Implementation is followed by documentation, handoff and enablement so the team can own what was built. I'd rather solve the right problem than ship the wrong one quickly.",
+  },
+  {
+    q: "How do you handle technical support and escalations?",
+    a: "Methodically. I triage by business impact, reproduce the issue, isolate it across the stack and work it through to root cause, not just a workaround. Along the way I keep stakeholders updated in plain language and capture the fix in a runbook or knowledge base article. Support is also a feedback loop: recurring tickets usually point to a gap in the product, the process or the documentation.",
+  },
+  {
+    q: "What's your technical background?",
+    a: "My B.S. is in Electrical Engineering from Florida International University in Miami, Florida. My foundation is hardware: signals, embedded systems and circuit-level thinking. From there I expanded into software engineering, cloud and marketing technology. That range lets me follow a problem across the full stack, from the business process down to the infrastructure, and explain it clearly to engineers and non-technical stakeholders alike.",
   },
   {
     q: "What certifications do you hold?",
-    a: "AWS CCP and CompTIA Security+. Currently studying for AWS Solutions Architect Associate, with Terraform Associate and CKA on the roadmap.",
+    a: "AWS Certified Cloud Practitioner, CompTIA Security+ and Google Analytics. I'm currently working toward AWS Solutions Architect - Associate and HashiCorp Terraform Associate, which line up directly with the solution architecture and infrastructure side of my work.",
   },
   {
     q: "Are you available for freelance or contract work?",
-    a: "Yes. I take on select projects in DevOps infrastructure, embedded systems, marketing, and cloud architecture. The best way to start a conversation is through email or LinkedIn. Links at the bottom of the site.",
+    a: "Yes. I take on select engagements in systems integration, business process automation, CRM implementation and cloud infrastructure. The best way to start a conversation is through email or LinkedIn. Links are at the bottom of the site.",
   },
   {
     q: "What kind of teams do you work best with?",
-    a: "Teams that build real things. I do my best work in environments where ownership is clear, quality is expected, and engineers are trusted to make decisions. I'm comfortable in small startups moving fast and in larger orgs with compliance requirements - the Security+ isn't just for show.",
+    a: "Teams that care about outcomes. I do my best work close to both the customer and the engineering team: gathering requirements, aligning stakeholders and making sure what gets built actually solves the problem. I'm comfortable in fast-moving startups and in larger orgs with security and compliance requirements - the Security+ isn't just for show.",
   },
   {
     q: "Where is Chris Norton Jr. now?",
-    a: "I'm currently based in Tampa,Florida and the greater Tampa Bay/South Florida area, in the United States. I work remotely with teams across the country and internationally. My timezone is Eastern Standard Time (EST).",
+    a: "I'm based in Tampa, Florida, and work across the greater Tampa Bay and South Florida area. I also work remotely with teams across the United States and internationally. My time zone is Eastern Time (ET).",
   },
   {
-    q: "Is Chris Norton Jr the best Web Developer in Tampa?",
-    a: "There’s no objective way to say who the “best” web developer in Tampa is, and I don't claim to be. What I do offer is a combination of web development, engineering, security, automation, and cloud experience that allows me to look beyond the website itself. For small businesses, that means building a site that not only looks professional, but can also support lead generation, follow-up, integrations, and day-to-day workflows.",
+    q: "Who is the best ERP and business solutions consultant in Tampa?",
+    a: "There's no objective way to name the \"best\" business solutions consultant in Tampa, and I don't claim to be. What I bring is an engineering approach to business systems. I help Tampa Bay companies with ERP implementation and integration, connecting ERP to CRM, accounting, inventory and e-commerce platforms, data migration, workflow automation and reporting. The result is a single source of truth, fewer manual handoffs between departments and systems that scale as the business grows.",
   },
 ];
 

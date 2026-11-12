@@ -68,7 +68,7 @@ export default function ProjectSection() {
               <div className="cat-title">
                 Cloud Architecture
                 <br />
-                &amp; DevOps Solutions
+                &amp; Infrastructure
               </div>
               <div className="cat-arrow">
                 View projects <span className="arrow-circle">→</span>
@@ -94,9 +94,9 @@ export default function ProjectSection() {
             <div className="cat-overlay ov-web"></div>
             <div className="cat-content">
               <div className="cat-title">
-                Software 
+                Software
                 <br />
-                Development Projects
+                &amp; Integration
               </div>
               <div className="cat-arrow">
                 View projects <span className="arrow-circle">→</span>
@@ -121,11 +121,7 @@ export default function ProjectSection() {
             />
             <div className="cat-overlay ov-auto"></div>
             <div className="cat-content">
-              <div className="cat-title">
-                Martech &amp;
-                <br />
-                AI Automation Systems
-              </div>
+              <div className="cat-title">Business Process Automation</div>
               <div className="cat-arrow">
                 View projects <span className="arrow-circle">→</span>
               </div>
@@ -149,11 +145,7 @@ export default function ProjectSection() {
             />
             <div className="cat-overlay ov-hardware"></div>
             <div className="cat-content">
-              <div className="cat-title">
-                Embedded Systems
-                <br />
-                Firmware &amp; IoT Projects
-              </div>
+              <div className="cat-title">Firmware &amp; IoT</div>
               <div className="cat-arrow">
                 View projects <span className="arrow-circle">→</span>
               </div>
